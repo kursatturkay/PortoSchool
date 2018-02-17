@@ -4,6 +4,9 @@
 ## ignore tmp
 /tmp/
 ./tmp/
+/Localization_1/
+/My_IOT_UWP_Samples/
+
 
 # User-specific files
 *.suo
