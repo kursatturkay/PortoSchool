@@ -1,7 +1,0 @@
-https://kinani95.wordpress.com/2015/08/05/sqlite-with-uwp/
-https://stackoverflow.com/questions/31218683/how-to-get-data-from-database-sqlite-on-winrt
-http://www.shenchauhan.com/blog/2015/11/25/sqlite-and-uwp
-https://www.tutorialspoint.com/windows10_development/windows10_development_sqlite_database.htm
-http://igrali.com/2015/05/02/using-sqlite-in-windows-10-universal-apps/
-http://progrunning.net/sqlite-wrapper-for-windows-10-uwp-applications/
-https://code.msdn.microsoft.com/windowsapps/Local-Data-Base-SQLite-for-5e6146aa
