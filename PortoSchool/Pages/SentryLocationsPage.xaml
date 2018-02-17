@@ -1,0 +1,34 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:PortoSchool.Models"
+      xmlns:Windows10FallCreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    x:Class="PortoSchool.Pages.SentryLocationsPage"
+      mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid HorizontalAlignment="Stretch" Style="{StaticResource HeaderGridStyle}" VerticalAlignment="Top" Height= "50" BorderBrush="#FFF50808" FocusVisualSecondaryBrush="#99FF0000">
+            <Button x:Name="btnBack" x:Uid="btnBack" Style="{StaticResource ButtonStyle}" Content="BACK" Height="40" Margin="5,5,0,5" Click="btnBack_Click" Width="200"/>
+            <TextBlock x:Name="textBlockSentryLocationsPageHeader" x:Uid="textBlockSentryLocationsPageHeader" Text="NÖBET ALANLARI EDİTÖRÜ" FocusVisualSecondaryBrush="#FF2FC862" Foreground="White" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button x:Name="btnShutdown" x:Uid="btnShutdown" Style="{StaticResource ButtonStyle}" Content="SHUTDOWN"  Height="40"  Margin="0,5,5,5" HorizontalAlignment="Right" Click="btnClose_Click" Width="200"/>
+        </Grid>
+
+        <TextBox x:Name="textBoxNobetYeri" PlaceholderText="Nöbet Alanı Adı Giriniz..." Width="360" HorizontalAlignment="Left" Height="34.3" Margin="20,60,0,0" VerticalAlignment="Top" CharacterCasing="Upper" />
+        <Button x:Name="buttonNobetAlaniEkle" Style="{StaticResource ButtonStyle}" Content="NÖBET ALANI EKLE" Margin="20,100,0,0" VerticalAlignment="Top" Width="360" Click="buttonNobetAlaniEkle_Click" Height="40"/>
+        <Button x:Name="buttonNobetAlaniGuncelle" Style="{StaticResource ButtonStyle}"  Content="NÖBET ALANI GUNCELLE" Margin="20,145,0,0" VerticalAlignment="Top" Width="360" Click="buttonNobetAlaniGuncelle_Click" Height="35"/>
+        <Button x:Name="buttonNobetAlaniSil" Style="{StaticResource ButtonStyle}" Content="NÖBET ALANI SİL" Margin="20,185,0,0" VerticalAlignment="Top" Width="360" Click="buttonNobetAlaniSil_Click" Height="35"/>
+
+        <ListView x:Name="listViewNobetAlanlari"  Style="{StaticResource ListViewStyle}"  Margin="400,50,0,0" ItemsSource="{x:Bind Path=NobetAlanlari}" HorizontalAlignment="Stretch" SelectionChanged="listViewNobetAlanlari_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:NobetAlan">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <Border Background="Black" Width="50" Height="50" Margin="4,4,4,4"/>
+                        <TextBlock Text="{x:Bind Path=NobetYeri}" HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

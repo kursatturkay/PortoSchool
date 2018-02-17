@@ -1,0 +1,32 @@
+﻿<Page
+    x:Class="PortoSchool.Pages.KioskPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PortoSchool.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Models="using:PortoSchool.Models"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <FlipView x:Name="flipViewKiosk" Margin="10,110,10,10">
+            <FlipViewItem>
+                <Frame x:Name="frame1" Content="" VerticalAlignment="Stretch">
+                </Frame>
+            </FlipViewItem>
+            <FlipViewItem>
+                <Frame x:Name="frame2" Content="">
+                </Frame>
+            </FlipViewItem>
+            <FlipViewItem>
+                <Frame x:Name="frame3" Content="">
+                    
+                </Frame>
+            </FlipViewItem>
+        </FlipView>
+        <Border BorderBrush="Black" Height="Auto" Margin="10,10,10,0" VerticalAlignment="top" Background="#70FFFFFF" HorizontalAlignment="Stretch">
+            <TextBlock x:Name="textBlockHeader" x:Uid="textBlockHeader" Text="DEFAULT SCHOOL NAME" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="72" />
+        </Border>
+    </Grid>
+</Page>

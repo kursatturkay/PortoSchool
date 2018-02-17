@@ -1,0 +1,72 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Models="using:PortoSchool.Models"
+   
+    xmlns:Windows10FallCreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:local="using:PortoSchool.Libs"
+    x:Class="PortoSchool.Pages.SentinelsPage"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <local:WeekDayToColorConverter x:Key="WeekDayToColorConverter" />
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid  Style="{StaticResource HeaderGridStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height= "50">
+                <Button x:Name="btnBack" x:Uid="btnBack"  Style="{StaticResource ButtonStyle}" Content="BACK" Height="40"  Margin="5,5,0,5" Click="btnBack_Click" Width="200"/>
+                <TextBlock x:Name="textBlockSentinelsPageHeader" x:Uid="textBlockSentinelsPageHeader" Text="NÖBETÇİ ÖĞRETMENLER EDİTÖRÜ" FocusVisualSecondaryBrush="#FF2FC862" Foreground="White" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button x:Name="btnShutdown" x:Uid="btnShutdown" Style="{StaticResource ButtonStyle}" Content="SHUTDOWN" Height="40" Margin="0,5,5,5" HorizontalAlignment="Right" Width="200"/>
+            </Grid>
+            <TextBox x:Name="textBoxNobOgrAdSoyad" PlaceholderText="Nöbetçi Öğretmen Adı Soyadı Giriniz..." Width="360" HorizontalAlignment="Left" Height="35" Margin="20,60,0,0" VerticalAlignment="Top" CharacterCasing="Upper" />
+            <Button x:Name="buttonSentinelsPageEkle"  Style="{StaticResource ButtonStyle}" Content="NÖB. ÖĞRETMEN EKLE" Margin="20,185,0,0" VerticalAlignment="Top" Width="360" Height="40" Click="buttonSentinelsPageEkle_Click"/>
+            <Button x:Name="buttonSentinelsPageGuncelle"  Style="{StaticResource ButtonStyle}" Content="NÖB. ÖĞRETMEN GUNCELLE" Margin="20,230,0,0" VerticalAlignment="Top" Width="360" Height="35" Click="buttonSentinelsPageGuncelle_Click"/>
+            <Button x:Name="buttonSentinelsPageSil"  Style="{StaticResource ButtonStyle}" Content="NÖB. ÖĞRETMEN SİL" Margin="20,270,0,0" VerticalAlignment="Top" Width="360" Height="35" Click="buttonSentinelsPageSil_Click"/>
+            <ComboBox x:Name="comboBoxNobetAlan" HorizontalAlignment="Left" Margin="20,100,0,0" VerticalAlignment="Top" Width="360" ItemsSource="{x:Bind Path=nobAlanList}" Height="35" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="Models:NobetAlan">
+                        <TextBlock Text="{x:Bind Path=NobetYeri}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox x:Name="comboBoxNobetGunu" HorizontalAlignment="Left" Margin="20,140,0,0" VerticalAlignment="Top" Width="360" ItemsSource="{x:Bind Path=nobGunList}" Height="35" />
+            <ListView x:Name="listViewNobetAlanlariVeNobOgr"  Style="{StaticResource ListViewStyle}"  Margin="400,60,20,20" ItemsSource="{x:Bind Path=nobOgrList}" HorizontalAlignment="Stretch" SelectionChanged="listViewNobOgr_SelectionChanged">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="MaxHeight" Value="28"/>
+                        <Setter Property="MinHeight" Value="28"/>
+                        <Setter Property="Padding" Value="0"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="Models:Sentinels">
+                        <Grid HorizontalAlignment="Stretch" Margin="1,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32*"/>
+                                <ColumnDefinition Width="62*"/>
+                                <ColumnDefinition Width="57*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Background="{x:Bind Converter={StaticResource AlternateColorConverter}, ConverterParameter=3, Path=id}" HorizontalAlignment="Stretch" Grid.Column="0" Margin="0">
+                                <TextBlock Text="{x:Bind Path=NobetGunu}" HorizontalAlignment="Stretch" TextAlignment="Center"/>
+                            </Border>
+                            <Border Background="{x:Bind Converter={StaticResource AlternateColorConverter}, ConverterParameter=3, Path=id}" HorizontalAlignment="Stretch" Grid.Column="1" Margin="0">
+                                <TextBlock Text="{x:Bind Path=NobetAlan}" HorizontalAlignment="Stretch"/>
+                            </Border>
+
+                            <Border x:Name="borderOgrAdSoyad" Background="{x:Bind Converter={StaticResource AlternateColorConverter}, ConverterParameter=3, Path=id}" HorizontalAlignment="Stretch" Grid.Column="2"  Margin="0">
+                                <TextBlock Text="{x:Bind Path=OgretmenAdiSoyadi}" HorizontalAlignment="Stretch" />
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button x:Name="buttonAra" Style="{StaticResource ButtonStyle}" Content="ARA" Margin="20,390,0,0" VerticalAlignment="Top" Width="360" Height="35" Click="buttonAra_Click"/>
+            <TextBox x:Name="textBoxAra" PlaceholderText="Aramak için Entera Basınız..." Width="360" HorizontalAlignment="Left" Height="35" Margin="20,350,0,0" VerticalAlignment="Top" CharacterCasing="Upper" KeyDown="textBoxAra_KeyDown" />
+
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,38 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   xmlns:models="using:PortoSchool.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Class="PortoSchool.Pages.PresentationPage"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid x:Name="gridHeader" HorizontalAlignment="Stretch" Style="{StaticResource HeaderGridStyle}"  VerticalAlignment="Top" Height= "50">
+            <Button x:Name="btnBack" x:Uid="btnBack" Style="{StaticResource ButtonStyle}" Content="BACK" Height="40" Margin="5,5,0,5" Click="btnBack_Click" Width="200"/>
+            <TextBlock x:Name="textBlockPresentationPageHeader" x:Uid="textBlockPresentationPageHeader" Text="SUNU EDİTÖRÜ" Foreground="White" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button x:Name="btnShutdown" x:Uid="btnShutdown" Style="{StaticResource ButtonStyle}" Content="SHUTDOWN" Height="40" Margin="0,5,5,5" HorizontalAlignment="Right" Width="200"/>
+        </Grid>
+        <FlipView x:Name="flipView1" Margin="20,70,420,20">
+            <FlipView.ItemTemplate>
+                <DataTemplate x:DataType="models:PicFile">
+                    <Image Stretch="UniformToFill">
+                        <Image.Source>
+                            <BitmapImage UriSource="{x:Bind Img}"/>
+                        </Image.Source>
+                    </Image>
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+        </FlipView>
+        <ListView x:Name="listViewFiles" Style="{StaticResource ListViewStyle}" Margin="0,70,20,20" HorizontalAlignment="Right" Width="380">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <Border Background="Black" Width="50" Height="50" Margin="4,4,4,4"/>
+                        <TextBlock Text="dasdad"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

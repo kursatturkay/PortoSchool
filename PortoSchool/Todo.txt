@@ -1,0 +1,5 @@
+﻿
+getWeekDayUpper("tr-TR") sometnig like timezone localization names must be binded to db and settings page.
+
+
+\\192.168.18.182\c$\Data\Users\DefaultAccount\AppData\Local\Packages\06fb6d66-51b3-4beb-893c-7e099fe465f1_3asabdzxmrwg6\LocalState

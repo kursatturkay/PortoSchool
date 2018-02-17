@@ -1,0 +1,50 @@
+﻿<Application
+    x:Class="PortoSchool.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PortoSchool"
+    xmlns:libs="using:PortoSchool.Libs"
+    RequestedTheme="Light">
+
+    <Application.Resources>
+
+        <libs:AlternateColorConverter x:Key="AlternateColorConverter" />
+        
+        <Style x:Key="HeaderGridStyle" TargetType="Grid">
+            <Setter Property="Background" Value="#3B3F42"/>
+        </Style>
+
+        <Style x:Key="HeaderBorderStyle" TargetType="Border">
+            <Setter Property="Background" Value="#3B3F42"/>
+        </Style>
+
+        <Style x:Key="BorderFrameStyle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="#3B3F42"/>
+        </Style>
+
+        <Style x:Key="ListViewStyle" TargetType="ListView">
+            <Setter Property="Background" Value="#FFFBBA42"/>
+        </Style>
+
+        <Style x:Key="RichEditBoxStyle" TargetType="RichEditBox">
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        
+        <Style x:Key="ButtonStyle" TargetType="ContentControl">
+            <Setter Property="Background" Value="#56B9D0"/>
+        </Style>
+
+        <Style x:Key="Color3" TargetType="ContentControl">
+            <Setter Property="Background" Value="#FBBA42"/>
+        </Style>
+
+        <Style x:Key="Color4" TargetType="ContentControl">
+            <Setter Property="Background" Value="#F24C27"/>
+        </Style>
+
+        <Style x:Key="Color5" TargetType="ContentControl">
+            <Setter Property="Background" Value="#3B3F42"/>
+        </Style>
+
+    </Application.Resources>
+</Application>

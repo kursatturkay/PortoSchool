@@ -1,0 +1,75 @@
+﻿<Page
+    x:Class="PortoSchool.Pages.SentinelKioskFramePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PortoSchool.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Models="using:PortoSchool.Models"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+        </Grid.ColumnDefinitions>
+        <Border Margin="0" Style="{StaticResource HeaderBorderStyle}" Grid.Column="0">
+            <ItemsControl>
+                <ItemsControl.Items>
+                    <TextBlock x:Name="textBlockToday" Text="01 OCAK 2017 ÇARŞAMBA" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="96"/>
+                    <TextBlock x:Name="textBlockClock" Text="12:00" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="156"/>
+                    <TextBlock Text="00 ° GÜNEŞLİ" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="96"/>
+                    <Border HorizontalAlignment="Left" Height="80" Margin="0" VerticalAlignment="Top" Width="960">
+                        <ItemsControl>
+                            <ItemsControl.Items>
+                                <TextBlock x:Name="textBlockAssistantDirector_" Text="NÖBETÇİ MÜDÜR YARDIMCISI" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="24"/>
+                                <TextBlock x:Name="textBlockAssistantDirector" Text="------ --------- -----------" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="36"/>
+                            </ItemsControl.Items>
+                        </ItemsControl>
+                    </Border>
+                    <Image x:Name="image1" HorizontalAlignment="Stretch" Margin="150,0,150,0" MinHeight="300"/>
+                </ItemsControl.Items>
+            </ItemsControl>
+        </Border>
+
+        <ItemsControl Grid.Column="1">
+            <ItemsControl.Items>
+                <Border Margin="0"  Style="{StaticResource HeaderBorderStyle}">
+                    <TextBlock Text="NÖBETÇİ ÖĞRETMENLER" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="24"/>
+                </Border>
+                <ListView x:Name="listViewNobetAlanlariVeNobOgr" Margin="0" HorizontalAlignment="Stretch" Style="{StaticResource ListViewStyle}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="MaxHeight" Value="28"/>
+                            <Setter Property="MinHeight" Value="28"/>
+                            <Setter Property="Padding" Value="0"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="Models:Sentinels">
+                            <Grid HorizontalAlignment="Stretch" Margin="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="180*"/>
+                                    <ColumnDefinition Width="10*"/>
+                                    <ColumnDefinition Width="100*"/>
+                                </Grid.ColumnDefinitions>
+                                <Border  Grid.Column="0" Background="{x:Bind id, Converter={StaticResource AlternateColorConverter},ConverterParameter=3}" HorizontalAlignment="Stretch" Margin="0" >
+                                    <TextBlock Text="{x:Bind NobetAlan}" HorizontalAlignment="Stretch" TextAlignment="Right" FontSize="24" Margin="0"/>
+                                </Border>
+                                <Border Grid.Column="1" Background="{x:Bind  id,Converter={StaticResource AlternateColorConverter},ConverterParameter=3}" HorizontalAlignment="Stretch" Margin="0">
+                                    <TextBlock Text=":" FontSize="24" Margin="0"/>
+                                </Border>
+                                <Border Background="{x:Bind  id,Converter={StaticResource AlternateColorConverter},ConverterParameter=3}" HorizontalAlignment="Stretch" Grid.Column="2" Margin="0">
+                                    <TextBlock Text="{x:Bind OgretmenAdiSoyadi}" HorizontalAlignment="Stretch" TextAlignment="Left" FontSize="24" Margin="0"/>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ItemsControl.Items>
+
+        </ItemsControl>
+
+    </Grid>
+</Page>
