@@ -5,7 +5,7 @@
 ---
 >## Authors
 >
-  **Kursat Turkay (aka "Archer")** - Contributor [PortoSchool](https://github.com/kursatturkay/PortoSchool)
+  **Kursat Turkay** - Contributor [PortoSchool](https://github.com/kursatturkay/PortoSchool)
 
 ---
 
