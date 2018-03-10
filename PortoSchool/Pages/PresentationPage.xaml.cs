@@ -61,7 +61,7 @@ namespace PortoSchool.Pages
             Current = this;
             flipView1.ItemsSource = PicFileManager.GetPicFilesFromStorePath();
 
-            _shifttimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(DashboardPage._slideduration) };
+            _shifttimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(SettingsPage._slideduration) };
             _shifttimer.Tick += ChangeImage;
             _shifttimer.Start();
         }
@@ -72,6 +72,8 @@ namespace PortoSchool.Pages
             if (totalItems == 0) return;
 
             var newItemIndex = (flipView1.SelectedIndex + 1) % totalItems;
+
+            
             flipView1.SelectedIndex = newItemIndex;
         }
 
@@ -93,8 +95,8 @@ namespace PortoSchool.Pages
         {
             base.OnNavigatedTo(e);
 
-            isInEditMode =(bool)e.Parameter;
-            
+            isInEditMode = (bool)e.Parameter;
+
             if (isInEditMode)
                 App.Current.IsIdleChanged += onIsIdleChanged;
         }

@@ -63,7 +63,7 @@ namespace PortoSchool.Pages
             Current = this;
             listView1.ItemsSource = BulletinFileManager.GetBulletinFilesFromStorePath();
 
-            _shifttimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(DashboardPage._slideduration) };
+            _shifttimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(SettingsPage._slideduration) };
             _shifttimer.Tick += _shifttimer_Tick;
         }
 
@@ -77,9 +77,9 @@ namespace PortoSchool.Pages
             listView1.SelectedIndex = newItemIndex;
 
             if (listView1.SelectedIndex == 1)
-                _shifttimer.Interval = TimeSpan.FromSeconds(total_ * DashboardPage._slideduration);
+                _shifttimer.Interval = TimeSpan.FromSeconds(total_ * SettingsPage._slideduration);
             else
-                _shifttimer.Interval = TimeSpan.FromSeconds(DashboardPage._slideduration);
+                _shifttimer.Interval = TimeSpan.FromSeconds(SettingsPage._slideduration);
         }
 
         // public ObservableCollection<Bulletin> Bulletins;

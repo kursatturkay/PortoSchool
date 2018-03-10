@@ -33,6 +33,7 @@ namespace PortoSchool.Pages
     /// 
 
 
+
     public sealed partial class DashboardPage : Page
     {
         public static DashboardPage Current;
@@ -42,70 +43,18 @@ namespace PortoSchool.Pages
         DateTime _reportedTime;
         DateTime _systemDateTime;
 
-        static private DispatcherTimer rtc_initialize_Timer;
+     
 
-
-        private static bool rtc_initiated = false;
-        public ObservableCollection<SliderDuration> _sliderdurationdata = new ObservableCollection<SliderDuration> {
-            new SliderDuration{row=5},
-            new SliderDuration{row=10},
-            new SliderDuration{row=20},
-            new SliderDuration{row=30},
-            new SliderDuration{row=60},
-            new SliderDuration{row=120}
-        };
-
-        public static int _slideduration { get; set; }
+       
         public DashboardPage()
         {
             InitializeComponent();
             Current = this;
 
-            //if (!rtc_initiated)
-            //{
-            //    try
-            //    {
-            //        rtc_initiated = true;
-            //        InitRTC();
-
-            //        if (rtc_initialize_Timer == null)
-            //        {
-            //            rtc_initialize_Timer = new DispatcherTimer()
-            //            {
-            //                Interval = TimeSpan.FromSeconds(10)
-            //            };
-
-            //            rtc_initialize_Timer.Tick += Rtc_initialize_Timer_Tick;
-            //            rtc_initialize_Timer.Start();
-            //        }
-
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        DebugUtils.WriteLine($"{ex.Message} @ public DashboardPage()");
-            //    }
-            //}
-            textBlockThisDevice.Text = $"{NetworkUtils.GetDeviceName()}";
-
             setWorkingLocalPathTextBox();
             InitializeUpdater();
-            comboboxSlideDuration.ItemsSource = _sliderdurationdata;
         }
 
-        private void Rtc_initialize_Timer_Tick(object sender, object e)
-        {
-            rtc_initialize_Timer.Stop();
-
-            try
-            {
-                UpdateCurrentDateAndCurrentTimefromRTC();
-                SetSystemDatetimeFromCurrentDateAndCurrentTime();
-            }
-            catch (Exception ex)
-            {
-                DebugUtils.WriteLine($"{ex.Message} @ Rtc_initialize_Timer_Tick");
-            }
-        }
 
         private void SetSystemDatetimeFromCurrentDateAndCurrentTime()
         {
@@ -134,14 +83,12 @@ namespace PortoSchool.Pages
         {
             //string res = (!toggleSwitchLocatorHost.IsOn) ? Settings.LocalDataFolder : Settings.NetworkDataFolder(textBoxHostAddress.Text);
             //\\minwinpc\c$\Data\Users\DefaultAccount\AppData\Local\Packages\06fb6d66-51b3-4beb-893c-7e099fe465f1_3asabdzxmrwg6\LocalState\PortoSchool
-            string tail = Settings.LocalDataFolder;
-            string drv = tail.Substring(0, 1);
-            tail= tail.Replace($"{drv}:\\", $"{drv}$\\");
-            CultureInfo ci = new CultureInfo("en-US");
-     
-            string shareddir = $"\\\\{NetworkUtils.GetDeviceName().ToLower(ci)}\\{tail}";
             App.WorkingPath = Settings.LocalDataFolder;
-            textBlockDatabasePath.Text = shareddir;
+
+            
+           
+
+           
         }
 
         #region Events Section
@@ -154,15 +101,12 @@ namespace PortoSchool.Pages
         {
             base.OnNavigatedTo(e);
             //textBlockDatabasePath.Text = Settings.FullPathSQLite;
-            textBoxHostAddress.Text = NetworkUtils.LocalIp;
+            
             FillListBoxLog();
 
-            _slideduration = Convert.ToInt32((Settings.getValueByKey("SLIDER_DURATION", "5")));
-            comboboxSlideDuration.SelectedValue = _sliderdurationdata.FirstOrDefault(x => x.row == _slideduration);
             App.Current.IsIdleChanged += onIsIdleChanged;
 
-            int _lang = Convert.ToInt32((Settings.getValueByKey("LANGUAGE","0")));
-            comboboxLanguage.SelectedIndex = _lang;
+           
 
             textBlockHeader.Text = Settings.getValueByKey("SCHOOLNAME", "");
         }
@@ -214,13 +158,7 @@ namespace PortoSchool.Pages
 
             //DefaultLaunch();
         }
-        private void textBoxHostAddress_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            if (e.Key == VirtualKey.Enter)
-            {
-                NetworkUtils.LocalIp = textBoxHostAddress.Text.Trim();
-            }
-        }
+
 
         private void buttonSettingsPage_Click(object sender, RoutedEventArgs e)
         {
@@ -228,12 +166,7 @@ namespace PortoSchool.Pages
         }
 
 
-        private void comboboxSlideDuration_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SliderDuration sel = (SliderDuration)comboboxSlideDuration.SelectedItem;
-            Settings.setValueByKey("SLIDER_DURATION", sel.row.ToString());
-            _slideduration = sel.row;
-        }
+
 
         void SetSystemTime()
         {
@@ -327,40 +260,11 @@ namespace PortoSchool.Pages
             Frame.Navigate(typeof(BulletinPage), true);
         }
 
-        private void comboboxLanguage_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //int _lang = Convert.ToInt32((Settings.getValueByKey("LANGUAGE", "0")));
-            Settings.setValueByKey("LANGUAGE", comboboxLanguage.SelectedIndex.ToString());
-        }
 
-        private bool Reload(object param = null)
-        {
-            var type = Frame.CurrentSourcePageType;
 
-            try
-            {
-                return Frame.Navigate(type, param);
-            }
-            finally
-            {
-                Frame.BackStack.Remove(Frame.BackStack.Last());
-            }
+       
 
-        }
 
-        private async void buttonLanguage_Click(object sender, RoutedEventArgs e)
-        {
-            ComboBoxItem l = (ComboBoxItem)comboboxLanguage.SelectedItem;
-
-            CultureInfo culture = new CultureInfo(l.Content.ToString());
-            ApplicationLanguages.PrimaryLanguageOverride =
-               culture.Name;
-            CultureInfo.DefaultThreadCurrentCulture = culture;
-            CultureInfo.DefaultThreadCurrentUICulture = culture;
-
-            await Task.Delay(1000);
-            Reload();
-        }
 
        
 
@@ -382,5 +286,7 @@ namespace PortoSchool.Pages
 
             DateTimeSettings.SetSystemDateTime(newDateTime);
         }
+
+       
     }
 }

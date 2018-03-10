@@ -120,6 +120,9 @@
   <data name="btnBack.Content" xml:space="preserve">
     <value>GERİ GİT</value>
   </data>
+  <data name="btnChangeLanguage.Content" xml:space="preserve">
+    <value>DİLİ DEĞİŞTİR</value>
+  </data>
   <data name="btnShutdown.Content" xml:space="preserve">
     <value>CİHAZI KAPAT</value>
   </data>
@@ -153,8 +156,14 @@
   <data name="textBlockPresentationPageHeader.Text" xml:space="preserve">
     <value>SUNU EDİTÖRÜ</value>
   </data>
+  <data name="textBlockSchoolName.Text" xml:space="preserve">
+    <value>KURUM ADI:</value>
+  </data>
   <data name="textBlockSentinelAssitantDirectorPageHeader.Text" xml:space="preserve">
     <value>NÖBETÇİ MÜDÜR YARDIMCISI EDİTÖRÜ</value>
+  </data>
+  <data name="TextBlockSentinelsListHeader.Text" xml:space="preserve">
+    <value>NÖBETÇİ ÖĞRETMENLER</value>
   </data>
   <data name="textBlockSentinelsPage.Text" xml:space="preserve">
     <value>NÖBETÇİ ÖĞRETMENLER EDİTÖRÜ</value>
@@ -185,5 +194,11 @@
   </data>
   <data name="textBlockVersion_.Text" xml:space="preserve">
     <value>SÜRÜM :</value>
+  </data>
+  <data name="textBoxSchoolName.PlaceholderText" xml:space="preserve">
+    <value>KURUM ADI GİRİN</value>
+  </data>
+  <data name="textBlockCoverSliderDuration_.Text" xml:space="preserve">
+    <value>GİRİŞ SUNU BEKLEME SÜRESİ :</value>
   </data>
 </root>

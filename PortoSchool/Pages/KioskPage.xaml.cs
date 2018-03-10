@@ -38,7 +38,7 @@ namespace PortoSchool.Pages
             frame2.Navigate(typeof(PresentationPage), false);
             frame1.Navigate(typeof(SentinelKioskFramePage), false);
             frame3.Navigate(typeof(BulletinPage), false);
-            _shifttimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(DashboardPage._slideduration) };
+            _shifttimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(SettingsPage._coverslideduration) };
             _shifttimer.Tick += ChangeSlider;
             _shifttimer.Start();
             textBlockHeader.Text = Settings.getValueByKey("SCHOOLNAME","");
@@ -53,26 +53,25 @@ namespace PortoSchool.Pages
             var _totbulletins = BulletinFileManager.BulletinFileCount;
 
             var newItemIndex = (flipViewKiosk.SelectedIndex + 1) % totalItems;
-           
 
             ///0:SentinelKioskFramePage
             ///1:PresentationPage
             ///2:BulletinPage
-           
+
             switch (newItemIndex)
             {
                 case 0:
-                    _shifttimer.Interval = TimeSpan.FromSeconds(DashboardPage._slideduration);
+                    _shifttimer.Interval = TimeSpan.FromSeconds(SettingsPage._coverslideduration);
                     BulletinPage.Current._shifttimer.Stop();
                     PresentationPage.Current._shifttimer.Stop();
                     break;
                 case 1:
-                    _shifttimer.Interval = TimeSpan.FromSeconds(_totpics * DashboardPage._slideduration);
+                    _shifttimer.Interval = TimeSpan.FromSeconds(_totpics * SettingsPage._slideduration);
                     BulletinPage.Current._shifttimer.Stop();
                     PresentationPage.Current._shifttimer.Start();
                     break;
                 case 2:
-                    _shifttimer.Interval = TimeSpan.FromSeconds((_totbulletins+1) * DashboardPage._slideduration);
+                    _shifttimer.Interval = TimeSpan.FromSeconds((_totbulletins+1) * SettingsPage._slideduration);
                     BulletinPage.Current._shifttimer.Start();
                     PresentationPage.Current._shifttimer.Stop();
                     break;

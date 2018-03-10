@@ -57,50 +57,7 @@
         </Button>
 
         <ListBox x:Name="listBoxLog" Grid.Row="2" Grid.Column="2"/>
-        <Grid Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
-            <Grid.Resources >
-                <Style TargetType="TextBlock" >
-                    <Setter Property="Padding" Value="10,0,20,0" />
-                </Style>
-            </Grid.Resources>
 
-            <Grid.RowDefinitions>
-                <RowDefinition  Height="100*"/>
-                <RowDefinition  Height="100*"/>
-                <RowDefinition  Height="100*"/>
-                <RowDefinition  Height="100*"/>
-                <RowDefinition  Height="100*"/>
-                <RowDefinition  Height="100*"/>
-                <RowDefinition  Height="100*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock x:Name="textBlockHostAddress_" x:Uid="textBlockHostAddress_" Text="AĞDAKİ CİHAZIN ADRESİ :" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Right"/>
-            <TextBox x:Name="textBoxHostAddress" Grid.Row="0" Grid.Column="1" Text="" PlaceholderText="Asıl Cihazın Ağdaki Adresini yazınız..." KeyDown="textBoxHostAddress_KeyDown"/>
-            <TextBlock x:Name="textBlockThisDevice_" x:Uid="textBlockThisDevice_" Text="BU CİHAZ :" Grid.Row="1"  Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-            <TextBlock x:Name="textBlockThisDevice" Text="0.0.0.0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
-            <TextBlock x:Name="textBlockSliderDuration_" x:Uid="textBlockSliderDuration_" Text="SUNU BEKLEME SÜRESİ :" Grid.Row="2"  Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-
-            <TextBlock x:Name="textBlockLanguage_" x:Uid="textBlockLanguage_" Text="ARAYÜZ DİLİ :" TextAlignment="Right" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center"/>
-            <ComboBox x:Name="comboboxLanguage"  Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" SelectionChanged="comboboxLanguage_SelectionChanged" Margin="0,0,0,0" Width="250">
-                <ComboBoxItem>en-US</ComboBoxItem>
-                <ComboBoxItem>tr-TR</ComboBoxItem>
-            </ComboBox>
-            <Button x:Name="buttonLanguage" x:Uid="buttonLanguage" Content="UPDATE" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Margin="260,0,0,0" VerticalAlignment="Bottom" Click="buttonLanguage_Click"/>
-            <ComboBox x:Name="comboboxSlideDuration" DisplayMemberPath="row" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0,0,150,0" SelectionChanged="comboboxSlideDuration_SelectionChanged">
-                <ComboBoxItem>
-                    <DataTemplate x:DataType="models:SliderDuration">
-                        <TextBlock Text="{x:Bind Path=row}"/>
-                    </DataTemplate>
-                </ComboBoxItem>
-            </ComboBox>
-            <TextBlock x:Name="textBlockDatabasePath_" x:Uid="textBlockDatabasePath_" Text="ÇALIŞMA DİZİNİ :" TextAlignment="Right" Grid.Column="0" Grid.Row="3" TextWrapping="Wrap"/>
-            <TextBlock x:Name="textBlockDatabasePath" Text="----"  Grid.Column="0" Grid.Row="4" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
-            <TextBlock x:Name="textBlockVersion_" x:Uid="textBlockVersion_" Text="SÜRÜM :" TextAlignment="Right" Grid.Column="0" Grid.Row="5"/>
-            <TextBlock x:Name="textBlockVersion" Text="1.0.0.0"  Grid.Column="1" Grid.Row="5"/>
-        </Grid>
         <StackPanel Grid.Row="5" Grid.Column="3" HorizontalAlignment="Stretch" Background="#FFDE0F0F">
             <TextBlock x:Uid="textBlockSetDateTime_" x:Name="textBlockSetDateTime_" Text="TARİH SAAT DEĞİŞTİR" FocusVisualPrimaryBrush="{x:Null}" FontSize="24" Foreground="White" HorizontalAlignment="Center"/>
             <DatePicker x:Name="datePicker1" DateChanged="datePicker1_DateChanged" FontSize="24" HorizontalAlignment="Center" Background="White" />

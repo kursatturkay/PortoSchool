@@ -120,6 +120,9 @@
   <data name="btnBack.Content" xml:space="preserve">
     <value>BACK</value>
   </data>
+  <data name="btnChangeLanguage.Content" xml:space="preserve">
+    <value>CHANGE LANGUAGE</value>
+  </data>
   <data name="btnShutdown.Content" xml:space="preserve">
     <value>SHUTDOWN</value>
   </data>
@@ -153,8 +156,14 @@
   <data name="textBlockPresentationPageHeader.Text" xml:space="preserve">
     <value>PRESENTATION EDITOR</value>
   </data>
+  <data name="textBlockSchoolName.Text" xml:space="preserve">
+    <value>EDUCATIONAL FOUNDATION NAME :</value>
+  </data>
   <data name="textBlockSentinelAssitantDirectorPageHeader.Text" xml:space="preserve">
     <value>SENTINEL ASSISTANT DIRECTOR EDITOR</value>
+  </data>
+  <data name="TextBlockSentinelsListHeader.Text" xml:space="preserve">
+    <value>SENTINELSTAFF</value>
   </data>
   <data name="textBlockSentinelsPage.Text" xml:space="preserve">
     <value>SENTINEL STAFF EDITOR</value>
@@ -185,5 +194,11 @@
   </data>
   <data name="textBlockVersion_.Text" xml:space="preserve">
     <value>VERSION :</value>
+  </data>
+  <data name="textBoxSchoolName.PlaceholderText" xml:space="preserve">
+    <value>ENTER EDUCATIONAL FOUNDATION NAME...</value>
+  </data>
+  <data name="textBlockCoverSliderDuration_.Text" xml:space="preserve">
+    <value>COVER SLIDER DURATION :</value>
   </data>
 </root>

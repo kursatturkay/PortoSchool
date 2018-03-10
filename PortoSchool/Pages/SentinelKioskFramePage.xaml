@@ -34,7 +34,7 @@
         <ItemsControl Grid.Column="1">
             <ItemsControl.Items>
                 <Border Margin="0"  Style="{StaticResource HeaderBorderStyle}">
-                    <TextBlock Text="NÖBETÇİ ÖĞRETMENLER" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="24"/>
+                    <TextBlock x:Uid="TextBlockSentinelsListHeader" Text="NÖBETÇİ ÖĞRETMENLER" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="24"/>
                 </Border>
                 <ListView x:Name="listViewNobetAlanlariVeNobOgr" Margin="0" HorizontalAlignment="Stretch" Style="{StaticResource ListViewStyle}">
                     <ListView.ItemContainerStyle>
