@@ -6,9 +6,11 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -410,6 +412,53 @@ namespace PortoSchool.Pages
             buttonMoveDown_NobMudYrdCalendar.IsEnabled = (sel != null) && (selidx != AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri.Count - 1);
 
             //  if (sel == null) return;
+        }
+
+        async Task SaveStringToLocalFile(string filename, string content)
+        {
+            // saves the string 'content' to a file 'filename' in the app's local storage folder
+
+            // BOM not present - create the new byte array  
+            
+
+
+            byte[] fileBytes = System.Text.Encoding.UTF8.GetBytes(content.ToCharArray());
+
+            byte[] outBuffer = new byte[fileBytes.Length + 3];
+
+            // add the BOM  
+            outBuffer[0] = (byte)0xEF;
+            outBuffer[1] = (byte)0xBB;
+            outBuffer[2] = (byte)0xBF;
+            Array.Copy(fileBytes, 0, outBuffer, 3, fileBytes.Length);
+
+            // create a file with the given filename in the local folder; replace any existing file with the same name
+            StorageFile file = await Windows.Storage.ApplicationData.Current.LocalFolder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
+
+            // write the char array created from the content string into the file
+            using (var stream = await file.OpenStreamForWriteAsync())
+            {
+                stream.Write(outBuffer, 0, outBuffer.Length);
+            }
+        }
+
+        private async void buttonExportSentinelAssistantDirectorList_Click(object sender, RoutedEventArgs e)
+        {
+            var x=AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri;
+            //StorageFile sf = await StorageFile.GetFileFromApplicationUriAsync(new Uri(bf.FileNameOnly));
+            //StorageFile f = await StorageFile.GetFileFromPathAsync(Path.Combine(App.WorkingPath, "NobMudYrdList.csv"));
+
+            string  str="NÖBETÇİ MÜDÜR YRD.,NÖBET TARİHİ\r\n";
+            foreach (var xe in x)
+            {
+                //string sYear = xe.SentinelDate.Year.ToString();
+                //string sMonth = xe.SentinelDate.Month.ToString().PadLeft(2, '0');
+                //string sDay = xe.SentinelDate.Day.ToString().PadLeft(2, '0');
+               // string caseTime = $"{sDay}-{sMonth}-{sYear}";
+                str += $"\"{xe.sentinelAssistantDirector.FullName}\",\"{xe.SentinelDate.ToLongDateString()}\"\r\n";
+            }
+
+            await SaveStringToLocalFile("\\PortoSchool\\NobMudYrdList.csv", str);
         }
     }
 }

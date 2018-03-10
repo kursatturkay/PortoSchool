@@ -91,14 +91,15 @@
         </Border>
         <DatePicker x:Name="datePickerStart" HorizontalAlignment="Left" Margin="20,0,0,123" VerticalAlignment="Bottom" Width="360" DateChanged="datePickerTar_DateChangeds" Tag="1"/>
         <DatePicker x:Name="datePickerEnd" HorizontalAlignment="Left" Margin="20,0,0,68" VerticalAlignment="Bottom" Width="360" Height="32" Tag="2" DateChanged="datePickerTar_DateChangeds"/>
-        <TextBlock x:Name="textBlockBasTar" HorizontalAlignment="Left" Margin="20,0,0,160" Text="NÖBET BAŞLANGIÇ SentinelDateİ:" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
-        <TextBlock x:Name="textBlockBitTar" HorizontalAlignment="Left" Margin="20,0,0,100" Text="NÖBET BİTİŞ SentinelDateİ:" TextWrapping="Wrap" Height="20" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="textBlockBasTar" x:Uid="textBlockSentinelAssistantDirectorBeginDate" HorizontalAlignment="Left" Margin="20,0,0,160" Text="NÖBET BAŞLANGIÇ:" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="textBlockBitTar" x:Uid="textBlockSentinelAssistantDirectorEndDate" HorizontalAlignment="Left" Margin="20,0,0,100" Text="NÖBET BİTİŞ:" TextWrapping="Wrap" Height="20" VerticalAlignment="Bottom"/>
         <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="20,0,0,380" Text="İSTENMEYEN GÜNLER :" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="155"/>
         <Button x:Name="buttonCalculate" Style="{StaticResource ButtonStyle}" Content="NÖBET GÜNLERİNİ HESAPLA" Margin="20,0,0,20" VerticalAlignment="Bottom" Width="360" Height="40" Click="buttonCalculate_Click"/>
         <TextBlock x:Name="textBlockCakismaSayisi_" HorizontalAlignment="Left" Margin="215,0,0,380" Text="ÇAKIŞMA SAYISI :" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="155"/>
         <TextBlock x:Name="textBlockCakismaSayisi" HorizontalAlignment="Left" Margin="335,0,0,380" Text="--" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="40" Foreground="#FFFB0000" TextAlignment="Center" FontSize="18"/>
         <Button x:Name="buttonMoveUp_NobMudYrdCalendar"   Style="{StaticResource ButtonStyle}" Content="YUKARI AL" Margin="960,70,0,0" VerticalAlignment="Top" Width="175" Height="40" IsEnabled="False" Click="buttonMoveUp_NobMudYrdCalendar_Click"/>
         <Button x:Name="buttonMoveDown_NobMudYrdCalendar"  Style="{StaticResource ButtonStyle}"  Content="AŞAĞI AL" Margin="960,120,0,0" VerticalAlignment="Top" Width="175" Height="40" IsEnabled="False" Click="buttonMoveDown_NobMudYrdCalendar_Click"/>
+        <Button x:Name="buttonExportSentinelAssistantDirectorList"  Style="{StaticResource ButtonStyle}"  Content="LİSTEYİ DİZİNE AKTAR" Margin="960,170,0,0" VerticalAlignment="Top" Width="175" Height="40" Click="buttonExportSentinelAssistantDirectorList_Click" />
         <Border Style="{StaticResource HeaderBorderStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Margin="400,70,0,0" Width="540" >
             <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Center" Text="HESAPLANAN MD. YRD. NÖBET TAKVİMİ" TextWrapping="Wrap" VerticalAlignment="Center" Width="155" Foreground="White" TextAlignment="Center"/>
         </Border>

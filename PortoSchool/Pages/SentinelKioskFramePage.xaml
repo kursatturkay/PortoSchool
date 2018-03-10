@@ -16,14 +16,13 @@
         <Border Margin="0" Style="{StaticResource HeaderBorderStyle}" Grid.Column="0">
             <ItemsControl>
                 <ItemsControl.Items>
-                    <TextBlock x:Name="textBlockToday" Text="01 OCAK 2017 ÇARŞAMBA" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="96"/>
-                    <TextBlock x:Name="textBlockClock" Text="12:00" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="156"/>
-                    <TextBlock Text="00 ° GÜNEŞLİ" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="96"/>
-                    <Border HorizontalAlignment="Left" Height="80" Margin="0" VerticalAlignment="Top" Width="960">
+                    <TextBlock x:Name="textBlockToday" Text="01 OCAK 2017 ÇARŞAMBA" TextWrapping="Wrap" Foreground="#FFD1FF00" TextAlignment="Center" FontSize="96"/>
+                    <TextBlock x:Name="textBlockClock" Text="12:00" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="156" FontFamily="Segoe UI"/>
+                    <Border HorizontalAlignment="Left" Height="Auto" Margin="0" VerticalAlignment="Top" Width="960">
                         <ItemsControl>
                             <ItemsControl.Items>
-                                <TextBlock x:Name="textBlockAssistantDirector_" Text="NÖBETÇİ MÜDÜR YARDIMCISI" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="24"/>
-                                <TextBlock x:Name="textBlockAssistantDirector" Text="------ --------- -----------" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="36"/>
+                                <TextBlock x:Name="textBlockAssistantDirector_" Text="NÖBETÇİ MÜDÜR YARDIMCISI" TextWrapping="Wrap" Foreground="#FF04D1FF" TextAlignment="Center" FontSize="48" FontFamily="Segoe UI"/>
+                                <TextBlock x:Name="textBlockAssistantDirector" Text="--- ---" TextWrapping="Wrap" Foreground="#FF04D1FF" TextAlignment="Center" FontSize="72"/>
                             </ItemsControl.Items>
                         </ItemsControl>
                     </Border>

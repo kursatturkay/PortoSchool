@@ -55,7 +55,7 @@
         <Button x:Name="buttonBulletinPage"  Style="{StaticResource ButtonStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="2" FontFamily="Segoe UI" Click="buttonBulletinPage_Click">
             <TextBlock x:Name="textBlockBulletinPage" x:Uid="textBlockBulletinPage" Text="BÜLTEN EDİTÖRÜ" TextWrapping="WrapWholeWords" TextAlignment="Center" FontFamily="Segoe UI" />
         </Button>
-        
+
         <ListBox x:Name="listBoxLog" Grid.Row="2" Grid.Column="2"/>
         <Grid Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <Grid.Resources >
@@ -101,10 +101,10 @@
             <TextBlock x:Name="textBlockVersion_" x:Uid="textBlockVersion_" Text="SÜRÜM :" TextAlignment="Right" Grid.Column="0" Grid.Row="5"/>
             <TextBlock x:Name="textBlockVersion" Text="1.0.0.0"  Grid.Column="1" Grid.Row="5"/>
         </Grid>
-        <StackPanel Grid.Row="5" Grid.Column="3" HorizontalAlignment="Stretch">
-            <DatePicker x:Name="datePicker1" />
-            <TimePicker x:Name="timePicker1" />
-            <Button x:Name="button" Content="Button" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <StackPanel Grid.Row="5" Grid.Column="3" HorizontalAlignment="Stretch" Background="#FFDE0F0F">
+            <TextBlock x:Uid="textBlockSetDateTime_" x:Name="textBlockSetDateTime_" Text="TARİH SAAT DEĞİŞTİR" FocusVisualPrimaryBrush="{x:Null}" FontSize="24" Foreground="White" HorizontalAlignment="Center"/>
+            <DatePicker x:Name="datePicker1" DateChanged="datePicker1_DateChanged" FontSize="24" HorizontalAlignment="Center" Background="White" />
+            <TimePicker x:Name="timePicker1" TimeChanged="timePicker1_TimeChanged" FontSize="24" HorizontalAlignment="Center" Background="White" />
         </StackPanel>
     </Grid>
 </Page>
