@@ -168,6 +168,9 @@
   <data name="textBlockSentryLocationsPageHeader.Text" xml:space="preserve">
     <value>SENTRY LOCATIONS EDITOR</value>
   </data>
+  <data name="textBlockSetDateTime_.Text" xml:space="preserve">
+    <value>CHANGE DATE TIME</value>
+  </data>
   <data name="textBlockSettingsPage.Text" xml:space="preserve">
     <value>SETTINGS</value>
   </data>

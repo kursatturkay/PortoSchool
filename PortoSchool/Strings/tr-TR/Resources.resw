@@ -168,6 +168,9 @@
   <data name="textBlockSentryLocationsPageHeader.Text" xml:space="preserve">
     <value>NÖBET YERLERİ EDİTÖRÜ</value>
   </data>
+  <data name="textBlockSetDateTime_.Text" xml:space="preserve">
+    <value>TARİH SAAT DEĞİŞTİR</value>
+  </data>
   <data name="textBlockSettingsPage.Text" xml:space="preserve">
     <value>AYARLAR</value>
   </data>
