@@ -127,7 +127,6 @@
     <Compile Include="Pages\TestPage.xaml.cs">
       <DependentUpon>TestPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RTC_DS3231.cs" />
     <Compile Include="SystemTime.cs" />
     <Compile Include="Win32.cs" />
     <Compile Include="zComments.cs" />
