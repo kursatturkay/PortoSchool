@@ -10,65 +10,135 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="40*"/>
+
         </Grid.ColumnDefinitions>
+
         <Border Margin="0" Style="{StaticResource HeaderBorderStyle}" Grid.Column="0">
+            <!-- -->
+            <ItemsControl Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
+                <ItemsControl.Items>
+                    <TextBlock x:Uid="TextBlockCourseTableHeader" Text="SYLLABUS" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="24"/>
+                    <ListView x:Name="listViewCourseTable" Margin="0" HorizontalAlignment="Stretch" Style="{StaticResource ListViewStyle}" MinHeight="300" HorizontalContentAlignment="Left">
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="MaxHeight" Value="28"/>
+                                <Setter Property="MinHeight" Value="28"/>
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="Models:SchoolTimeSpan">
+                                <Grid HorizontalAlignment="Stretch" Margin="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100*"/>
+                                        <ColumnDefinition Width="50*"/>
+                                        <ColumnDefinition Width="50*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border  Grid.Column="0" Background="{x:Bind id, Converter={StaticResource AlternateColorConverter},ConverterParameter=3}" HorizontalAlignment="Stretch" Margin="0" Padding="0,0,10,0" >
+                                        <TextBlock Text="{x:Bind Title}" HorizontalAlignment="Stretch" TextAlignment="Right" FontSize="24" Margin="0"/>
+                                    </Border>
+                                    <Border Grid.Column="1" Background="{x:Bind  id,Converter={StaticResource AlternateColorConverter},ConverterParameter=3}" HorizontalAlignment="Stretch" Margin="0">
+                                        <TextBlock Text="{x:Bind TimeStart}" FontSize="24" Margin="0"/>
+                                    </Border>
+                                    <Border Background="{x:Bind  id,Converter={StaticResource AlternateColorConverter},ConverterParameter=3}" HorizontalAlignment="Stretch" Grid.Column="2" Margin="0">
+                                        <TextBlock Text="{x:Bind TimeEnd}" HorizontalAlignment="Stretch" TextAlignment="Left" FontSize="24" Margin="0"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Border Margin="0"  Style="{StaticResource HeaderBorderStyle}">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,20">
+                            <TextBlock x:Name="TextBlockRemeainingTime_" x:Uid="TextBlockRemeainingTime_" Text="REMAINING :" TextWrapping="Wrap" Foreground="#7BFFFFFF" TextAlignment="Center" FontSize="60" HorizontalAlignment="Left" Margin="0,0,20,0"/>
+                            <TextBlock x:Name="TextBlockRemeainingTime" x:Uid="TextBlockRemeainingTime" Text="00:00:00" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="60" HorizontalAlignment="Left"/>
+                        </StackPanel>
+
+                    </Border>
+
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock x:Name="textBlockToday" Text="01 OCAK 2017 ÇARŞAMBA" TextWrapping="WrapWholeWords" Foreground="#FFD1FF00" TextAlignment="Center" FontSize="70" HorizontalAlignment="Center" Padding="0" TextLineBounds="TrimToCapHeight"/>
+                        <TextBlock x:Name="textBlockClock" Text="12:00" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="70" FontFamily="Segoe UI" HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <Border HorizontalAlignment="Stretch" Height="Auto" Margin="0" VerticalAlignment="Stretch">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock x:Name="textBlockDirectorAssistant_" Text="DIRECTOR ASSISTANT" TextWrapping="Wrap" Foreground="#FF04D1FF" TextAlignment="Center" FontSize="38" FontFamily="Segoe UI" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="textBlockDirectorAssistant" Text="--- ---" TextWrapping="Wrap" Foreground="#FF04D1FF" TextAlignment="Center" FontSize="52" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                </ItemsControl.Items>
+
+            </ItemsControl>
+            <!-- -->
+        </Border>
+        <Border Margin="0" Style="{StaticResource HeaderBorderStyle}" Grid.Column="1">
             <ItemsControl>
                 <ItemsControl.Items>
-                    <TextBlock x:Name="textBlockToday" Text="01 OCAK 2017 ÇARŞAMBA" TextWrapping="Wrap" Foreground="#FFD1FF00" TextAlignment="Center" FontSize="96"/>
-                    <TextBlock x:Name="textBlockClock" Text="12:00" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="156" FontFamily="Segoe UI"/>
-                    <Border HorizontalAlignment="Left" Height="Auto" Margin="0" VerticalAlignment="Top" Width="960">
-                        <ItemsControl>
-                            <ItemsControl.Items>
-                                <TextBlock x:Name="textBlockAssistantDirector_" Text="NÖBETÇİ MÜDÜR YARDIMCISI" TextWrapping="Wrap" Foreground="#FF04D1FF" TextAlignment="Center" FontSize="48" FontFamily="Segoe UI"/>
-                                <TextBlock x:Name="textBlockAssistantDirector" Text="--- ---" TextWrapping="Wrap" Foreground="#FF04D1FF" TextAlignment="Center" FontSize="72"/>
-                            </ItemsControl.Items>
-                        </ItemsControl>
+                    <Border Height="Auto" Margin="10,10,10,0" VerticalAlignment="top" HorizontalAlignment="Stretch">
+                        <TextBlock x:Name="textBlockHeader" x:Uid="textBlockHeader" Text="DEFAULT SCHOOL NAME" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="72" TextWrapping="WrapWholeWords" TextAlignment="Center" Foreground="White" />
                     </Border>
-                    <Image x:Name="image1" HorizontalAlignment="Stretch" Margin="150,0,150,0" MinHeight="300"/>
+
+                    <Image x:Name="image1" Margin="5,5,5,5">
+                        
+                    </Image>
+
+
                 </ItemsControl.Items>
             </ItemsControl>
+
+
         </Border>
 
-        <ItemsControl Grid.Column="1">
-            <ItemsControl.Items>
-                <Border Margin="0"  Style="{StaticResource HeaderBorderStyle}">
-                    <TextBlock x:Uid="TextBlockSentinelsListHeader" Text="NÖBETÇİ ÖĞRETMENLER" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="24"/>
-                </Border>
-                <ListView x:Name="listViewNobetAlanlariVeNobOgr" Margin="0" HorizontalAlignment="Stretch" Style="{StaticResource ListViewStyle}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            <Setter Property="MaxHeight" Value="28"/>
-                            <Setter Property="MinHeight" Value="28"/>
-                            <Setter Property="Padding" Value="0"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="Models:Sentinels">
-                            <Grid HorizontalAlignment="Stretch" Margin="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="180*"/>
-                                    <ColumnDefinition Width="10*"/>
-                                    <ColumnDefinition Width="100*"/>
-                                </Grid.ColumnDefinitions>
-                                <Border  Grid.Column="0" Background="{x:Bind id, Converter={StaticResource AlternateColorConverter},ConverterParameter=3}" HorizontalAlignment="Stretch" Margin="0" >
-                                    <TextBlock Text="{x:Bind NobetAlan}" HorizontalAlignment="Stretch" TextAlignment="Right" FontSize="24" Margin="0"/>
-                                </Border>
-                                <Border Grid.Column="1" Background="{x:Bind  id,Converter={StaticResource AlternateColorConverter},ConverterParameter=3}" HorizontalAlignment="Stretch" Margin="0">
-                                    <TextBlock Text=":" FontSize="24" Margin="0"/>
-                                </Border>
-                                <Border Background="{x:Bind  id,Converter={StaticResource AlternateColorConverter},ConverterParameter=3}" HorizontalAlignment="Stretch" Grid.Column="2" Margin="0">
-                                    <TextBlock Text="{x:Bind OgretmenAdiSoyadi}" HorizontalAlignment="Stretch" TextAlignment="Left" FontSize="24" Margin="0"/>
-                                </Border>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </ItemsControl.Items>
+        <Border Grid.Column="2" Style="{StaticResource HeaderBorderStyle}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <ItemsControl>
+                <ItemsControl.Items>
 
-        </ItemsControl>
+                    <Border Margin="0"  Style="{StaticResource HeaderBorderStyle}">
+                        <TextBlock x:Uid="TextBlockSentinelsListHeader" Text="SENTINELS" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" FontSize="24"/>
+                    </Border>
 
+                    <ListView x:Name="listViewNobetAlanlariVeNobOgr" Margin="0,0,0,20" HorizontalAlignment="Stretch" Style="{StaticResource ListViewStyle}" MinHeight="300" UseLayoutRounding="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="MaxHeight" Value="28"/>
+                                <Setter Property="MinHeight" Value="28"/>
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="Models:Sentinels">
+                                <Grid HorizontalAlignment="Stretch" Margin="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60*"/>
+                                        <ColumnDefinition Width="5"/>
+                                        <ColumnDefinition Width="35*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border  Grid.Column="0" Background="{x:Bind id, Converter={StaticResource AlternateColorConverter},ConverterParameter=3}" HorizontalAlignment="Stretch" Margin="0" >
+                                        <TextBlock Text="{x:Bind NobetAlan}" HorizontalAlignment="Stretch" TextAlignment="Right" FontSize="24" Margin="0"/>
+                                    </Border>
+                                    <Border Grid.Column="1" Background="{x:Bind  id,Converter={StaticResource AlternateColorConverter},ConverterParameter=3}" HorizontalAlignment="Stretch" Margin="0">
+                                        <TextBlock Text=":" FontSize="24" Margin="0"/>
+                                    </Border>
+                                    <Border Background="{x:Bind  id,Converter={StaticResource AlternateColorConverter},ConverterParameter=3}" HorizontalAlignment="Stretch" Grid.Column="2" Margin="0">
+                                        <TextBlock Text="{x:Bind OgretmenAdiSoyadi}" HorizontalAlignment="Stretch" TextAlignment="Left" FontSize="24" Margin="0"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+
+
+                </ItemsControl.Items>
+
+            </ItemsControl>
+        </Border>
     </Grid>
 </Page>

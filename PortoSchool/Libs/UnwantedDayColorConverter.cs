@@ -17,9 +17,9 @@ namespace PortoSchool.Libs
             var color = new SolidColorBrush(new Color { A = 255, R = 255, G = 255, B = 255 });
 
             //new SolidColorBrush(new Color { R = 0xe3, G = 0xe9, B = 0xef, A = byte.MaxValue });
-            AssistantDirectorSentinelDay AssistantDirectorSentinelDay= (AssistantDirectorSentinelDay)value;
+            DirectorAssistantSentinelDay DirectorAssistantSentinelDay= (DirectorAssistantSentinelDay)value;
 
-            switch (AssistantDirectorSentinelDay.IsUnwantedDay)
+            switch (DirectorAssistantSentinelDay.IsUnwantedDay)
             {
                 case false: color = new SolidColorBrush(ColorUtils.GetColorFromHex("#000000")); break;
                 case true: color = new SolidColorBrush(ColorUtils.GetColorFromHex("#FF0000")); break;

@@ -53,6 +53,9 @@ namespace PortoSchool.Pages
 
             setWorkingLocalPathTextBox();
             InitializeUpdater();
+
+            if(SchoolTimeSpanManager.isSchoolTimeSpansEmpty())
+            SchoolTimeSpanManager.ImportDataFromCouseTableXlsx();
         }
 
 
@@ -84,11 +87,6 @@ namespace PortoSchool.Pages
             //string res = (!toggleSwitchLocatorHost.IsOn) ? Settings.LocalDataFolder : Settings.NetworkDataFolder(textBoxHostAddress.Text);
             //\\minwinpc\c$\Data\Users\DefaultAccount\AppData\Local\Packages\06fb6d66-51b3-4beb-893c-7e099fe465f1_3asabdzxmrwg6\LocalState\PortoSchool
             App.WorkingPath = Settings.LocalDataFolder;
-
-            
-           
-
-           
         }
 
         #region Events Section
@@ -141,9 +139,9 @@ namespace PortoSchool.Pages
             Frame.Navigate(typeof(SentinelsPage));
         }
 
-        private void buttonAssistantDirector_Click(object sender, RoutedEventArgs e)
+        private void buttonDirectorAssistant_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(SentinelAssistantDirectorPage));
+            Frame.Navigate(typeof(SentinelDirectorAssistantPage));
         }
 
         private void buttonPresentationPage_Click(object sender, RoutedEventArgs e)
@@ -261,13 +259,6 @@ namespace PortoSchool.Pages
         }
 
 
-
-       
-
-
-
-       
-
         private void datePicker1_DateChanged(object sender, DatePickerValueChangedEventArgs e)
         {
             DateTimeSettings.SetSystemDateTime(e.NewDate.UtcDateTime);
@@ -287,6 +278,9 @@ namespace PortoSchool.Pages
             DateTimeSettings.SetSystemDateTime(newDateTime);
         }
 
-       
+        private void buttonCourseTablePage_Click(object sender, RoutedEventArgs e)
+        {
+            //Frame.Navigate(typeof(CourseTablePage));
+        }
     }
 }

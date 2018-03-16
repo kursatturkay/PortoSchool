@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Globalization;
@@ -165,6 +167,21 @@ namespace PortoSchool.Pages
             SliderDuration sel = (SliderDuration)comboboxCoverSlideDuration.SelectedItem;
             //Settings.setValueByKey("COVERSLIDER_DURATION", sel.row.ToString());
             _coverslideduration = sel.row;
+        }
+
+        private async void btnCopyCouseTableToSharedFolder_Click(object sender, RoutedEventArgs e)
+        {
+
+            var res = ResourceLoader.GetForCurrentView();
+
+            //If you want to access a string such as DeleteBlock.Text you cannot put a period. Instead, put a /
+            // like this var deleteText = res.GetString("DeleteBlock/Text"); instead of DeleteBlock.Text
+            var COURSETABLE_xlsx = res.GetString("COURSETABLE/xlsx");
+            //var confirmYes = res.GetString("ConfirmYes");
+
+            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/" + COURSETABLE_xlsx));
+            StorageFolder storageFolder = await StorageFolder.GetFolderFromPathAsync(Settings.LocalDataFolder);
+            await file.CopyAsync(storageFolder, COURSETABLE_xlsx);
         }
     }
 }

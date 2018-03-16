@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml.Data;
 
 namespace PortoSchool.Libs
@@ -12,7 +13,10 @@ namespace PortoSchool.Libs
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            CultureInfo trTR = new CultureInfo("tr-TR");
+            var resource = ResourceLoader.GetForCurrentView();
+            var CultureInfoName = resource.GetString("CultureInfoName");
+            CultureInfo trTR = new CultureInfo(CultureInfoName);
+
             var res = string.Format(trTR,"{0:dd/M/yyyy dddd}", (DateTime)value);
             return res;
         }

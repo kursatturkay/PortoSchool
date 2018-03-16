@@ -20,7 +20,7 @@
         <Button x:Name="buttonNobetAlaniGuncelle" Style="{StaticResource ButtonStyle}"  Content="NÖBET ALANI GUNCELLE" Margin="20,145,0,0" VerticalAlignment="Top" Width="360" Click="buttonNobetAlaniGuncelle_Click" Height="35"/>
         <Button x:Name="buttonNobetAlaniSil" Style="{StaticResource ButtonStyle}" Content="NÖBET ALANI SİL" Margin="20,185,0,0" VerticalAlignment="Top" Width="360" Click="buttonNobetAlaniSil_Click" Height="35"/>
 
-        <ListView x:Name="listViewNobetAlanlari"  Style="{StaticResource ListViewStyle}"  Margin="400,50,0,0" ItemsSource="{x:Bind Path=NobetAlanlari}" HorizontalAlignment="Stretch" SelectionChanged="listViewNobetAlanlari_SelectionChanged">
+        <ListView x:Name="listViewNobetAlanlari"  Style="{StaticResource ListViewStyle}"  Margin="400,60,640,10" ItemsSource="{x:Bind Path=NobetAlanlari}" HorizontalAlignment="Stretch" SelectionChanged="listViewNobetAlanlari_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:NobetAlan">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">

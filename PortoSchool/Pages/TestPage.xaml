@@ -13,7 +13,7 @@
             <TextBlock x:Name="textBox" Text="TEST" FocusVisualSecondaryBrush="#FF2FC862" Foreground="White" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Button x:Name="btnClose" Content="CİHAZI KAPAT" BorderBrush="#FFEC0000" Foreground="Red" Height="40" FocusVisualSecondaryBrush="Red" Margin="2,5,2,0" Background="Black" HorizontalAlignment="Right"/>
         </Grid>
-        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="15,60,0,0" VerticalAlignment="Top" Width="85"/>
+        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="15,60,0,0" VerticalAlignment="Top" Width="85" Click="button1_Click_1"/>
         <ListView x:Name="listView1" HorizontalAlignment="Left" Height="410" Margin="45,140,0,0" VerticalAlignment="Top" Width="450"/>
         <Image x:Name="image1" HorizontalAlignment="Left" Height="300" Margin="595,170,0,0" VerticalAlignment="Top" Width="400"/>
         <Button x:Name="buttonReadXLS" Content="Button" HorizontalAlignment="Left" Margin="109,62,0,0" VerticalAlignment="Top" Width="176"/>

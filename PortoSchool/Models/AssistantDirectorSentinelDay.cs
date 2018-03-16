@@ -9,34 +9,34 @@ using System.Threading.Tasks;
 
 namespace PortoSchool.Models
 {
-    //class AssistantDirectorSentinelDay
+    //class DirectorAssistantSentinelDay
 
-    public class AssistantDirectorSentinelDayDataset
+    public class DirectorAssistantSentinelDayDataset
     {
         [AutoIncrement, PrimaryKey]
         public int id { get; set; }
         public string FullName { get; set; }
         public DateTime SentinelDate { get; set; }
     }
-    public class AssistantDirectorSentinelDay
+    public class DirectorAssistantSentinelDay
     {
-        public SentinelAssistantDirector sentinelAssistantDirector { get; set; }
+        public SentinelDirectorAssistant sentinelDirectorAssistant { get; set; }
         public DateTime SentinelDate { get; set; }
 
         public bool IsUnwantedDay
         {
             get
             {
-                if (sentinelAssistantDirector == null) return false;
+                if (sentinelDirectorAssistant == null) return false;
 
                 bool sonuç = false;
                 string strdate = SentinelDate.ToString("dddd").ToUpper();
 
-                bool a1 = ((sentinelAssistantDirector.UnwantedDays[0] == true) && ((strdate == "PAZARTESİ") || (strdate == "MONDAY")));
-                bool a2 = ((sentinelAssistantDirector.UnwantedDays[1] == true) && ((strdate == "SALI") || (strdate == "TUESDAY")));
-                bool a3 = ((sentinelAssistantDirector.UnwantedDays[2] == true) && ((strdate == "ÇARŞAMBA") || (strdate == "WEDNESDAY")));
-                bool a4 = ((sentinelAssistantDirector.UnwantedDays[3] == true) && ((strdate == "PERŞEMBE") || (strdate == "TUESDAY")));
-                bool a5 = ((sentinelAssistantDirector.UnwantedDays[4] == true) && ((strdate == "CUMA") || (strdate == "FRIDAY")));
+                bool a1 = ((sentinelDirectorAssistant.UnwantedDays[0] == true) && ((strdate == "PAZARTESİ") || (strdate == "MONDAY")));
+                bool a2 = ((sentinelDirectorAssistant.UnwantedDays[1] == true) && ((strdate == "SALI") || (strdate == "TUESDAY")));
+                bool a3 = ((sentinelDirectorAssistant.UnwantedDays[2] == true) && ((strdate == "ÇARŞAMBA") || (strdate == "WEDNESDAY")));
+                bool a4 = ((sentinelDirectorAssistant.UnwantedDays[3] == true) && ((strdate == "PERŞEMBE") || (strdate == "TUESDAY")));
+                bool a5 = ((sentinelDirectorAssistant.UnwantedDays[4] == true) && ((strdate == "CUMA") || (strdate == "FRIDAY")));
 
                 if (a1 || a2 || a3 || a4 || a5)
                     sonuç = true;
@@ -44,44 +44,44 @@ namespace PortoSchool.Models
             }
         }
     }
-    public static class AssistantDirectorSentinelDayManager
+    public static class DirectorAssistantSentinelDayManager
     {
-        private static readonly ObservableCollection<AssistantDirectorSentinelDay> AssistantDirectorSentinelDays_ = new ObservableCollection<AssistantDirectorSentinelDay>();
+        private static readonly ObservableCollection<DirectorAssistantSentinelDay> DirectorAssistantSentinelDays_ = new ObservableCollection<DirectorAssistantSentinelDay>();
 
         public static void Clear()
         {
-            AssistantDirectorSentinelDays_.Clear();
+            DirectorAssistantSentinelDays_.Clear();
         }
 
-        public static void Add(AssistantDirectorSentinelDay AssistantDirectorSentinelDay)
+        public static void Add(DirectorAssistantSentinelDay DirectorAssistantSentinelDay)
         {
-            AssistantDirectorSentinelDays_.Add(AssistantDirectorSentinelDay);
+            DirectorAssistantSentinelDays_.Add(DirectorAssistantSentinelDay);
         }
-        public static ObservableCollection<AssistantDirectorSentinelDay> MdYrdNöbetGünleri
+        public static ObservableCollection<DirectorAssistantSentinelDay> MdYrdNöbetGünleri
         {
             get
             {
-                if (AssistantDirectorSentinelDays_.Count == 0)
+                if (DirectorAssistantSentinelDays_.Count == 0)
                 {
                     var conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), FileUtils.FullDataPath, false);
                     //listViewNobMudYrdCalendar.Items.Clear();
                     try
                     {
-                        var AssistantDirectorSentinelDayDataset_ = conn.Table<AssistantDirectorSentinelDayDataset>().ToList();
+                        var DirectorAssistantSentinelDayDataset_ = conn.Table<DirectorAssistantSentinelDayDataset>().ToList();
 
-                        //AssistantDirectorSentinelDays_.Clear();
-                        foreach (var x in AssistantDirectorSentinelDayDataset_)
+                        //DirectorAssistantSentinelDays_.Clear();
+                        foreach (var x in DirectorAssistantSentinelDayDataset_)
                         {
-                            AssistantDirectorSentinelDay AssistantDirectorSentinelDay = new AssistantDirectorSentinelDay();
-                            AssistantDirectorSentinelDay.SentinelDate = x.SentinelDate;
-                            AssistantDirectorSentinelDay.sentinelAssistantDirector = SentinelAssistantDirectorManager.AdaGöreBul(x.FullName);
-                            AssistantDirectorSentinelDays_.Add(AssistantDirectorSentinelDay);
+                            DirectorAssistantSentinelDay DirectorAssistantSentinelDay = new DirectorAssistantSentinelDay();
+                            DirectorAssistantSentinelDay.SentinelDate = x.SentinelDate;
+                            DirectorAssistantSentinelDay.sentinelDirectorAssistant = SentinelDirectorAssistantManager.AdaGöreBul(x.FullName);
+                            DirectorAssistantSentinelDays_.Add(DirectorAssistantSentinelDay);
                         }
                     }
                     catch { }
 
                 }
-                return AssistantDirectorSentinelDays_;
+                return DirectorAssistantSentinelDays_;
             }
         }
 
@@ -91,7 +91,7 @@ namespace PortoSchool.Models
             {
                 int sonuç = 0;
 
-                foreach (AssistantDirectorSentinelDay x in MdYrdNöbetGünleri)
+                foreach (DirectorAssistantSentinelDay x in MdYrdNöbetGünleri)
                 {
                     if (x.IsUnwantedDay)
                         sonuç++;

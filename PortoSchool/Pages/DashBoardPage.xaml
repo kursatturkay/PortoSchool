@@ -34,8 +34,8 @@
             <TextBlock x:Name="textBlockPresentationPage" x:Uid="textBlockPresentationPage" Text="SUNU EDİTÖRÜ" TextWrapping="WrapWholeWords" TextAlignment="Center"/>
         </Button>
 
-        <Button x:Name="buttonAssistantDirector"  Style="{StaticResource ButtonStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,1,1,1" Click="buttonAssistantDirector_Click" Grid.Column="0" Grid.Row="2" FontFamily="Segoe UI">
-            <TextBlock x:Name="textBlockAssistantDirector" x:Uid="textBlockAssistantDirector" Text="NÖBETÇİ MÜDÜR YARDIMCILARI EDİTÖRÜ" TextWrapping="WrapWholeWords" TextAlignment="Center" FontFamily="Segoe UI" />
+        <Button x:Name="buttonDirectorAssistant"  Style="{StaticResource ButtonStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,1,1,1" Click="buttonDirectorAssistant_Click" Grid.Column="0" Grid.Row="2" FontFamily="Segoe UI">
+            <TextBlock x:Name="textBlockDirectorAssistant" x:Uid="textBlockDirectorAssistant" Text="NÖBETÇİ MÜDÜR YARDIMCILARI EDİTÖRÜ" TextWrapping="WrapWholeWords" TextAlignment="Center" FontFamily="Segoe UI" />
         </Button>
         <Button x:Name="buttonSentinelsPage"  Style="{StaticResource ButtonStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,1,1,1" Click="buttonSentinelsPage_Click"  Grid.Column="1" Grid.Row="1">
             <TextBlock x:Name="textBlockSentinelsPage" x:Uid="textBlockSentinelsPage" Text="NÖBETÇİ ÖĞRETMENLER EDİTÖRÜ" TextWrapping="WrapWholeWords" TextAlignment="Center" />
@@ -57,6 +57,7 @@
         </Button>
 
         <ListBox x:Name="listBoxLog" Grid.Row="2" Grid.Column="2"/>
+
 
         <StackPanel Grid.Row="5" Grid.Column="3" HorizontalAlignment="Stretch" Background="#FFDE0F0F">
             <TextBlock x:Uid="textBlockSetDateTime_" x:Name="textBlockSetDateTime_" Text="TARİH SAAT DEĞİŞTİR" FocusVisualPrimaryBrush="{x:Null}" FontSize="24" Foreground="White" HorizontalAlignment="Center"/>

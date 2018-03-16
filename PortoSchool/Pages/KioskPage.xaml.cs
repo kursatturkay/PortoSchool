@@ -41,7 +41,7 @@ namespace PortoSchool.Pages
             _shifttimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(SettingsPage._coverslideduration) };
             _shifttimer.Tick += ChangeSlider;
             _shifttimer.Start();
-            textBlockHeader.Text = Settings.getValueByKey("SCHOOLNAME","");
+           
         }
 
         private void ChangeSlider(object sender, object e)
@@ -91,6 +91,11 @@ namespace PortoSchool.Pages
                     Frame.Navigate(typeof(DashboardPage));
                     break;
             }
+        }
+
+        private void frame1_Navigated(object sender, NavigationEventArgs e)
+        {
+
         }
     }
 }

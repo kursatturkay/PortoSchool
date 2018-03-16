@@ -26,9 +26,9 @@ namespace PortoSchool.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SentinelAssistantDirectorPage : Page
+    public sealed partial class SentinelDirectorAssistantPage : Page
     {
-        public SentinelAssistantDirectorPage()
+        public SentinelDirectorAssistantPage()
         {
             this.InitializeComponent();
             AlternateColorConverter.reset();
@@ -55,7 +55,7 @@ namespace PortoSchool.Pages
         }
         private void onIsIdleChanged(object sender, EventArgs e)
         {
-            DebugUtils.WriteLine("SentinelAssistantDirectorPage::onIsIdleChanged");
+            DebugUtils.WriteLine("SentinelDirectorAssistantPage::onIsIdleChanged");
             switch (App.Current.isIdle)
             {
                 case true:
@@ -73,8 +73,8 @@ namespace PortoSchool.Pages
 
         private void buttonMdYrdEkle_Click(object sender, RoutedEventArgs e)
         {
-            SentinelAssistantDirector a = new SentinelAssistantDirector { FullName = textBoxMdYrdAdSoyad.Text.Trim() };
-            SentinelAssistantDirectorManager.SentinelAssistantDirectorList.Add(a);
+            SentinelDirectorAssistant a = new SentinelDirectorAssistant { FullName = textBoxMdYrdAdSoyad.Text.Trim() };
+            SentinelDirectorAssistantManager.SentinelDirectorAssistantList.Add(a);
 
             Listele();
             SavelistViewNobMudYrd();
@@ -85,12 +85,12 @@ namespace PortoSchool.Pages
         {
             var conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), FileUtils.FullDataPath);
 
-            conn.DropTable<SentinelAssistantDirectorDataset>();
-            conn.CreateTable<SentinelAssistantDirectorDataset>();
+            conn.DropTable<SentinelDirectorAssistantDataset>();
+            conn.CreateTable<SentinelDirectorAssistantDataset>();
 
-            foreach (var x in SentinelAssistantDirectorManager.SentinelAssistantDirectorList)
+            foreach (var x in SentinelDirectorAssistantManager.SentinelDirectorAssistantList)
             {
-                SentinelAssistantDirectorDataset row = new SentinelAssistantDirectorDataset
+                SentinelDirectorAssistantDataset row = new SentinelDirectorAssistantDataset
                 {
                     FullName = x.FullName,
                     NotMonday = x.UnwantedDays[0],
@@ -105,17 +105,17 @@ namespace PortoSchool.Pages
 
         private void LoadlistViewNobMudYrd()
         {
-            // SentinelAssistantDirectorManager.SentinelAssistantDirectorList
+            // SentinelDirectorAssistantManager.SentinelDirectorAssistantList
             //var conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), FileUtils.FullDataPath);
 
             //listViewNobMudYrd.Items.Clear();
 
-            //var SentinelAssistantDirectorDataset_ = conn.Table<SentinelAssistantDirectorDataset>().ToList();
+            //var SentinelDirectorAssistantDataset_ = conn.Table<SentinelDirectorAssistantDataset>().ToList();
 
-            SentinelAssistantDirectorManager.Clear();
-            //foreach (var x in SentinelAssistantDirectorDataset_)
+            SentinelDirectorAssistantManager.Clear();
+            //foreach (var x in SentinelDirectorAssistantDataset_)
             //{
-            //    SentinelAssistantDirector mdyrd = new SentinelAssistantDirector { FullName = x.FullName };
+            //    SentinelDirectorAssistant mdyrd = new SentinelDirectorAssistant { FullName = x.FullName };
 
             //    mdyrd.UnwantedDays[0] = x.NotMonday;
             //    mdyrd.UnwantedDays[1] = x.NotTuesday;
@@ -123,7 +123,7 @@ namespace PortoSchool.Pages
             //    mdyrd.UnwantedDays[3] = x.NotThursday;
             //    mdyrd.UnwantedDays[4] = x.NotFriday;
 
-            //    SentinelAssistantDirectorManager.SentinelAssistantDirectorList.Add(mdyrd);
+            //    SentinelDirectorAssistantManager.SentinelDirectorAssistantList.Add(mdyrd);
             //}
 
             Listele();
@@ -137,15 +137,15 @@ namespace PortoSchool.Pages
 
             try
             {
-                //var AssistantDirectorSentinelDayDataset_ = conn.Table<AssistantDirectorSentinelDayDataset>().ToList();
+                //var DirectorAssistantSentinelDayDataset_ = conn.Table<DirectorAssistantSentinelDayDataset>().ToList();
 
-                //AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri.Clear();
-                //foreach (var x in AssistantDirectorSentinelDayDataset_)
+                //DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri.Clear();
+                //foreach (var x in DirectorAssistantSentinelDayDataset_)
                 //{
-                //    AssistantDirectorSentinelDay AssistantDirectorSentinelDay = new AssistantDirectorSentinelDay();
-                //    AssistantDirectorSentinelDay.SentinelDate = x.SentinelDate;
-                //    AssistantDirectorSentinelDay.nobetci = SentinelAssistantDirectorManager.AdaGöreBul(x.FullName);
-                //    AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri.Add(AssistantDirectorSentinelDay);
+                //    DirectorAssistantSentinelDay DirectorAssistantSentinelDay = new DirectorAssistantSentinelDay();
+                //    DirectorAssistantSentinelDay.SentinelDate = x.SentinelDate;
+                //    DirectorAssistantSentinelDay.nobetci = SentinelDirectorAssistantManager.AdaGöreBul(x.FullName);
+                //    DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri.Add(DirectorAssistantSentinelDay);
                 //}
             }
             catch
@@ -159,14 +159,14 @@ namespace PortoSchool.Pages
         {
             var conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), FileUtils.FullDataPath, false);
 
-            conn.DropTable<AssistantDirectorSentinelDayDataset>();
-            conn.CreateTable<AssistantDirectorSentinelDayDataset>();
+            conn.DropTable<DirectorAssistantSentinelDayDataset>();
+            conn.CreateTable<DirectorAssistantSentinelDayDataset>();
 
-            foreach (var x in AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri)
+            foreach (var x in DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri)
             {
-                AssistantDirectorSentinelDayDataset row = new AssistantDirectorSentinelDayDataset
+                DirectorAssistantSentinelDayDataset row = new DirectorAssistantSentinelDayDataset
                 {
-                    FullName = x.sentinelAssistantDirector.FullName,
+                    FullName = x.sentinelDirectorAssistant.FullName,
                     SentinelDate = x.SentinelDate
 
                 };
@@ -177,15 +177,15 @@ namespace PortoSchool.Pages
         public void Listele()
         {
             listViewNobMudYrd.ItemsSource = null;
-            listViewNobMudYrd.ItemsSource = SentinelAssistantDirectorManager.SentinelAssistantDirectorList;
+            listViewNobMudYrd.ItemsSource = SentinelDirectorAssistantManager.SentinelDirectorAssistantList;
 
         }
 
 
         private void checkBoxIstenmeyenGunler_Checkeds(object sender, RoutedEventArgs e)
         {
-            string a = (listViewNobMudYrd.SelectedItem as SentinelAssistantDirector).FullName;//(((sender as CheckBox).Content) as TextBlock).Text;
-            SentinelAssistantDirector seçilinöb = SentinelAssistantDirectorManager.AdaGöreBul(a);
+            string a = (listViewNobMudYrd.SelectedItem as SentinelDirectorAssistant).FullName;//(((sender as CheckBox).Content) as TextBlock).Text;
+            SentinelDirectorAssistant seçilinöb = SentinelDirectorAssistantManager.AdaGöreBul(a);
 
             int x = Convert.ToInt32((sender as CheckBox).Tag);
             bool ischecked = (sender as CheckBox).IsChecked ?? false;
@@ -194,8 +194,8 @@ namespace PortoSchool.Pages
 
             var conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), FileUtils.FullDataPath);
 
-            string FullName = (listViewNobMudYrd.SelectedItem as SentinelAssistantDirector).FullName;
-            var row = conn.Query<SentinelAssistantDirectorDataset>("select * from SentinelAssistantDirectorDataset where FullName=?", FullName).FirstOrDefault();
+            string FullName = (listViewNobMudYrd.SelectedItem as SentinelDirectorAssistant).FullName;
+            var row = conn.Query<SentinelDirectorAssistantDataset>("select * from SentinelDirectorAssistantDataset where FullName=?", FullName).FirstOrDefault();
             if (row != null)
             {
                 if (x == 0) row.NotMonday = ischecked;
@@ -218,13 +218,13 @@ namespace PortoSchool.Pages
 
         private void listViewNobMudYrd_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SentinelAssistantDirector sel = (SentinelAssistantDirector)listViewNobMudYrd.SelectedItem;
+            SentinelDirectorAssistant sel = (SentinelDirectorAssistant)listViewNobMudYrd.SelectedItem;
             UpdateCheckBoxAvailablity((sel != null));
 
-            int selidx = (sel == null) ? -1 : SentinelAssistantDirectorManager.SentinelAssistantDirectorList.IndexOf(sel);
+            int selidx = (sel == null) ? -1 : SentinelDirectorAssistantManager.SentinelDirectorAssistantList.IndexOf(sel);
 
             buttonMoveUp.IsEnabled = (sel != null) && (selidx != 0);
-            buttonMoveDown.IsEnabled = (sel != null) && (selidx != SentinelAssistantDirectorManager.SentinelAssistantDirectorList.Count - 1);
+            buttonMoveDown.IsEnabled = (sel != null) && (selidx != SentinelDirectorAssistantManager.SentinelDirectorAssistantList.Count - 1);
 
 
             if (sel == null) return;
@@ -241,7 +241,7 @@ namespace PortoSchool.Pages
 
         private void buttonCalculate_Click(object sender, RoutedEventArgs e)
         {
-            AssistantDirectorSentinelDayManager.Clear();
+            DirectorAssistantSentinelDayManager.Clear();
 
             DateTime ilkt, sont;
             ilkt = datePickerStart.Date.DateTime;
@@ -255,20 +255,20 @@ namespace PortoSchool.Pages
 
                 if (!(a1 || a2))
                 {
-                    AssistantDirectorSentinelDay a = new AssistantDirectorSentinelDay();
+                    DirectorAssistantSentinelDay a = new DirectorAssistantSentinelDay();
                     a.SentinelDate = ilkt;
-                    AssistantDirectorSentinelDayManager.Add(a);
+                    DirectorAssistantSentinelDayManager.Add(a);
                 }
 
                 ilkt = ilkt.AddDays(1);
             }
 
             int i = 0;
-            int t = SentinelAssistantDirectorManager.SentinelAssistantDirectorList.Count;
+            int t = SentinelDirectorAssistantManager.SentinelDirectorAssistantList.Count;
 
-            foreach (AssistantDirectorSentinelDay x in AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri)
+            foreach (DirectorAssistantSentinelDay x in DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri)
             {
-                x.sentinelAssistantDirector = SentinelAssistantDirectorManager.SentinelAssistantDirectorList[i];
+                x.sentinelDirectorAssistant = SentinelDirectorAssistantManager.SentinelDirectorAssistantList[i];
                 i = (i + 1) % t;
             }
 
@@ -280,8 +280,8 @@ namespace PortoSchool.Pages
         public void GünleriListele()
         {
             listViewNobMudYrdCalendar.ItemsSource = null;
-            listViewNobMudYrdCalendar.ItemsSource = AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri;
-            textBlockCakismaSayisi.Text = $"{AssistantDirectorSentinelDayManager.collisionCount}";
+            listViewNobMudYrdCalendar.ItemsSource = DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri;
+            textBlockCakismaSayisi.Text = $"{DirectorAssistantSentinelDayManager.collisionCount}";
         }
 
         private void datePickerTar_DateChangeds(object sender, DatePickerValueChangedEventArgs e)
@@ -295,10 +295,10 @@ namespace PortoSchool.Pages
 
         private void buttonMdYrdSil_Click(object sender, RoutedEventArgs e)
         {
-            SentinelAssistantDirector SentinelAssistantDirector = (SentinelAssistantDirector)listViewNobMudYrd.SelectedItem;
-            if (SentinelAssistantDirector == null) return;
+            SentinelDirectorAssistant SentinelDirectorAssistant = (SentinelDirectorAssistant)listViewNobMudYrd.SelectedItem;
+            if (SentinelDirectorAssistant == null) return;
 
-            SentinelAssistantDirectorManager.SentinelAssistantDirectorList.Remove(SentinelAssistantDirector);
+            SentinelDirectorAssistantManager.SentinelDirectorAssistantList.Remove(SentinelDirectorAssistant);
 
             Listele();
             SavelistViewNobMudYrd();
@@ -307,10 +307,10 @@ namespace PortoSchool.Pages
 
         private void buttonMdYrdGuncelle_Click(object sender, RoutedEventArgs e)
         {
-            SentinelAssistantDirector SentinelAssistantDirector = (SentinelAssistantDirector)listViewNobMudYrd.SelectedItem;
-            if (SentinelAssistantDirector == null) return;
+            SentinelDirectorAssistant SentinelDirectorAssistant = (SentinelDirectorAssistant)listViewNobMudYrd.SelectedItem;
+            if (SentinelDirectorAssistant == null) return;
 
-            var r = SentinelAssistantDirectorManager.SentinelAssistantDirectorList.FirstOrDefault(x => x.FullName == SentinelAssistantDirector.FullName);
+            var r = SentinelDirectorAssistantManager.SentinelDirectorAssistantList.FirstOrDefault(x => x.FullName == SentinelDirectorAssistant.FullName);
             r.FullName = textBoxMdYrdAdSoyad.Text.Trim();
 
             //Listele();
@@ -320,18 +320,18 @@ namespace PortoSchool.Pages
 
         private void buttonMoveDown_Click(object sender, RoutedEventArgs e)
         {
-            var sel = (SentinelAssistantDirector)listViewNobMudYrd.SelectedItem;
+            var sel = (SentinelDirectorAssistant)listViewNobMudYrd.SelectedItem;
             if (sel == null) return;
 
-            int selidx = SentinelAssistantDirectorManager.SentinelAssistantDirectorList.IndexOf(sel);
+            int selidx = SentinelDirectorAssistantManager.SentinelDirectorAssistantList.IndexOf(sel);
             if (selidx == -1) return;
 
-            var down = SentinelAssistantDirectorManager.SentinelAssistantDirectorList[selidx + 1];
+            var down = SentinelDirectorAssistantManager.SentinelDirectorAssistantList[selidx + 1];
             if (down == null) return;
 
-            SentinelAssistantDirector tmp = sel;
-            SentinelAssistantDirectorManager.SentinelAssistantDirectorList[selidx] = down;
-            SentinelAssistantDirectorManager.SentinelAssistantDirectorList[selidx + 1] = tmp;
+            SentinelDirectorAssistant tmp = sel;
+            SentinelDirectorAssistantManager.SentinelDirectorAssistantList[selidx] = down;
+            SentinelDirectorAssistantManager.SentinelDirectorAssistantList[selidx + 1] = tmp;
 
             Listele();
             SavelistViewNobMudYrd();
@@ -339,18 +339,18 @@ namespace PortoSchool.Pages
 
         private void buttonMoveUp_Click(object sender, RoutedEventArgs e)
         {
-            var sel = (SentinelAssistantDirector)listViewNobMudYrd.SelectedItem;
+            var sel = (SentinelDirectorAssistant)listViewNobMudYrd.SelectedItem;
             if (sel == null) return;
 
-            int selidx = SentinelAssistantDirectorManager.SentinelAssistantDirectorList.IndexOf(sel);
+            int selidx = SentinelDirectorAssistantManager.SentinelDirectorAssistantList.IndexOf(sel);
             if (selidx == -1) return;
 
-            var up = SentinelAssistantDirectorManager.SentinelAssistantDirectorList[selidx - 1];
+            var up = SentinelDirectorAssistantManager.SentinelDirectorAssistantList[selidx - 1];
             if (up == null) return;
 
-            SentinelAssistantDirector tmp = sel;
-            SentinelAssistantDirectorManager.SentinelAssistantDirectorList[selidx] = up;
-            SentinelAssistantDirectorManager.SentinelAssistantDirectorList[selidx - 1] = tmp;
+            SentinelDirectorAssistant tmp = sel;
+            SentinelDirectorAssistantManager.SentinelDirectorAssistantList[selidx] = up;
+            SentinelDirectorAssistantManager.SentinelDirectorAssistantList[selidx - 1] = tmp;
 
             Listele();
             SavelistViewNobMudYrd();
@@ -358,22 +358,22 @@ namespace PortoSchool.Pages
 
         private void buttonMoveUp_NobMudYrdCalendar_Click(object sender, RoutedEventArgs e)
         {
-            var sel = (AssistantDirectorSentinelDay)listViewNobMudYrdCalendar.SelectedItem;
+            var sel = (DirectorAssistantSentinelDay)listViewNobMudYrdCalendar.SelectedItem;
             if (sel == null) return;
 
-            int selidx = AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri.IndexOf(sel);
+            int selidx = DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri.IndexOf(sel);
             if (selidx == -1) return;
 
-            var up = AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri[selidx - 1];
+            var up = DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri[selidx - 1];
             if (up == null) return;
 
             DateTime tmpdate = sel.SentinelDate;
             sel.SentinelDate = up.SentinelDate;
             up.SentinelDate = tmpdate;
 
-            AssistantDirectorSentinelDay tmp = sel;
-            AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri[selidx] = up;
-            AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri[selidx - 1] = tmp;
+            DirectorAssistantSentinelDay tmp = sel;
+            DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri[selidx] = up;
+            DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri[selidx - 1] = tmp;
 
             GünleriListele();
             Save_listViewNobMudYrdCalendar();
@@ -381,22 +381,22 @@ namespace PortoSchool.Pages
 
         private void buttonMoveDown_NobMudYrdCalendar_Click(object sender, RoutedEventArgs e)
         {
-            var sel = (AssistantDirectorSentinelDay)listViewNobMudYrdCalendar.SelectedItem;
+            var sel = (DirectorAssistantSentinelDay)listViewNobMudYrdCalendar.SelectedItem;
             if (sel == null) return;
 
-            int selidx = AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri.IndexOf(sel);
+            int selidx = DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri.IndexOf(sel);
             if (selidx == -1) return;
 
-            var down = AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri[selidx + 1];
+            var down = DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri[selidx + 1];
             if (down == null) return;
 
             DateTime tmpdate = sel.SentinelDate;
             sel.SentinelDate = down.SentinelDate;
             down.SentinelDate = tmpdate;
 
-            AssistantDirectorSentinelDay tmp = sel;
-            AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri[selidx] = down;
-            AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri[selidx + 1] = tmp;
+            DirectorAssistantSentinelDay tmp = sel;
+            DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri[selidx] = down;
+            DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri[selidx + 1] = tmp;
 
             GünleriListele();
             Save_listViewNobMudYrdCalendar();
@@ -404,34 +404,39 @@ namespace PortoSchool.Pages
 
         private void listViewNobMudYrdCalendar_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AssistantDirectorSentinelDay sel = (AssistantDirectorSentinelDay)listViewNobMudYrdCalendar.SelectedItem;
+            DirectorAssistantSentinelDay sel = (DirectorAssistantSentinelDay)listViewNobMudYrdCalendar.SelectedItem;
 
-            int selidx = (sel == null) ? -1 : AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri.IndexOf(sel);
+            int selidx = (sel == null) ? -1 : DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri.IndexOf(sel);
 
             buttonMoveUp_NobMudYrdCalendar.IsEnabled = (sel != null) && (selidx != 0);
-            buttonMoveDown_NobMudYrdCalendar.IsEnabled = (sel != null) && (selidx != AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri.Count - 1);
+            buttonMoveDown_NobMudYrdCalendar.IsEnabled = (sel != null) && (selidx != DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri.Count - 1);
 
             //  if (sel == null) return;
         }
 
-        async Task SaveStringToLocalFile(string filename, string content)
+        async Task SaveStringToLocalFile(string filename, string content,bool withBOM)
         {
             // saves the string 'content' to a file 'filename' in the app's local storage folder
 
             // BOM not present - create the new byte array  
-            
-
-
             byte[] fileBytes = System.Text.Encoding.UTF8.GetBytes(content.ToCharArray());
+            byte[] outBuffer;
 
-            byte[] outBuffer = new byte[fileBytes.Length + 3];
+            if (withBOM)
+            {
+                outBuffer = new byte[fileBytes.Length + 3];
 
-            // add the BOM  
-            outBuffer[0] = (byte)0xEF;
-            outBuffer[1] = (byte)0xBB;
-            outBuffer[2] = (byte)0xBF;
-            Array.Copy(fileBytes, 0, outBuffer, 3, fileBytes.Length);
-
+                // add the BOM
+                outBuffer[0] = 0xEF;
+                outBuffer[1] = (byte)0xBB;
+                outBuffer[2] = (byte)0xBF;
+                Array.Copy(fileBytes, 0, outBuffer, 3, fileBytes.Length);
+            }
+            else
+            {
+                outBuffer = new byte[fileBytes.Length];
+                Array.Copy(fileBytes, 0, outBuffer, 0, fileBytes.Length);
+            }
             // create a file with the given filename in the local folder; replace any existing file with the same name
             StorageFile file = await Windows.Storage.ApplicationData.Current.LocalFolder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
 
@@ -440,11 +445,13 @@ namespace PortoSchool.Pages
             {
                 stream.Write(outBuffer, 0, outBuffer.Length);
             }
+
+
         }
 
-        private async void buttonExportSentinelAssistantDirectorList_Click(object sender, RoutedEventArgs e)
+        private async void buttonExportSentinelDirectorAssistantList_Click(object sender, RoutedEventArgs e)
         {
-            var x=AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri;
+            var x=DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri;
             //StorageFile sf = await StorageFile.GetFileFromApplicationUriAsync(new Uri(bf.FileNameOnly));
             //StorageFile f = await StorageFile.GetFileFromPathAsync(Path.Combine(App.WorkingPath, "NobMudYrdList.csv"));
 
@@ -455,10 +462,11 @@ namespace PortoSchool.Pages
                 //string sMonth = xe.SentinelDate.Month.ToString().PadLeft(2, '0');
                 //string sDay = xe.SentinelDate.Day.ToString().PadLeft(2, '0');
                // string caseTime = $"{sDay}-{sMonth}-{sYear}";
-                str += $"\"{xe.sentinelAssistantDirector.FullName}\",\"{xe.SentinelDate.ToLongDateString()}\"\r\n";
+                str += $"\"{xe.sentinelDirectorAssistant.FullName}\",\"{xe.SentinelDate.ToLongDateString()}\"\r\n";
             }
 
-            await SaveStringToLocalFile("\\PortoSchool\\NobMudYrdList.csv", str);
+            await SaveStringToLocalFile("\\PortoSchool\\NobMudYrdList.csv", str,false);
+            await SaveStringToLocalFile("\\PortoSchool\\NobMudYrdList_bom.csv", str, true);
         }
     }
 }

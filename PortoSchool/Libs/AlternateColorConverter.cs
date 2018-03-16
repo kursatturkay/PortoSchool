@@ -42,7 +42,7 @@ namespace PortoSchool.Libs
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             int param = System.Convert.ToInt32(parameter);
-            return new SolidColorBrush(ColorUtils.GetColorFromHex((idx(param) == 0) ? "#FBBA42" : "#FFFFFF"));
+            return new SolidColorBrush(ColorUtils.GetColorFromHex((idx(param) == 0) ? "#58FBBA42" : "#58FFFFFF"));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

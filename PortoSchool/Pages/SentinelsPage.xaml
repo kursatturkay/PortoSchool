@@ -18,7 +18,7 @@
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid  Style="{StaticResource HeaderGridStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height= "50">
                 <Button x:Name="btnBack" x:Uid="btnBack"  Style="{StaticResource ButtonStyle}" Content="BACK" Height="40"  Margin="5,5,0,5" Click="btnBack_Click" Width="200"/>
-                <TextBlock x:Name="textBlockSentinelsPageHeader" x:Uid="textBlockSentinelsPageHeader" Text="NÖBETÇİ ÖĞRETMENLER EDİTÖRÜ" FocusVisualSecondaryBrush="#FF2FC862" Foreground="White" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock x:Name="textBlockSentinelsPageHeader" x:Uid="textBlockSentinelsPageHeader" Text="NÖBETÇİ ÖĞRETMENLER EDİTÖRÜ" Foreground="White" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Button x:Name="btnShutdown" x:Uid="btnShutdown" Style="{StaticResource ButtonStyle}" Content="SHUTDOWN" Height="40" Margin="0,5,5,5" HorizontalAlignment="Right" Width="200"/>
             </Grid>
             <TextBox x:Name="textBoxNobOgrAdSoyad" PlaceholderText="Nöbetçi Öğretmen Adı Soyadı Giriniz..." Width="360" HorizontalAlignment="Left" Height="35" Margin="20,60,0,0" VerticalAlignment="Top" CharacterCasing="Upper" />
@@ -33,7 +33,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <ComboBox x:Name="comboBoxNobetGunu" HorizontalAlignment="Left" Margin="20,140,0,0" VerticalAlignment="Top" Width="360" ItemsSource="{x:Bind Path=nobGunList}" Height="35" />
-            <ListView x:Name="listViewNobetAlanlariVeNobOgr"  Style="{StaticResource ListViewStyle}"  Margin="400,60,20,20" ItemsSource="{x:Bind Path=nobOgrList}" HorizontalAlignment="Stretch" SelectionChanged="listViewNobOgr_SelectionChanged">
+            <ListView x:Name="listViewNobetAlanlariVeNobOgr"  Style="{StaticResource ListViewStyle}"  Margin="400,60,640,20" ItemsSource="{x:Bind Path=nobOgrList}" HorizontalAlignment="Stretch" SelectionChanged="listViewNobOgr_SelectionChanged">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

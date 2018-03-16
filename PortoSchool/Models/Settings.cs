@@ -89,7 +89,6 @@ namespace PortoSchool.Models
             {
                 //var path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path,"PortoSchool" , "settings.sqlite");
                 var path = Path.Combine(App.WorkingPath, "settings.sqlite");
-
                 return path;
             }
         }

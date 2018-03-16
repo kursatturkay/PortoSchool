@@ -13,6 +13,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -92,6 +93,8 @@ namespace PortoSchool
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+
         }
 
         /// <summary>
@@ -101,6 +104,10 @@ namespace PortoSchool
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            Application.Current.Resources["SystemControlHighlightListAccentLowBrush"] = new SolidColorBrush(Colors.Red);
+            Application.Current.Resources["SystemControlHighlightListAccentMediumBrush"] = new SolidColorBrush(Colors.Red);
+            Application.Current.Resources["SystemControlHighlightAltBaseHighBrush"] = new SolidColorBrush(Colors.White);
+
             idleTimer = new DispatcherTimer();
             idleTimer.Interval = TimeSpan.FromSeconds(5.0f);  // 10s idle delay
             idleTimer.Tick += OnIdleTimerTick;

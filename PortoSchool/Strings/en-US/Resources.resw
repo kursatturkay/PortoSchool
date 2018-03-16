@@ -126,7 +126,7 @@
   <data name="btnShutdown.Content" xml:space="preserve">
     <value>SHUTDOWN</value>
   </data>
-  <data name="textBlockAssistantDirector.Text" xml:space="preserve">
+  <data name="textBlockDirectorAssistant.Text" xml:space="preserve">
     <value>SENTINEL ASSISTANT DIRECTORS EDITOR</value>
   </data>
   <data name="textBlockBulletinPage.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <value>SENTINEL ASSISTANT DIRECTOR EDITOR</value>
   </data>
   <data name="TextBlockSentinelsListHeader.Text" xml:space="preserve">
-    <value>SENTINELSTAFF</value>
+    <value>SENTINEL STAFF</value>
   </data>
   <data name="textBlockSentinelsPage.Text" xml:space="preserve">
     <value>SENTINEL STAFF EDITOR</value>
@@ -200,5 +200,17 @@
   </data>
   <data name="textBlockCoverSliderDuration_.Text" xml:space="preserve">
     <value>COVER SLIDER DURATION :</value>
+  </data>
+  <data name="TextBlockRemeainingTime_.Text" xml:space="preserve">
+    <value>REMAINING :</value>
+  </data>
+  <data name="TextBlockCourseTableHeader.Text" xml:space="preserve">
+    <value>SYLLABUS</value>
+  </data>
+  <data name="COURSETABLE.xlsx" xml:space="preserve">
+    <value>COURSETABLE-en-US.xlsx</value>
+  </data>
+  <data name="CultureInfoName" xml:space="preserve">
+    <value>en-US</value>
   </data>
 </root>

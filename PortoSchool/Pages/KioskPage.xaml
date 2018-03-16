@@ -10,7 +10,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <FlipView x:Name="flipViewKiosk" Margin="10,110,10,10">
+        <FlipView x:Name="flipViewKiosk" Margin="10,10,10,10">
             <FlipViewItem>
                 <Frame x:Name="frame1" Content="" VerticalAlignment="Stretch">
                 </Frame>
@@ -25,8 +25,6 @@
                 </Frame>
             </FlipViewItem>
         </FlipView>
-        <Border BorderBrush="Black" Height="Auto" Margin="10,10,10,0" VerticalAlignment="top" Background="#70FFFFFF" HorizontalAlignment="Stretch">
-            <TextBlock x:Name="textBlockHeader" x:Uid="textBlockHeader" Text="DEFAULT SCHOOL NAME" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="72" />
-        </Border>
+        
     </Grid>
 </Page>

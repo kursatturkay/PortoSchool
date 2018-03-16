@@ -126,7 +126,7 @@
   <data name="btnShutdown.Content" xml:space="preserve">
     <value>CİHAZI KAPAT</value>
   </data>
-  <data name="textBlockAssistantDirector.Text" xml:space="preserve">
+  <data name="textBlockDirectorAssistant.Text" xml:space="preserve">
     <value>NÖBETÇİ MÜDÜR YARDIMCILARI EDİTÖRÜ</value>
   </data>
   <data name="textBlockBulletinPage.Text" xml:space="preserve">
@@ -200,5 +200,17 @@
   </data>
   <data name="textBlockCoverSliderDuration_.Text" xml:space="preserve">
     <value>GİRİŞ SUNU BEKLEME SÜRESİ :</value>
+  </data>
+  <data name="TextBlockCourseTableHeader.Text" xml:space="preserve">
+    <value>DERS PROGRAMI</value>
+  </data>
+  <data name="TextBlockRemeainingTime_.Text" xml:space="preserve">
+    <value>KALAN SÜRE :</value>
+  </data>
+  <data name="COURSETABLE.xlsx" xml:space="preserve">
+    <value>COURSETABLE-tr-TR.xlsx</value>
+  </data>
+  <data name="CultureInfoName" xml:space="preserve">
+    <value>tr-TR</value>
   </data>
 </root>

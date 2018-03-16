@@ -99,12 +99,14 @@
     <Compile Include="Libs\DateFormatConverter.cs" />
     <Compile Include="Libs\DebugUtils.cs" />
     <Compile Include="Libs\FileUtils.cs" />
+    <Compile Include="Libs\LocalizationUtils.cs" />
     <Compile Include="Libs\NetworkUtils.cs" />
     <Compile Include="Libs\UnwantedDayColorConverter.cs" />
     <Compile Include="Libs\AlternateColorConverter.cs" />
     <Compile Include="Libs\WeekDayToColorConverter.cs" />
     <Compile Include="Models\BulletinFile.cs" />
     <Compile Include="Models\AssistantDirectorSentinelDay.cs" />
+    <Compile Include="Models\SchoolTimeSpan.cs" />
     <Compile Include="Models\SentinelAssistantDirector.cs" />
     <Compile Include="Models\PicFile.cs" />
     <Compile Include="Models\SettingsPage.Updater.cs" />
@@ -142,8 +144,8 @@
     <Compile Include="Pages\SentryLocationsPage.xaml.cs">
       <DependentUpon>SentryLocationsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SentinelAssistantDirectorPage.xaml.cs">
-      <DependentUpon>SentinelAssistantDirectorPage.xaml</DependentUpon>
+    <Compile Include="Pages\SentinelDirectorAssistantPage.xaml.cs">
+      <DependentUpon>SentinelDirectorAssistantPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SentinelsPage.xaml.cs">
       <DependentUpon>SentinelsPage.xaml</DependentUpon>
@@ -196,7 +198,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SentinelAssistantDirectorPage.xaml">
+    <Page Include="Pages\SentinelDirectorAssistantPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -248,10 +250,22 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\tr-TR\Resources.resw" />
+    <PRIResource Include="Strings\tr-TR\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-US\Resources.resw" />
+    <PRIResource Include="Strings\en-US\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\COURSETABLE-en-US.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\COURSETABLE-tr-TR.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

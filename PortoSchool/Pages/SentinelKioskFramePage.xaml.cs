@@ -1,4 +1,6 @@
-﻿using PortoSchool.Models;
+﻿using Portoschool.Libs;
+using PortoSchool.Models;
+using PortoSchool.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +18,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using static PortoSchool.Models.SchoolTimeSpanManager;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -36,30 +39,33 @@ namespace PortoSchool.Pages
             this.InitializeComponent();
             ImageSource imgsrc = new BitmapImage(new Uri("ms-appdata:///local/PortoSchool/Logo.png", UriKind.RelativeOrAbsolute));
             image1.Source = imgsrc;
-           
+            LoadCourseTable();
+        }
+
+        public void LoadCourseTable()
+        {
+            //ImportDataFromCouseTableXlsx();
+            //strdayofweek maybe (if en-US)MONDAY, TUESDAY.. ,(if tr-TR)PAZARTESİ, SALI... etc.
+            string strdayofweek = DateTime.Today.ToString("dddd").ToUpper();
+
+            var x = SchoolTimeSpanManager.schoolTimeSpansByWeekDay(strdayofweek);
+            listViewCourseTable.ItemsSource = x;
         }
 
         public string getCurrentMudYrd()
         {
             var ret = string.Empty;
 
-            var nob = AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri.FirstOrDefault(x => x.SentinelDate.Date == DateTime.Today.Date);
-            ret = nob?.sentinelAssistantDirector.FullName ?? string.Empty;
+            var nob = DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri.FirstOrDefault(x => x.SentinelDate.Date == DateTime.Today.Date);
+            ret = nob?.sentinelDirectorAssistant.FullName ?? string.Empty;
             return ret;
         }
 
         private string getNow()
         {
             string ret = string.Empty;
-            ret = DateTime.Now.ToString("hh:mm:ss");
+            ret = DateTime.Now.ToString("HH:mm:ss");
             return ret;
-        }
-
-
-        private void ClockTimer_Tick(object sender, object e)
-        {
-            textBlockClock.Text = getNow();
-            textBlockToday.Text = getTodayUpper("tr-TR");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -73,13 +79,14 @@ namespace PortoSchool.Pages
             HalfDayTimer.Tick += HalfDayTimer_Tick;
             HalfDayTimer.Start();
 
-           // PresentationPage.Current.isInEditMode = false;
+            // PresentationPage.Current.isInEditMode = false;
 
-            textBlockAssistantDirector.Text = getCurrentMudYrd();
-            nobOgrList = SentinelsManager.getNobOgrList(getWeekDayUpper("tr-TR"));
+            textBlockDirectorAssistant.Text = getCurrentMudYrd();
+            nobOgrList = SentinelsManager.getNobOgrList(getWeekDayUpper(LocalizationUtils.GetDefaultCultureInforName()));
 
             listViewNobetAlanlariVeNobOgr.ItemsSource = null;
             listViewNobetAlanlariVeNobOgr.ItemsSource = nobOgrList;
+            textBlockHeader.Text = Settings.getValueByKey("SCHOOLNAME", "");
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -92,14 +99,43 @@ namespace PortoSchool.Pages
 
             base.OnNavigatedFrom(e);
         }
+
+        #region Timers-------------------------------------------------------------------------------
+        private void ClockTimer_Tick(object sender, object e)
+        {
+            textBlockClock.Text = getNow();
+            textBlockToday.Text = getTodayUpper(LocalizationUtils.GetDefaultCultureInforName());
+
+            if (!SchoolTimeSpanManager.isSchoolTimeSpansEmpty())
+            {
+                string strdayofweek = DateTime.Today.ToString("dddd").ToUpper();
+                TimeSpan tsnow = DateTime.Now.TimeOfDay;
+                CourseTableRowIdxAndRemainingTime i_and_t;
+
+                i_and_t = SchoolTimeSpanManager.IndexByTime(tsnow, SchoolTimeSpanManager.schoolTimeSpansByWeekDay(strdayofweek));
+
+                try
+                {
+                    listViewCourseTable.SelectedIndex = i_and_t.idx;
+                }
+                catch
+                {
+
+                }
+
+                TextBlockRemeainingTime.Text = i_and_t.RemainingTime.ToString(@"hh\:mm\:ss");
+            }
+        }
         private void HalfDayTimer_Tick(object sender, object e)
         {
-            textBlockAssistantDirector.Text = getCurrentMudYrd();
-            nobOgrList = SentinelsManager.getNobOgrList(getWeekDayUpper("tr-TR"));
+            textBlockDirectorAssistant.Text = getCurrentMudYrd();
+            nobOgrList = SentinelsManager.getNobOgrList(getWeekDayUpper(LocalizationUtils.GetDefaultCultureInforName()));
 
             listViewNobetAlanlariVeNobOgr.ItemsSource = null;
             listViewNobetAlanlariVeNobOgr.ItemsSource = nobOgrList;
+            LoadCourseTable();
         }
+        #endregion timers
 
         private string getWeekDayUpper(string cult)
         {
@@ -116,5 +152,7 @@ namespace PortoSchool.Pages
             ret = DateTime.Today.ToString("dd MMMM yyyy dddd", cult_).ToUpper();
             return ret;
         }
+
+
     }
 }

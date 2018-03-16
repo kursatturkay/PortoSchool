@@ -44,8 +44,8 @@ namespace PortoSchool
             conn.CreateTable<Settings>();
             conn.CreateTable<Sentinels>();
             conn.CreateTable<NobetAlan>();
-            conn.CreateTable<SentinelAssistantDirectorDataset>();
-            conn.CreateTable<AssistantDirectorSentinelDayDataset>();
+            conn.CreateTable<SentinelDirectorAssistantDataset>();
+            conn.CreateTable<DirectorAssistantSentinelDayDataset>();
             //conn.CreateTable<Bulletin>();
         }
 

@@ -1,4 +1,9 @@
-﻿
+﻿/*
+ xlsreader errors.
+ if key is doubled or non exists nullexception may occur.
+ if empty sheet also generates nullexception error
+ aralarda bir header (key) boş ise nullexpcetion
+ */
 /*
 
 var doc = Windows.Storage.UserDataPaths.GetDefault().LocalAppData;

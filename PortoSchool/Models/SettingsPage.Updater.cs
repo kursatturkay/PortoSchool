@@ -155,7 +155,7 @@ namespace PortoSchool.Pages
             this.buttonSettingsPage.IsEnabled = avail;
             this.buttonCloseApp.IsEnabled = avail;
             this.buttonSentryLocationsPage.IsEnabled = avail;
-            this.buttonAssistantDirector.IsEnabled = avail;
+            this.buttonDirectorAssistant.IsEnabled = avail;
             this.buttonBulletinPage.IsEnabled = avail;
         }
     }

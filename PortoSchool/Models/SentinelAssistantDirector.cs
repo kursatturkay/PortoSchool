@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PortoSchool.Models
 {
-    public class SentinelAssistantDirectorDataset
+    public class SentinelDirectorAssistantDataset
     {
         [AutoIncrement, PrimaryKey]
         public int id { get; set; }
@@ -21,36 +21,36 @@ namespace PortoSchool.Models
         public bool NotFriday { get; set; }
     }
 
-    public class SentinelAssistantDirector
+    public class SentinelDirectorAssistant
     {
         public string FullName { get; set; }
         public List<bool> UnwantedDays = new List<bool> { false, false, false, false, false };
     }
-    public class SentinelAssistantDirectorManager
+    public class SentinelDirectorAssistantManager
     {
-        private readonly static ObservableCollection<SentinelAssistantDirector> SentinelAssistantDirectorList_ = new ObservableCollection<SentinelAssistantDirector>();
+        private readonly static ObservableCollection<SentinelDirectorAssistant> SentinelDirectorAssistantList_ = new ObservableCollection<SentinelDirectorAssistant>();
 
         public static void Clear()
         {
-            SentinelAssistantDirectorList_.Clear();
+            SentinelDirectorAssistantList_.Clear();
         }
 
-        public static ObservableCollection<SentinelAssistantDirector> SentinelAssistantDirectorList
+        public static ObservableCollection<SentinelDirectorAssistant> SentinelDirectorAssistantList
         {
             get
             {
-                if (SentinelAssistantDirectorList_.Count == 0)
+                if (SentinelDirectorAssistantList_.Count == 0)
                 {
                     var conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), FileUtils.FullDataPath);
 
                     //listViewNobMudYrd.Items.Clear();
 
-                    var SentinelAssistantDirectorDataset_ = conn.Table<SentinelAssistantDirectorDataset>().ToList();
+                    var SentinelDirectorAssistantDataset_ = conn.Table<SentinelDirectorAssistantDataset>().ToList();
 
-                    SentinelAssistantDirectorList_.Clear();
-                    foreach (var x in SentinelAssistantDirectorDataset_)
+                    SentinelDirectorAssistantList_.Clear();
+                    foreach (var x in SentinelDirectorAssistantDataset_)
                     {
-                        SentinelAssistantDirector mdyrd = new SentinelAssistantDirector { FullName = x.FullName };
+                        SentinelDirectorAssistant mdyrd = new SentinelDirectorAssistant { FullName = x.FullName };
 
                         mdyrd.UnwantedDays[0] = x.NotMonday;
                         mdyrd.UnwantedDays[1] = x.NotTuesday;
@@ -58,33 +58,33 @@ namespace PortoSchool.Models
                         mdyrd.UnwantedDays[3] = x.NotThursday;
                         mdyrd.UnwantedDays[4] = x.NotFriday;
 
-                        SentinelAssistantDirectorList_.Add(mdyrd);
+                        SentinelDirectorAssistantList_.Add(mdyrd);
                     }
                 }
-                return SentinelAssistantDirectorList_;
+                return SentinelDirectorAssistantList_;
             }
         }
 
 
 
-        public int TotalSentinelDays(SentinelAssistantDirector SentinelAssistantDirector)
+        public int TotalSentinelDays(SentinelDirectorAssistant SentinelDirectorAssistant)
         {
             int sonuç = 0;
 
-            foreach (AssistantDirectorSentinelDay x in AssistantDirectorSentinelDayManager.MdYrdNöbetGünleri)
+            foreach (DirectorAssistantSentinelDay x in DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri)
             {
-                if (x.sentinelAssistantDirector.FullName == SentinelAssistantDirector.FullName)
+                if (x.sentinelDirectorAssistant.FullName == SentinelDirectorAssistant.FullName)
                     sonuç++;
             }
             return sonuç;
         }
 
         //class method
-        public static SentinelAssistantDirector AdaGöreBul(string pAdSoyad)
+        public static SentinelDirectorAssistant AdaGöreBul(string pAdSoyad)
         {
-            SentinelAssistantDirector sonuç = null;
+            SentinelDirectorAssistant sonuç = null;
 
-            foreach (SentinelAssistantDirector x in SentinelAssistantDirectorManager.SentinelAssistantDirectorList)
+            foreach (SentinelDirectorAssistant x in SentinelDirectorAssistantManager.SentinelDirectorAssistantList)
             {
                 if (x.FullName == pAdSoyad.Trim())
                 {
