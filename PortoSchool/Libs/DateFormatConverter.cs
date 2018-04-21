@@ -13,8 +13,7 @@ namespace PortoSchool.Libs
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var resource = ResourceLoader.GetForCurrentView();
-            var CultureInfoName = resource.GetString("CultureInfoName");
+            var CultureInfoName = LocalizationUtils.ResourceValueByKey("CultureInfoName");
             CultureInfo trTR = new CultureInfo(CultureInfoName);
 
             var res = string.Format(trTR,"{0:dd/M/yyyy dddd}", (DateTime)value);

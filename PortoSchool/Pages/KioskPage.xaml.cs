@@ -1,6 +1,7 @@
 ﻿using PortoSchool.Libs;
 using PortoSchool.Models;
 using System;
+using System.IO;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -15,10 +16,43 @@ namespace PortoSchool.Pages
     public sealed partial class KioskPage : Page
     {
         DispatcherTimer _shifttimer;
+        FileSystemWatcher _watcher = new FileSystemWatcher();
 
         public KioskPage()
         {
             this.InitializeComponent();
+            LoadFileSystemWatcher();
+        }
+
+        public void LoadFileSystemWatcher()
+        {
+            //FileSystemWatcher watcher = new FileSystemWatcher();
+            _watcher.Path = FileUtils.SharedDirectory;
+
+            /* Watch for changes in LastAccess and LastWrite times, and
+               the renaming of files or directories. */
+            _watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+               | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+
+            // Only watch text files.
+            _watcher.Filter = "*.txt";
+
+            // Add event handlers.
+            _watcher.Changed += new FileSystemEventHandler(OnChanged);
+            _watcher.Created += new FileSystemEventHandler(OnChanged);
+            _watcher.Deleted += new FileSystemEventHandler(OnChanged);
+            //watcher.Renamed += new RenamedEventHandler(OnRenamed);
+
+            //Windows.Storage.StorageFolder storageFolder = await StorageFolder.GetFolderFromPathAsync(FileUtils.SharedDirectory);
+
+            //Windows.Storage.StorageFile sampleFile =
+            //    await storageFolder.GetFileAsync("SETTINGS.txt");
+            //sampleFile.DateCreated
+        }
+
+        private void OnChanged(object sender, FileSystemEventArgs e)
+        {
+            DebugUtils.WriteLine("OnChanged");
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -36,7 +70,7 @@ namespace PortoSchool.Pages
             App.Current.IsIdleChanged += onIsIdleChanged;
 
             frame2.Navigate(typeof(PresentationPage), false);
-            frame1.Navigate(typeof(SentinelKioskFramePage), false);
+            frame1.Navigate(typeof(CoverPage), false);
             frame3.Navigate(typeof(BulletinPage), false);
             _shifttimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(SettingsPage._coverslideduration) };
             _shifttimer.Tick += ChangeSlider;
@@ -54,7 +88,7 @@ namespace PortoSchool.Pages
 
             var newItemIndex = (flipViewKiosk.SelectedIndex + 1) % totalItems;
 
-            ///0:SentinelKioskFramePage
+            ///0:CoverPage
             ///1:PresentationPage
             ///2:BulletinPage
 

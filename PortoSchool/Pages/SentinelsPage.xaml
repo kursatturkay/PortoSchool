@@ -27,8 +27,8 @@
             <Button x:Name="buttonSentinelsPageSil"  Style="{StaticResource ButtonStyle}" Content="NÖB. ÖĞRETMEN SİL" Margin="20,270,0,0" VerticalAlignment="Top" Width="360" Height="35" Click="buttonSentinelsPageSil_Click"/>
             <ComboBox x:Name="comboBoxNobetAlan" HorizontalAlignment="Left" Margin="20,100,0,0" VerticalAlignment="Top" Width="360" ItemsSource="{x:Bind Path=nobAlanList}" Height="35" >
                 <ComboBox.ItemTemplate>
-                    <DataTemplate x:DataType="Models:NobetAlan">
-                        <TextBlock Text="{x:Bind Path=NobetYeri}"/>
+                    <DataTemplate x:DataType="Models:SentryLocationDataset">
+                        <TextBlock Text="{x:Bind Path=SentryLocation}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
@@ -43,7 +43,7 @@
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="Models:Sentinels">
+                    <DataTemplate x:DataType="Models:SentinelsDataset">
                         <Grid HorizontalAlignment="Stretch" Margin="1,0,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="32*"/>
@@ -51,14 +51,14 @@
                                 <ColumnDefinition Width="57*"/>
                             </Grid.ColumnDefinitions>
                             <Border Background="{x:Bind Converter={StaticResource AlternateColorConverter}, ConverterParameter=3, Path=id}" HorizontalAlignment="Stretch" Grid.Column="0" Margin="0">
-                                <TextBlock Text="{x:Bind Path=NobetGunu}" HorizontalAlignment="Stretch" TextAlignment="Center"/>
+                                <TextBlock Text="{x:Bind Path=SentryDate}" HorizontalAlignment="Stretch" TextAlignment="Center"/>
                             </Border>
                             <Border Background="{x:Bind Converter={StaticResource AlternateColorConverter}, ConverterParameter=3, Path=id}" HorizontalAlignment="Stretch" Grid.Column="1" Margin="0">
-                                <TextBlock Text="{x:Bind Path=NobetAlan}" HorizontalAlignment="Stretch"/>
+                                <TextBlock Text="{x:Bind Path=SentryLocation}" HorizontalAlignment="Stretch"/>
                             </Border>
 
                             <Border x:Name="borderOgrAdSoyad" Background="{x:Bind Converter={StaticResource AlternateColorConverter}, ConverterParameter=3, Path=id}" HorizontalAlignment="Stretch" Grid.Column="2"  Margin="0">
-                                <TextBlock Text="{x:Bind Path=OgretmenAdiSoyadi}" HorizontalAlignment="Stretch" />
+                                <TextBlock Text="{x:Bind Path=SentinelFullName}" HorizontalAlignment="Stretch" />
                             </Border>
                         </Grid>
                     </DataTemplate>

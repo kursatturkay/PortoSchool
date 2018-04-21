@@ -1,5 +1,4 @@
-﻿using Portoschool.Libs;
-using PortoSchool.Models;
+﻿using PortoSchool.Libs;
 using PortoSchool.Models;
 using System;
 using System.Collections.Generic;
@@ -27,14 +26,14 @@ namespace PortoSchool.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SentinelKioskFramePage : Page
+    public sealed partial class CoverPage : Page
     {
-        public ObservableCollection<Sentinels> nobOgrList;
+        public ObservableCollection<SentinelsDataset> nobOgrList;
 
         public DispatcherTimer clockTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
         public DispatcherTimer HalfDayTimer = new DispatcherTimer { Interval = TimeSpan.FromHours(12) };
 
-        public SentinelKioskFramePage()
+        public CoverPage()
         {
             this.InitializeComponent();
             ImageSource imgsrc = new BitmapImage(new Uri("ms-appdata:///local/PortoSchool/Logo.png", UriKind.RelativeOrAbsolute));
@@ -51,6 +50,7 @@ namespace PortoSchool.Pages
             var x = SchoolTimeSpanManager.schoolTimeSpansByWeekDay(strdayofweek);
             listViewCourseTable.ItemsSource = x;
         }
+
 
         public string getCurrentMudYrd()
         {
@@ -86,7 +86,8 @@ namespace PortoSchool.Pages
 
             listViewNobetAlanlariVeNobOgr.ItemsSource = null;
             listViewNobetAlanlariVeNobOgr.ItemsSource = nobOgrList;
-            textBlockHeader.Text = Settings.getValueByKey("SCHOOLNAME", "");
+            textBlockHeader1.Text = Settings.getValueByKey("SCHOOLNAME1", "");
+            textBlockHeader2.Text = Settings.getValueByKey("SCHOOLNAME2", "");
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -128,12 +129,15 @@ namespace PortoSchool.Pages
         }
         private void HalfDayTimer_Tick(object sender, object e)
         {
+            DebugUtils.WriteLine("HalfDayTimer_Tick executed");
             textBlockDirectorAssistant.Text = getCurrentMudYrd();
             nobOgrList = SentinelsManager.getNobOgrList(getWeekDayUpper(LocalizationUtils.GetDefaultCultureInforName()));
 
             listViewNobetAlanlariVeNobOgr.ItemsSource = null;
             listViewNobetAlanlariVeNobOgr.ItemsSource = nobOgrList;
             LoadCourseTable();
+
+
         }
         #endregion timers
 

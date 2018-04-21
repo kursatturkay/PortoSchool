@@ -1,4 +1,4 @@
-Portoschool is licensed under the Mozilla Public License, Version 2.0:
+PortoSchool is licensed under the Mozilla Public License, Version 2.0:
 
 > Copyright (c) 2017: Invenia Technical Computing Corporation.
 > 

@@ -24,7 +24,9 @@
             </ListView.ItemTemplate>
         </ListView>
         <Button x:Name="buttonAdd" Content="Ekle" HorizontalAlignment="Left" Style="{StaticResource ButtonStyle}" Margin="20,60,0,0" VerticalAlignment="Top" Width="280" Click="btnAdd_Click"/>
-        <RichEditBox x:Name="RichEditBoxBulletinContent" Margin="320,325,20,15"  Style="{StaticResource RichEditBoxStyle}" FontSize="22" PlaceholderText=""/>
+
+        <Image x:Name="ImagePdfPage"  Margin="320,325,10,10" Stretch="Fill" />
+
         <Button x:Name="buttonUpdate" Content="Güncelle" HorizontalAlignment="Left" Style="{StaticResource ButtonStyle}" Margin="20,140,0,0" VerticalAlignment="Top" Width="280" Height="35" Click="btnUpdate_ClickAsync"/>
         <Button x:Name="buttonRemove" Content="Sil" HorizontalAlignment="Left" Style="{StaticResource ButtonStyle}" Margin="20,100,0,0" VerticalAlignment="Top" Width="280" Click="buttonRemove_Click"/>
         <TextBox x:Name="textBoxBulletinTitle" PlaceholderText="Bülten Başlığını Giriniz..." Width="1160" HorizontalAlignment="Left" Height="35" Margin="320,280,0,0" VerticalAlignment="Top" CharacterCasing="Upper" />

@@ -22,10 +22,10 @@
 
         <ListView x:Name="listViewNobetAlanlari"  Style="{StaticResource ListViewStyle}"  Margin="400,60,640,10" ItemsSource="{x:Bind Path=NobetAlanlari}" HorizontalAlignment="Stretch" SelectionChanged="listViewNobetAlanlari_SelectionChanged">
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="models:NobetAlan">
+                <DataTemplate x:DataType="models:SentryLocationDataset">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                        <Border Background="Black" Width="50" Height="50" Margin="4,4,4,4"/>
-                        <TextBlock Text="{x:Bind Path=NobetYeri}" HorizontalAlignment="Stretch"/>
+                        <Border CornerRadius="25" Background="#30C62424" Width="50" Height="50" Margin="4,4,4,4"/>
+                        <TextBlock Text="{x:Bind Path=SentryLocation}" HorizontalAlignment="Stretch"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

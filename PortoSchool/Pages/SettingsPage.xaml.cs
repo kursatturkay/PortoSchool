@@ -85,7 +85,8 @@ namespace PortoSchool.Pages
             int _lang = Convert.ToInt32((Settings.getValueByKey("LANGUAGE", "0")));
             comboboxLanguage.SelectedIndex = _lang;
 
-            textBoxSchoolName.Text = Settings.getValueByKey("SCHOOLNAME","");
+            textBoxSchoolName1.Text = Settings.getValueByKey("SCHOOLNAME1","");
+            textBoxSchoolName2.Text = Settings.getValueByKey("SCHOOLNAME2", "");
 
             string tail = Settings.LocalDataFolder;
             string drv = tail.Substring(0, 1);
@@ -108,11 +109,11 @@ namespace PortoSchool.Pages
                 Frame.GoBack();
         }
 
-        private void textBoxSchoolName_KeyDown(object sender, KeyRoutedEventArgs e)
+        private void textBoxSchoolName1_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == VirtualKey.Enter)
             {
-                Settings.setValueByKey("SCHOOLNAME",textBoxSchoolName.Text.Trim());
+                Settings.setValueByKey("SCHOOLNAME1",textBoxSchoolName1.Text.Trim());
             }
         }
 
@@ -171,17 +172,35 @@ namespace PortoSchool.Pages
 
         private async void btnCopyCouseTableToSharedFolder_Click(object sender, RoutedEventArgs e)
         {
-
-            var res = ResourceLoader.GetForCurrentView();
-
-            //If you want to access a string such as DeleteBlock.Text you cannot put a period. Instead, put a /
-            // like this var deleteText = res.GetString("DeleteBlock/Text"); instead of DeleteBlock.Text
-            var COURSETABLE_xlsx = res.GetString("COURSETABLE/xlsx");
-            //var confirmYes = res.GetString("ConfirmYes");
+            var COURSETABLE_xlsx = LocalizationUtils.ResourceValueByKey("COURSETABLE/xlsx");
 
             StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/" + COURSETABLE_xlsx));
             StorageFolder storageFolder = await StorageFolder.GetFolderFromPathAsync(Settings.LocalDataFolder);
             await file.CopyAsync(storageFolder, COURSETABLE_xlsx);
+        }
+
+        private void btnSetRTCModuleTime_Click(object sender, RoutedEventArgs e)
+        {
+            //RTCTimeUtils.SetRtcTime();// _realTimeClock.WriteTime(DateTime.Now);
+            SystemTime sysTime;
+            DateTimeOffset dto = DateTime.UtcNow;
+            var newTime = dto.ToUniversalTime().DateTime;
+            sysTime = new SystemTime(newTime);
+            Win32.SetSystemTime(ref sysTime);
+            RTCTimeUtils._realTimeClock.WriteTime(newTime);
+        }
+
+        private void textBoxSchoolName2_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+            {
+                Settings.setValueByKey("SCHOOLNAME2", textBoxSchoolName2.Text.Trim());
+            }
+        }
+
+        private void textBlockSchoolName1_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

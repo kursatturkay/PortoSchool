@@ -1,5 +1,4 @@
-﻿using PortoSchool;
-using PortoSchool.Libs;
+﻿using PortoSchool.Libs;
 using SQLite.Net.Attributes;
 using System;
 using System.Collections.Generic;
@@ -67,11 +66,7 @@ namespace PortoSchool.Models
         }
         public static async void ImportDataFromCouseTableXlsx()
         {
-            var res = ResourceLoader.GetForCurrentView();
-
-            //If you want to access a string such as DeleteBlock.Text you cannot put a period. Instead, put a /
-            // like this var deleteText = res.GetString("DeleteBlock/Text"); instead of DeleteBlock.Text
-            var COURSETABLE_xlsx = res.GetString("COURSETABLE/xlsx");
+            var COURSETABLE_xlsx = LocalizationUtils.ResourceValueByKey("COURSETABLE/xlsx");
 
             schoolTimeSpans.Clear();
             if (!File.Exists(Path.Combine(App.WorkingPath, COURSETABLE_xlsx)))

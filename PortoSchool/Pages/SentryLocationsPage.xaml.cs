@@ -26,9 +26,6 @@ using Windows.UI.Xaml.Navigation;
 
 namespace PortoSchool.Pages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class SentryLocationsPage : Page
     {
         public SentryLocationsPage()
@@ -37,7 +34,7 @@ namespace PortoSchool.Pages
             AlternateColorConverter.reset();
         }
 
-        public ObservableCollection<NobetAlan> NobetAlanlari;
+        public ObservableCollection<SentryLocationDataset> NobetAlanlari;
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
@@ -69,7 +66,7 @@ namespace PortoSchool.Pages
             //path = Path.Combine(path, "settings.sqlite");
             SQLiteConnection conn = new SQLiteConnection(new SQLitePlatformWinRT(), FileUtils.FullDataPath);
 
-            conn.Insert(new Models.NobetAlan() { NobetYeri = textBoxNobetYeri.Text });
+            conn.Insert(new Models.SentryLocationDataset() { SentryLocation = textBoxNobetYeri.Text });
             listViewNobetAlanlari.ItemsSource = NobetAlanManager.GetNobetAlanlari();
         }
 
@@ -80,15 +77,15 @@ namespace PortoSchool.Pages
 
         private void listViewNobetAlanlari_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var x = (NobetAlan)listViewNobetAlanlari.SelectedItem;
+            var x = (SentryLocationDataset)listViewNobetAlanlari.SelectedItem;
 
             if (x != null)
-                textBoxNobetYeri.Text = x.NobetYeri;
+                textBoxNobetYeri.Text = x.SentryLocation;
         }
 
         private void buttonNobetAlaniSil_Click(object sender, RoutedEventArgs e)
         {
-            var x = (NobetAlan)listViewNobetAlanlari.SelectedItem;
+            var x = (SentryLocationDataset)listViewNobetAlanlari.SelectedItem;
 
             if (x != null)
             {
@@ -96,14 +93,14 @@ namespace PortoSchool.Pages
                 //path = Path.Combine(path, "settings.sqlite");
 
                 SQLiteConnection conn = new SQLiteConnection(new SQLitePlatformWinRT(), path);
-                conn.Delete<NobetAlan>(x.id);
+                conn.Delete<SentryLocationDataset>(x.id);
                 listViewNobetAlanlari.ItemsSource = NobetAlanManager.GetNobetAlanlari();
             }
         }
 
         private void buttonNobetAlaniGuncelle_Click(object sender, RoutedEventArgs e)
         {
-            var x = (NobetAlan)listViewNobetAlanlari.SelectedItem;
+            var x = (SentryLocationDataset)listViewNobetAlanlari.SelectedItem;
             int idx = listViewNobetAlanlari.SelectedIndex;
 
             if (x != null)
@@ -112,11 +109,11 @@ namespace PortoSchool.Pages
                 //path = Path.Combine(path, "settings.sqlite");
 
                 SQLiteConnection conn = new SQLiteConnection(new SQLitePlatformWinRT(), path);
-                var row = conn.Query<NobetAlan>("select * from NobetAlan where Id=?", x.id).FirstOrDefault();
+                var row = conn.Query<SentryLocationDataset>("select * from SentryLocationDataset where Id=?", x.id).FirstOrDefault();
 
                 if (row != null)
                 {
-                    row.NobetYeri = textBoxNobetYeri.Text.Trim();
+                    row.SentryLocation = textBoxNobetYeri.Text.Trim();
 
                     conn.RunInTransaction(() =>
                     {

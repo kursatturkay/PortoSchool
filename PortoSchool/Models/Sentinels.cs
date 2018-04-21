@@ -11,18 +11,18 @@ namespace PortoSchool.Models
     [Flags] public enum DayEnum { PAZARTESİ = 0, SALI = 1, ÇARŞAMBA = 2, PERŞEMBE = 3, CUMA = 4 };
 
 
-    public class Sentinels
+    public class SentinelsDataset
     {
 
         [PrimaryKey, AutoIncrement]
         public int id { get; set; }
 
-        public string OgretmenAdiSoyadi { get; set; }
+        public string SentinelFullName { get; set; }
 
         [Indexed]
-        public string NobetAlan { get; set; }
+        public string SentryLocation { get; set; }
 
-        public string NobetGunu { get; set; }
+        public string SentryDate { get; set; }
 
         public DayEnum DayNO { get; set; }
 
@@ -30,9 +30,9 @@ namespace PortoSchool.Models
 
     public static class SentinelsManager
     {
-        private static readonly ObservableCollection<Sentinels> NobOgrList = new ObservableCollection<Sentinels>();
+        private static readonly ObservableCollection<SentinelsDataset> NobOgrList = new ObservableCollection<SentinelsDataset>();
       
-        public static ObservableCollection<Sentinels> getNobOgrList(String filter=null)
+        public static ObservableCollection<SentinelsDataset> getNobOgrList(String filter=null)
         {
             string path = Settings.FullPathSQLite;
             //\\192.168.18.182\C$\Data\Users\DefaultAccount\AppData\Local\Packages\06fb6d66-31b3-4beb-893c-2e0d9fe465f1_3asabdzxmrwg6\LocalState\Project1\settings.sqlite
@@ -45,16 +45,16 @@ namespace PortoSchool.Models
                 //List<Sentinels> rows = conn.Table<Sentinels>().ToList();
                 //var rows = conn.Query<Sentinels>("select *,(case NobetGunu WHEN 'PAZARTESİ' then 0 WHEN 'SALI' then 1 WHEN 'ÇARŞAMBA' then 2 WHEN 'PERŞEMBE' then 3 WHEN 'CUMA' then 4 END) as workdayno from Sentinels order by workdayno").ToList();
 
-                var Sentinels = conn.Query<Sentinels>("select * from Sentinels");
+                var Sentinels = conn.Query<SentinelsDataset>("select * from SentinelsDataset");
 
                 var rows = (from e in Sentinels
-                            select new Sentinels()
+                            select new SentinelsDataset()
                             {
                                 id = e.id,
-                                OgretmenAdiSoyadi = e.OgretmenAdiSoyadi,
-                                NobetAlan = e.NobetAlan,
-                                NobetGunu = e.NobetGunu,
-                                 DayNO = (DayEnum)Enum.Parse(typeof(DayEnum), e.NobetGunu)
+                                SentinelFullName = e.SentinelFullName,
+                                SentryLocation = e.SentryLocation,
+                                SentryDate = e.SentryDate,
+                                 DayNO = (DayEnum)Enum.Parse(typeof(DayEnum), e.SentryDate)
                             }).OrderBy(e => e.DayNO);
 
                 // rows.ForEach(x => { NobOgrList.Add(x); });
@@ -68,15 +68,15 @@ namespace PortoSchool.Models
             else
             {
                 string flt = $"%{filter}%";
-                var Sentinels = conn.Query<Sentinels>("select * from Sentinels where NOBETALAN LIKE ? OR OGRETMENADISOYADI LIKE ? OR  NOBETGUNU LIKE ?", flt, flt, flt).ToList();
+                var Sentinels = conn.Query<SentinelsDataset>("select * from SentinelsDataset where SentryLocation LIKE ? OR SentinelFullName LIKE ? OR  SentryDate LIKE ?", flt, flt, flt).ToList();
                 var rows = (from e in Sentinels
-                            select new Sentinels()
+                            select new SentinelsDataset()
                             {
                                 id = e.id,
-                                OgretmenAdiSoyadi = e.OgretmenAdiSoyadi,
-                                NobetAlan = e.NobetAlan,
-                                NobetGunu = e.NobetGunu,
-                                DayNO = (DayEnum)Enum.Parse(typeof(DayEnum), e.NobetGunu)
+                                SentinelFullName = e.SentinelFullName,
+                                SentryLocation = e.SentryLocation,
+                                SentryDate = e.SentryDate,
+                                DayNO = (DayEnum)Enum.Parse(typeof(DayEnum), e.SentryDate)
                             }).OrderBy(e => e.DayNO);
 
                 // rows.ForEach(x => { NobOgrList.Add(x); });
@@ -86,7 +86,6 @@ namespace PortoSchool.Models
                     NobOgrList.Add(x);
                 }
             }
-            //var rows = conn.Query<NobetAlan>("select * from NobetAlan where Id=?", x.id).FirstOrDefault();
 
             return NobOgrList;
         }

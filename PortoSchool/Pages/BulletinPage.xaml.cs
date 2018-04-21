@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Data.Pdf;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -19,6 +20,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -34,6 +36,43 @@ namespace PortoSchool.Pages
         public static BulletinPage Current;
         public DispatcherTimer _shifttimer;
 
+        private StorageFile storageFile;//using to get pdf files
+        private PdfDocument pdfDoc;
+
+        //public ObservableCollection<BitmapImage> PdfPages
+        // {
+        //    get;
+        //     set;
+        //} = new ObservableCollection<BitmapImage>();
+
+        async void LoadPdf(PdfDocument pdfDoc, int qualityRatio = 1)
+        {
+            //PdfPages.Clear();
+
+            //for (uint i = 0; i < pdfDoc.PageCount; i++)
+            //{
+            BitmapImage image = new BitmapImage();
+
+            var page = pdfDoc.GetPage(0);
+
+            using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
+            {
+                var opt = new PdfPageRenderOptions
+                {
+                    DestinationWidth = (uint)page.Size.Width * (uint)qualityRatio,
+                    DestinationHeight = (uint)page.Size.Height * (uint)qualityRatio
+                };
+
+
+                await page.RenderToStreamAsync(stream, opt);
+                await image.SetSourceAsync(stream);
+            }
+
+            //PdfPages.Add(image);
+            ImagePdfPage.Source = image;
+            // }
+        }
+
         public bool isInEditMode
         {
             get
@@ -45,7 +84,7 @@ namespace PortoSchool.Pages
                 _isineditmode = value;
                 listView1.Visibility = (value == false) ? Visibility.Collapsed : Visibility.Visible;
 
-                RichEditBoxBulletinContent.Margin = (_isineditmode) ? new Thickness(320, 325, 20, 15) : new Thickness(0, 0, 0, 0);
+                ImagePdfPage.Margin = (_isineditmode) ? new Thickness(320, 325, 20, 15) : new Thickness(0, 0, 0, 0);
                 gridHeader.Visibility = (value == false) ? Visibility.Collapsed : Visibility.Visible;
 
                 if (value) _shifttimer.Stop();
@@ -121,8 +160,9 @@ namespace PortoSchool.Pages
             Frame.Navigate(typeof(DashboardPage));
         }
 
-        private async void btnAdd_Click(object sender, RoutedEventArgs e)
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            /*
             string title = textBoxBulletinTitle.Text.Trim();
 
             if (string.IsNullOrEmpty(title))
@@ -152,10 +192,12 @@ namespace PortoSchool.Pages
                 listView1.ItemsSource = null;
                 listView1.ItemsSource = BulletinFileManager.GetBulletinFilesFromStorePath();
             }
+            */
         }
 
-        private async void btnUpdate_ClickAsync(object sender, RoutedEventArgs e)
+        private void btnUpdate_ClickAsync(object sender, RoutedEventArgs e)
         {
+            /*
             BulletinFile bf = (BulletinFile)listView1.SelectedItem;
             StorageFile sf = await StorageFile.GetFileFromApplicationUriAsync(new Uri(bf.FileNameOnly));
 
@@ -165,19 +207,26 @@ namespace PortoSchool.Pages
             RichEditBoxBulletinContent.Document.SaveToStream(TextGetOptions.FormatRtf, stream);
             stream.Dispose();
             FileUpdateStatus fus = await CachedFileManager.CompleteUpdatesAsync(sf);//is it necessarry ? who knows.
+            */
         }
 
         private async void listView1_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
+
             BulletinFile bf = (BulletinFile)listView1.SelectedItem;
             if (bf != null)
             {
-                StorageFile sf = await StorageFile.GetFileFromApplicationUriAsync(new Uri(bf.FileNameOnly));
-                var stream = await sf.OpenAsync(FileAccessMode.Read);
+                storageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(bf.FileNameOnly));
+                pdfDoc = await PdfDocument.LoadFromFileAsync(storageFile);
 
-                RichEditBoxBulletinContent.Document.LoadFromStream(TextSetOptions.FormatRtf, stream);
+                LoadPdf(pdfDoc, 2);
+                //StorageFile sf = await StorageFile.GetFileFromApplicationUriAsync(new Uri(bf.FileNameOnly));
+                //var stream = await sf.OpenAsync(FileAccessMode.Read);
+
+                //RichEditBoxBulletinContent.Document.LoadFromStream(TextSetOptions.FormatRtf, stream);
 
             }
+
         }
 
         private async void buttonRemove_Click(object sender, RoutedEventArgs e)

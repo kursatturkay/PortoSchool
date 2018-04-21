@@ -156,8 +156,8 @@
   <data name="textBlockPresentationPageHeader.Text" xml:space="preserve">
     <value>PRESENTATION EDITOR</value>
   </data>
-  <data name="textBlockSchoolName.Text" xml:space="preserve">
-    <value>EDUCATIONAL FOUNDATION NAME :</value>
+  <data name="textBlockSchoolName1.Text" xml:space="preserve">
+    <value>EDUCATIONAL FOUNDATION NAME LINE 1:</value>
   </data>
   <data name="textBlockSentinelAssitantDirectorPageHeader.Text" xml:space="preserve">
     <value>SENTINEL ASSISTANT DIRECTOR EDITOR</value>
@@ -212,5 +212,35 @@
   </data>
   <data name="CultureInfoName" xml:space="preserve">
     <value>en-US</value>
+  </data>
+  <data name="textBlockDirectorAssistant_.Text" xml:space="preserve">
+    <value>DIRECTOR ASSISTANT</value>
+  </data>
+  <data name="btnSetRTCModuleTime.Content" xml:space="preserve">
+    <value>SET RTC MODULE TIME</value>
+  </data>
+  <data name="textBlockSetRTCModuleTime_.Text" xml:space="preserve">
+    <value>RTC MODULE (Modify Date Time Picker and Press Following Button) :</value>
+  </data>
+  <data name="SENTINELS_xlsx" xml:space="preserve">
+    <value>SENTINELS</value>
+  </data>
+  <data name="SENTINELS_xlsx_SENTINELFULLNAME_TITLE" xml:space="preserve">
+    <value>SENTINEL FULL NAME</value>
+  </data>
+  <data name="SENTINELS_xlsx_SENTRYDATE_TITLE" xml:space="preserve">
+    <value>SENTRY DATE</value>
+  </data>
+  <data name="SENTINELS_xlsx_SENTRYLOCATION_TITLE" xml:space="preserve">
+    <value>SENTRY LOCATION</value>
+  </data>
+  <data name="SENTRYLOCATION_xlsx" xml:space="preserve">
+    <value>SENTRYLOCATION</value>
+  </data>
+  <data name="SENTRYLOCATION_xlsx_SENTRYLOCATION_TITLE" xml:space="preserve">
+    <value>SENTRY LOCATION</value>
+  </data>
+  <data name="textBlockSchoolName2.Text" xml:space="preserve">
+    <value>EDUCATIONAL FOUNDATION NAME LINE 2:</value>
   </data>
 </root>

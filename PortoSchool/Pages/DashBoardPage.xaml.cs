@@ -37,15 +37,16 @@ namespace PortoSchool.Pages
     public sealed partial class DashboardPage : Page
     {
         public static DashboardPage Current;
-        DateTimeOffset _currentDate;
-        TimeSpan _currentTime;
+        public static DispatcherTimer rtctimer_;
+        //DateTimeOffset _currentDate;
+        //TimeSpan _currentTime;
 
-        DateTime _reportedTime;
-        DateTime _systemDateTime;
+        //DateTime _reportedTime;
+        //DateTime _systemDateTime;
 
-     
 
-       
+
+
         public DashboardPage()
         {
             InitializeComponent();
@@ -54,26 +55,43 @@ namespace PortoSchool.Pages
             setWorkingLocalPathTextBox();
             InitializeUpdater();
 
-            if(SchoolTimeSpanManager.isSchoolTimeSpansEmpty())
-            SchoolTimeSpanManager.ImportDataFromCouseTableXlsx();
+            rtctimer_ = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(3)};
+            rtctimer_.Tick += Rtctimer__Tick;
+            rtctimer_.Start();
+
+
+            
+            if (SchoolTimeSpanManager.isSchoolTimeSpansEmpty())
+                SchoolTimeSpanManager.ImportDataFromCouseTableXlsx();
         }
 
-
-        private void SetSystemDatetimeFromCurrentDateAndCurrentTime()
+        private void Rtctimer__Tick(object sender, object e)
         {
-            DateTimeOffset dto = CurrentDate.Date + CurrentTime;
-            Windows.System.DateTimeSettings.SetSystemDateTime(dto);
+            //////////////
+            rtctimer_.Stop();
+            RTCTimeUtils.InitRTC();
+            DateTime? realTime = RTCTimeUtils._realTimeClock.ReadTime();
+
+            //DateTimeOffset rtcTime = new DateTimeOffset(RTCTimeUtils._realTimeClock.ReadTime().Value, TimeSpan.Zero);
+            //RTCTimeUtils.CurrentDate = rtcTime.ToLocalTime();
+            //RTCTimeUtils.CurrentTime = rtcTime.ToLocalTime().TimeOfDay;
+
+            //timePicker1.Time = RTCTimeUtils.CurrentTime;
+            //datePicker1.Date = RTCTimeUtils.CurrentDate;
+            //textBlock1.Text = $"{CurrentTime}";
+
+            ///////////////
         }
 
         private void UpdateCurrentDateAndCurrentTimefromRTC()
         {
-           // DateTime? realTime = _realTimeClock.ReadTime();
-           // DateTimeOffset rtcTime = new DateTimeOffset(_realTimeClock.ReadTime().Value, TimeSpan.Zero);
-           // CurrentDate = rtcTime.ToLocalTime();
-           // CurrentTime = rtcTime.ToLocalTime().TimeOfDay;
+            // DateTime? realTime = _realTimeClock.ReadTime();
+            // DateTimeOffset rtcTime = new DateTimeOffset(_realTimeClock.ReadTime().Value, TimeSpan.Zero);
+            // CurrentDate = rtcTime.ToLocalTime();
+            // CurrentTime = rtcTime.ToLocalTime().TimeOfDay;
 
-           // timePicker1.Time = CurrentTime;
-           // datePicker1.Date = CurrentDate;
+            // timePicker1.Time = CurrentTime;
+            // datePicker1.Date = CurrentDate;
             //textBlock1.Text = $"{CurrentTime}";
         }
 
@@ -99,14 +117,14 @@ namespace PortoSchool.Pages
         {
             base.OnNavigatedTo(e);
             //textBlockDatabasePath.Text = Settings.FullPathSQLite;
-            
+
             FillListBoxLog();
 
             App.Current.IsIdleChanged += onIsIdleChanged;
 
-           
 
-            textBlockHeader.Text = Settings.getValueByKey("SCHOOLNAME", "");
+
+            textBlockHeader.Text = Settings.getValueByKey("SCHOOLNAME1", "");
         }
 
         private void onIsIdleChanged(object sender, EventArgs e)
@@ -163,72 +181,12 @@ namespace PortoSchool.Pages
             Frame.Navigate(typeof(SettingsPage));
         }
 
-
-
-
-        void SetSystemTime()
-        {
-            var currentTime = CurrentDate + CurrentTime;
-            SystemTime sysTime = new SystemTime((currentTime.ToUniversalTime().DateTime));
-            Win32.SetSystemTime(ref sysTime);
-
-        }
-      
-        public DateTimeOffset CurrentDate
-        {
-            get { return _currentDate - _currentDate.TimeOfDay; }
-            set
-            {
-                if (_currentDate != value)
-                {
-                    _currentDate = value;
-                }
-            }
-        }
-
-        public TimeSpan CurrentTime
-        {
-            get { return _currentTime; }
-            set
-            {
-                if (_currentTime != value)
-                {
-                    _currentTime = value;
-                }
-            }
-        }
-
-        public DateTime ReportedTime
-        {
-            get { return _reportedTime; }
-            set
-            {
-                if (_reportedTime != value)
-                {
-                    _reportedTime = value;
-                }
-            }
-        }
-
-
-        public DateTime SystemDateTime
-        {
-            get { return _systemDateTime; }
-            set
-            {
-                if (_systemDateTime != value)
-                {
-                    _systemDateTime = value;
-                }
-            }
-        }     
-
         private void button_Click(object sender, RoutedEventArgs e)
         {
-           // DateTime? realTime = _realTimeClock.ReadTime();
-          //  DateTimeOffset rtcTime = new DateTimeOffset(_realTimeClock.ReadTime().Value, TimeSpan.Zero);
-           // CurrentDate = rtcTime.ToLocalTime();
-           // CurrentTime = rtcTime.ToLocalTime().TimeOfDay;
+            // DateTime? realTime = _realTimeClock.ReadTime();
+            //  DateTimeOffset rtcTime = new DateTimeOffset(_realTimeClock.ReadTime().Value, TimeSpan.Zero);
+            // CurrentDate = rtcTime.ToLocalTime();
+            // CurrentTime = rtcTime.ToLocalTime().TimeOfDay;
 
             //timePicker1.Time = CurrentTime;
             //datePicker1.Date = CurrentDate;
@@ -243,14 +201,9 @@ namespace PortoSchool.Pages
             sysTime = new SystemTime(newTime);
             Win32.SetSystemTime(ref sysTime);
 
-          // _realTimeClock.WriteTime(newTime);
+            // _realTimeClock.WriteTime(newTime);
         }
 
-        private void buttonSetSystemDatetime_Click(object sender, RoutedEventArgs e)
-        {
-            DateTimeOffset dto = CurrentDate + CurrentTime;
-            Windows.System.DateTimeSettings.SetSystemDateTime(dto);
-        }
         #endregion Events Section
 
         private void buttonBulletinPage_Click(object sender, RoutedEventArgs e)
@@ -281,6 +234,11 @@ namespace PortoSchool.Pages
         private void buttonCourseTablePage_Click(object sender, RoutedEventArgs e)
         {
             //Frame.Navigate(typeof(CourseTablePage));
+        }
+
+        private void btnTest_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(TestPage));
         }
     }
 }

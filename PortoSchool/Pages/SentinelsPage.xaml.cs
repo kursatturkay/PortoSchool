@@ -29,8 +29,8 @@ namespace PortoSchool.Pages
     /// </summary>
     public sealed partial class SentinelsPage : Page
     {
-        public ObservableCollection<Sentinels> nobOgrList;
-        public ObservableCollection<NobetAlan> nobAlanList;
+        public ObservableCollection<SentinelsDataset> nobOgrList;
+        public ObservableCollection<SentryLocationDataset> nobAlanList;
 
         public ObservableCollection<string> nobGunList;
         public SentinelsPage()
@@ -76,17 +76,17 @@ namespace PortoSchool.Pages
 
         private void listViewNobOgr_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var x = (Sentinels)listViewNobetAlanlariVeNobOgr.SelectedItem;
+            var x = (SentinelsDataset)listViewNobetAlanlariVeNobOgr.SelectedItem;
 
             if (x != null)
             {
-                textBoxNobOgrAdSoyad.Text = x.OgretmenAdiSoyadi;
+                textBoxNobOgrAdSoyad.Text = x.SentinelFullName;
 
                 //comboBoxNobetAlan.SelectedValuePath = (x.NobetAlan==null)?string.Empty:x.NobetAlan;
                 //var v1 = nobAlanList.FirstOrDefault(xx => xx.NobetYeri == x.NobetAlan);
                 //comboBoxNobetAlan.SelectedIndex =comboBoxNobetAlan.Items.IndexOf(x.NobetAlan);// SelectedValuePath = x.NobetAlan??string.Empty;
-                comboBoxNobetAlan.SelectedValue = nobAlanList.FirstOrDefault(xx => xx.NobetYeri == x.NobetAlan);
-                comboBoxNobetGunu.SelectedValue = nobGunList.FirstOrDefault(xx => xx == x.NobetGunu);
+                comboBoxNobetAlan.SelectedValue = nobAlanList.FirstOrDefault(xx => xx.SentryLocation == x.SentryLocation);
+                comboBoxNobetGunu.SelectedValue = nobGunList.FirstOrDefault(xx => xx == x.SentryDate);
             }
 
         }
@@ -107,11 +107,12 @@ namespace PortoSchool.Pages
 
             SQLiteConnection conn = new SQLiteConnection(new SQLitePlatformWinRT(), FileUtils.FullDataPath);
 
-            NobetAlan nobalan = new NobetAlan {
-                NobetYeri =(comboBoxNobetAlan.SelectedItem as NobetAlan).NobetYeri??""};
+            SentryLocationDataset nobalan = new SentryLocationDataset
+            {
+                SentryLocation =(comboBoxNobetAlan.SelectedItem as SentryLocationDataset).SentryLocation??""};
 
             string nobetGunu = (string)comboBoxNobetGunu.SelectedItem ?? "";
-            conn.Insert(new Models.Sentinels() { NobetAlan= nobalan.NobetYeri ,OgretmenAdiSoyadi=textBoxNobOgrAdSoyad.Text,NobetGunu= nobetGunu });
+            conn.Insert(new Models.SentinelsDataset { SentryLocation= nobalan.SentryLocation , SentinelFullName = textBoxNobOgrAdSoyad.Text,SentryDate= nobetGunu });
 
             //listViewNobetAlanlari.ItemsSource = NobetAlanManager.GetNobetAlanlari();
         }
@@ -124,29 +125,29 @@ namespace PortoSchool.Pages
 
         private void buttonSentinelsPageSil_Click(object sender, RoutedEventArgs e)
         {
-            var x = (Sentinels)listViewNobetAlanlariVeNobOgr.SelectedItem;
+            var x = (SentinelsDataset)listViewNobetAlanlariVeNobOgr.SelectedItem;
 
             if (x != null)
             {
                 SQLiteConnection conn = new SQLiteConnection(new SQLitePlatformWinRT(), FileUtils.FullDataPath);
-                conn.Delete<Sentinels>(x.id);
+                conn.Delete<SentinelsDataset>(x.id);
                 listViewNobetAlanlariVeNobOgr.ItemsSource = SentinelsManager.getNobOgrList();
             }
         }
 
         private void buttonSentinelsPageGuncelle_Click(object sender, RoutedEventArgs e)
         {
-            var x = (Sentinels)listViewNobetAlanlariVeNobOgr.SelectedItem;
+            var x = (SentinelsDataset)listViewNobetAlanlariVeNobOgr.SelectedItem;
 
             if (x != null)
             {
                 SQLiteConnection conn = new SQLiteConnection(new SQLitePlatformWinRT(),FileUtils.FullDataPath);
-                var row = conn.Query<Sentinels>("select * from Sentinels where Id=?", x.id).FirstOrDefault();
+                var row = conn.Query<SentinelsDataset>("select * from SentinelsDataset where Id=?", x.id).FirstOrDefault();
                 if (row != null)
                 {
-                    row.NobetAlan = (comboBoxNobetAlan.SelectedItem as NobetAlan).NobetYeri;
-                    row.OgretmenAdiSoyadi = textBoxNobOgrAdSoyad.Text.Trim();
-                    row.NobetGunu = (comboBoxNobetGunu.SelectedItem as string);
+                    row.SentryLocation = (comboBoxNobetAlan.SelectedItem as SentryLocationDataset).SentryLocation;
+                    row.SentinelFullName = textBoxNobOgrAdSoyad.Text.Trim();
+                    row.SentryDate = (comboBoxNobetGunu.SelectedItem as string);
                     conn.RunInTransaction(() => {
                         conn.Update(row);
                     });

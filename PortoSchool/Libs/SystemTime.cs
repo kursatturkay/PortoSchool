@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PortoSchool
+namespace PortoSchool.Libs
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct SystemTime

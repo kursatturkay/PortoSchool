@@ -1,4 +1,10 @@
 ﻿/*
+ sentinels not open
+
+ OGRETMEN.xlsx have empty rows. select possible empty rows which has accidently includes mistyped / unwanted characters
+ */
+
+/*
  xlsreader errors.
  if key is doubled or non exists nullexception may occur.
  if empty sheet also generates nullexception error

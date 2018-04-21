@@ -16,7 +16,7 @@ namespace PortoSchool.Pages
     public sealed partial class DashboardPage : Page
     {
         private static bool initializeUpdaterExecuted = false;
-        private static readonly DispatcherTimer updatetimer=new DispatcherTimer { Interval=TimeSpan.FromSeconds(2)};
+        private static readonly DispatcherTimer updatetimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };
 
         public void InitializeUpdater()
         {
@@ -38,25 +38,29 @@ namespace PortoSchool.Pages
 
         private async Task UpdateNobOgrIfXLSExistsAsync()
         {
-            if (!File.Exists(Path.Combine(App.WorkingPath, "OGRETMEN.xlsx")))
+
+            string res_SentinelsFN = LocalizationUtils.ResourceValueByKey("SENTINELS_xlsx");//determine whether file is SENTINELS.xlsx or NOBETCILER.xlsx etc.
+            if (!File.Exists(Path.Combine(App.WorkingPath, $"{res_SentinelsFN}.xlsx")))
                 return;
 
+            string res_SentinelFullNameTitle = LocalizationUtils.ResourceValueByKey("SENTINELS_xlsx_SENTINELFULLNAME_TITLE");
+            string res_SentryDateTitle = LocalizationUtils.ResourceValueByKey("SENTINELS_xlsx_SENTRYDATE_TITLE");
+            string res_SentryLocationTitle = LocalizationUtils.ResourceValueByKey("SENTINELS_xlsx_SENTRYLOCATION_TITLE");
 
             ExcelReader a = ExcelReader.SharedReader();
             List<string> ÖğretmenAdıSoyadıList = new List<string>();
             List<string> NöbetGünüList = new List<string>();
             List<string> NöbetAlanList = new List<string>();
 
-            StorageFile f = await StorageFile.GetFileFromPathAsync(Path.Combine(App.WorkingPath, "OGRETMEN.xlsx"));
+            StorageFile f = await StorageFile.GetFileFromPathAsync(Path.Combine(App.WorkingPath, $"{res_SentinelsFN}.xlsx"));
 
             List<SheetData> x = await a.ParseSpreadSheetFile(f);
 
             var conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), FileUtils.FullDataPath);
 
-            conn.DropTable<Sentinels>();
-            conn.CreateTable<Sentinels>();
+            conn.DropTable<SentinelsDataset>();
+            conn.CreateTable<SentinelsDataset>();
 
-           
             foreach (var xx in x)
             {
                 var data = xx.data;
@@ -65,50 +69,52 @@ namespace PortoSchool.Pages
                 {
                     foreach (var ddc in dd)
                     {
-                        switch (ddc.Key)
-                        {
-                            case "ÖĞRETMEN ADI SOYADI": ÖğretmenAdıSoyadıList.Add(ddc.Value.ToUpper()); break;
-                            case "NÖBET GÜNÜ": NöbetGünüList.Add(ddc.Value.ToUpper()); break;
-                            case "NÖBET YERİ": NöbetAlanList.Add(ddc.Value.ToUpper()); break;
-                        }
-                        //listView1.Items.Add($"{ddc.Key},{ddc.Value}");
+
+                        if (ddc.Key == res_SentinelFullNameTitle) ÖğretmenAdıSoyadıList.Add(ddc.Value.ToUpper());
+                        else
+                        if (ddc.Key == res_SentryDateTitle) NöbetGünüList.Add(ddc.Value.ToUpper());
+                        else
+                        if (ddc.Key == res_SentryLocationTitle) NöbetAlanList.Add(ddc.Value.ToUpper());
+
                     }
                 }
             }
 
             for (int i = 0; i < ÖğretmenAdıSoyadıList.Count; i++)
             {
-                Sentinels row = new Sentinels
+                SentinelsDataset row = new SentinelsDataset
                 {
-                    OgretmenAdiSoyadi = ÖğretmenAdıSoyadıList[i],
-                   NobetGunu= NöbetGünüList[i],
-                   NobetAlan= NöbetAlanList[i]
+                    SentinelFullName = ÖğretmenAdıSoyadıList[i],
+                    SentryDate = NöbetGünüList[i],
+                    SentryLocation = NöbetAlanList[i]
                 };
                 conn.Insert(row);
             }
 
-            File.Delete(Path.Combine(App.WorkingPath, "OGRETMEN_OLD.xlsx"));
-            File.Move(Path.Combine(App.WorkingPath, "OGRETMEN.xlsx"), Path.Combine(App.WorkingPath, "OGRETMEN_OLD.xlsx"));
+            File.Delete(Path.Combine(App.WorkingPath, $"{res_SentinelsFN}_OLD.xlsx"));
+            File.Move(Path.Combine(App.WorkingPath, $"{res_SentinelsFN}.xlsx"), Path.Combine(App.WorkingPath, $"{res_SentinelsFN}_OLD.xlsx"));
         }
 
         private async Task UpdateNobAlanIfXLSExistsAsync()
         {
-            if (!File.Exists(Path.Combine(App.WorkingPath, "NOBETALAN.xlsx")))
+            var res_SentryLocationFN= LocalizationUtils.ResourceValueByKey("SENTRYLOCATION_xlsx");
+            var res_SENTRYLOCATION_xlsx_SENTRYLOCATION_TITLE=LocalizationUtils.ResourceValueByKey("SENTRYLOCATION_xlsx_SENTRYLOCATION_TITLE");
+            if (!File.Exists(Path.Combine(App.WorkingPath, $"{res_SentryLocationFN}.xlsx")))
                 return;
 
 
             ExcelReader a = ExcelReader.SharedReader();
-           
+
             List<string> NöbetAlanList = new List<string>();
 
-            StorageFile f = await StorageFile.GetFileFromPathAsync(Path.Combine(App.WorkingPath, "NOBETALAN.xlsx"));
+            StorageFile f = await StorageFile.GetFileFromPathAsync(Path.Combine(App.WorkingPath, $"{res_SentryLocationFN}.xlsx"));
 
             List<SheetData> x = await a.ParseSpreadSheetFile(f);
 
             var conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), FileUtils.FullDataPath);
 
-            conn.DropTable<NobetAlan>();
-            conn.CreateTable<NobetAlan>();
+            conn.DropTable<SentryLocationDataset>();
+            conn.CreateTable<SentryLocationDataset>();
 
             foreach (var xx in x)
             {
@@ -118,40 +124,36 @@ namespace PortoSchool.Pages
                 {
                     foreach (var ddc in dd)
                     {
-                        switch (ddc.Key)
-                        {
-                            case "NÖBET YERİ": NöbetAlanList.Add(ddc.Value.ToUpper()); break;
-                        }
-                        //listView1.Items.Add($"{ddc.Key},{ddc.Value}");
+                        if(ddc.Key== res_SENTRYLOCATION_xlsx_SENTRYLOCATION_TITLE)
+                            NöbetAlanList.Add(ddc.Value.ToUpper());
                     }
                 }
             }
 
             for (int i = 0; i < NöbetAlanList.Count; i++)
             {
-                NobetAlan row = new NobetAlan
+                SentryLocationDataset row = new SentryLocationDataset
                 {
-                    NobetYeri = NöbetAlanList[i],
+                    SentryLocation = NöbetAlanList[i],
                 };
                 conn.Insert(row);
             }
 
-            File.Delete(Path.Combine(App.WorkingPath, "NOBETALAN_OLD.xlsx"));
-            File.Move(Path.Combine(App.WorkingPath, "NOBETALAN.xlsx"), Path.Combine(App.WorkingPath, "NOBETALAN_OLD.xlsx"));
+            File.Delete(Path.Combine(App.WorkingPath, $"{res_SentryLocationFN}_OLD.xlsx"));
+            File.Move(Path.Combine(App.WorkingPath, $"{res_SentryLocationFN}.xlsx"), Path.Combine(App.WorkingPath, $"{res_SentryLocationFN}_OLD.xlsx"));
 
         }
         private async void CheckUpdateXlsFilesAsync()
         {
             await UpdateNobAlanIfXLSExistsAsync();
             await UpdateNobOgrIfXLSExistsAsync();
-            
+
         }
 
         private void UpdateButtonsAvailablity(bool avail)
         {
             this.buttonPresentationPage.IsEnabled = avail;
             this.buttonSentinelsPage.IsEnabled = avail;
-            this.buttonPresentationPage.IsEnabled = avail;
             this.buttonSettingsPage.IsEnabled = avail;
             this.buttonCloseApp.IsEnabled = avail;
             this.buttonSentryLocationsPage.IsEnabled = avail;

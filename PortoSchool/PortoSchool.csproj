@@ -7,8 +7,8 @@
     <ProjectGuid>{E758FEE0-817D-45EB-BC57-7951F5F4AB4F}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Portoschool</RootNamespace>
-    <AssemblyName>Portoschool</AssemblyName>
+    <RootNamespace>PortoSchool</RootNamespace>
+    <AssemblyName>PortoSchool</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
@@ -101,11 +101,13 @@
     <Compile Include="Libs\FileUtils.cs" />
     <Compile Include="Libs\LocalizationUtils.cs" />
     <Compile Include="Libs\NetworkUtils.cs" />
+    <Compile Include="Libs\RTCTimeUtils.cs" />
     <Compile Include="Libs\UnwantedDayColorConverter.cs" />
     <Compile Include="Libs\AlternateColorConverter.cs" />
     <Compile Include="Libs\WeekDayToColorConverter.cs" />
     <Compile Include="Models\BulletinFile.cs" />
     <Compile Include="Models\AssistantDirectorSentinelDay.cs" />
+    <Compile Include="Models\Holidays.cs" />
     <Compile Include="Models\SchoolTimeSpan.cs" />
     <Compile Include="Models\SentinelAssistantDirector.cs" />
     <Compile Include="Models\PicFile.cs" />
@@ -120,8 +122,8 @@
     <Compile Include="Pages\PresentationPage.xaml.cs">
       <DependentUpon>PresentationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SentinelKioskFramePage.xaml.cs">
-      <DependentUpon>SentinelKioskFramePage.xaml</DependentUpon>
+    <Compile Include="Pages\CoverPage.xaml.cs">
+      <DependentUpon>CoverPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -129,18 +131,16 @@
     <Compile Include="Pages\TestPage.xaml.cs">
       <DependentUpon>TestPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SystemTime.cs" />
-    <Compile Include="Win32.cs" />
+    <Compile Include="Libs\RTC_DS3231.cs" />
+    <Compile Include="Libs\SystemTime.cs" />
+    <Compile Include="Libs\Win32.cs" />
     <Compile Include="zComments.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\NobetAlan.cs" />
+    <Compile Include="Models\SentryLocation.cs" />
     <Compile Include="Models\Sentinels.cs" />
     <Compile Include="Models\Settings.cs" />
-    <Compile Include="Pages\LoginPage.xaml.cs">
-      <DependentUpon>LoginPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\SentryLocationsPage.xaml.cs">
       <DependentUpon>SentryLocationsPage.xaml</DependentUpon>
     </Compile>
@@ -163,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\logo.png" />
+    <Content Include="portoschool_coverpic.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -190,10 +191,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\LoginPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\SentryLocationsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -210,7 +207,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SentinelKioskFramePage.xaml">
+    <Page Include="Pages\CoverPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -242,11 +239,17 @@
     <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="EPPlus">
+      <Version>4.5.0.3-rc</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.4</Version>
     </PackageReference>
     <PackageReference Include="SQLite.Net-PCL">
       <Version>3.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="WinRtPdfViewer">
+      <Version>1.0.4</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -267,8 +270,33 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\NOBETCILER.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SENTINELS.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\NOBETALAN.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SENTRYLOCATION.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\PortoSchool.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="History.md" />
+    <None Include="PortoSchool_1_TemporaryKey.pfx" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>PortoSchool_1_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

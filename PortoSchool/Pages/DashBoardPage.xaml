@@ -56,6 +56,11 @@
             <TextBlock x:Name="textBlockBulletinPage" x:Uid="textBlockBulletinPage" Text="BÜLTEN EDİTÖRÜ" TextWrapping="WrapWholeWords" TextAlignment="Center" FontFamily="Segoe UI" />
         </Button>
 
+
+        <Button x:Name="btnTest"  Style="{StaticResource ButtonStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2" Grid.Row="3" FontFamily="Segoe UI" Click="btnTest_Click">
+            <TextBlock x:Name="TextBlockTest" Text="TEST EDİTÖRÜ" TextWrapping="WrapWholeWords" TextAlignment="Center" FontFamily="Segoe UI" />
+        </Button>
+        
         <ListBox x:Name="listBoxLog" Grid.Row="2" Grid.Column="2"/>
 
 

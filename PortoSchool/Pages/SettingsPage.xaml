@@ -35,20 +35,25 @@
                 <RowDefinition  Height="100*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="64*"/>
-                <ColumnDefinition Width="227*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="textBoxSchoolName" x:Uid="textBoxSchoolName" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" Text="" VerticalAlignment="Center" PlaceholderText="Enter School Name..." KeyDown="textBoxSchoolName_KeyDown" Margin="2,2,2,2"/>
-            <TextBlock x:Name="textBlockSchoolName" x:Uid="textBlockSchoolName" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" Text="SCHOOL NAME :" TextWrapping="Wrap" VerticalAlignment="Center" TextAlignment="Right" FontFamily="Segoe UI"/>
-            
-            <TextBlock x:Name="textBlockHostAddress_" x:Uid="textBlockHostAddress_" Text="AĞDAKİ CİHAZIN ADRESİ :" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" TextAlignment="Right" Height="20" Margin="0,15,0,15"/>
-            <TextBox x:Name="textBoxHostAddress" Grid.Row="1" Grid.Column="1" Text="" PlaceholderText="Asıl Cihazın Ağdaki Adresini yazınız..." Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="270"/>
-            <TextBlock x:Name="textBlockThisDevice_" x:Uid="textBlockThisDevice_" Text="BU CİHAZ :" Grid.Row="2"  Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Height="20" Margin="0,15,0,15"/>
-            <TextBlock x:Name="textBlockThisDevice" Text="0.0.0.0" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Height="20" Margin="2,2,2,2"/>
+            <TextBox x:Name="textBoxSchoolName1" x:Uid="textBoxSchoolName1" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" Text="" VerticalAlignment="Center" PlaceholderText="Enter School Name..." KeyDown="textBoxSchoolName1_KeyDown" Margin="2,2,2,2"/>
+            <TextBlock x:Name="textBlockSchoolName1" x:Uid="textBlockSchoolName1" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" Text="SCHOOL NAME LINE 1:" TextWrapping="Wrap" VerticalAlignment="Center" TextAlignment="Right" FontFamily="Segoe UI"/>
 
-            <TextBlock x:Name="textBlockCoverSliderDuration_" x:Uid="textBlockCoverSliderDuration_" Text="GİRİŞ SUNU BEKLEME SÜRESİ :" Grid.Row="3"  Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Height="20" Margin="0,15,0,15"/>
-            <ComboBox x:Name="comboboxCoverSlideDuration" DisplayMemberPath="row" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Height="32" Width="270" VerticalAlignment="Center" SelectionChanged="comboboxCoverSlideDuration_SelectionChanged">
+            <TextBox x:Name="textBoxSchoolName2" x:Uid="textBoxSchoolName2" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Text="" VerticalAlignment="Center" PlaceholderText="Enter School Name..." Margin="2,2,2,2" KeyDown="textBoxSchoolName2_KeyDown"/>
+            <TextBlock x:Name="textBlockSchoolName2" x:Uid="textBlockSchoolName2" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" Text="SCHOOL NAME LINE 2:" TextWrapping="Wrap" VerticalAlignment="Center" TextAlignment="Right" FontFamily="Segoe UI"/>
+
+            <TextBlock x:Name="textBlockHostAddress_" x:Uid="textBlockHostAddress_" Text="AĞDAKİ CİHAZIN ADRESİ :" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" TextAlignment="Right" Height="20" Margin="0,15,0,15"/>
+            <TextBox x:Name="textBoxHostAddress" Grid.Row="2" Grid.Column="1" Text="" PlaceholderText="Asıl Cihazın Ağdaki Adresini yazınız..." Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="270"/>
+            <TextBlock x:Name="textBlockThisDevice_" x:Uid="textBlockThisDevice_" Text="BU CİHAZ :" Grid.Row="3"  Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Height="20" Margin="0,15,0,15"/>
+            <TextBlock x:Name="textBlockThisDevice" Text="0.0.0.0" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Height="20" Margin="2,2,2,2"/>
+
+            <TextBlock x:Name="textBlockCoverSliderDuration_" x:Uid="textBlockCoverSliderDuration_" Text="GİRİŞ SUNU BEKLEME SÜRESİ :" Grid.Row="4"  Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Height="20" Margin="0,15,0,15"/>
+            <ComboBox x:Name="comboboxCoverSlideDuration" DisplayMemberPath="row" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Height="32" Width="270" VerticalAlignment="Center" SelectionChanged="comboboxCoverSlideDuration_SelectionChanged">
                 <ComboBoxItem>
                     <DataTemplate x:DataType="models:SliderDuration">
                         <TextBlock Text="{x:Bind Path=row}"/>
@@ -56,26 +61,28 @@
                 </ComboBoxItem>
             </ComboBox>
 
-            <TextBlock x:Name="textBlockSliderDuration_" x:Uid="textBlockSliderDuration_" Text="SUNU BEKLEME SÜRESİ :" Grid.Row="4"  Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Height="20" Margin="0,15,0,15"/>
-            <ComboBox x:Name="comboboxSlideDuration" DisplayMemberPath="row" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" SelectionChanged="comboboxSlideDuration_SelectionChanged" Height="32" Width="273" VerticalAlignment="Center">
+            <TextBlock x:Name="textBlockSliderDuration_" x:Uid="textBlockSliderDuration_" Text="SUNU BEKLEME SÜRESİ :" Grid.Row="5"  Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Height="20" Margin="0,15,0,15"/>
+            <ComboBox x:Name="comboboxSlideDuration" DisplayMemberPath="row" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" SelectionChanged="comboboxSlideDuration_SelectionChanged" Height="32" Width="273" VerticalAlignment="Center">
                 <ComboBoxItem>
                     <DataTemplate x:DataType="models:SliderDuration">
                         <TextBlock Text="{x:Bind Path=row}"/>
                     </DataTemplate>
                 </ComboBoxItem>
             </ComboBox>
-            <TextBlock x:Name="textBlockDatabasePath_" x:Uid="textBlockDatabasePath_" Text="ÇALIŞMA DİZİNİ :" TextAlignment="Right" Grid.Column="0" Grid.Row="5" TextWrapping="Wrap"/>
-            <TextBlock x:Name="textBlockDatabasePath" Text="----"  Grid.Column="1" Grid.Row="5" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
-            <TextBlock x:Name="textBlockVersion_" x:Uid="textBlockVersion_" Text="SÜRÜM :" TextAlignment="Right" Grid.Column="0" Grid.Row="6"/>
-            <TextBlock x:Name="textBlockVersion" Text="1.0.0.0"  Grid.Column="1" Grid.Row="6"/>
+            <TextBlock x:Name="textBlockDatabasePath_" x:Uid="textBlockDatabasePath_" Text="ÇALIŞMA DİZİNİ :" TextAlignment="Right" Grid.Column="0" Grid.Row="6" TextWrapping="Wrap"/>
+            <TextBlock x:Name="textBlockDatabasePath" Text="----"  Grid.Column="1" Grid.Row="6" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
+            <TextBlock x:Name="textBlockVersion_" x:Uid="textBlockVersion_" Text="SÜRÜM :" TextAlignment="Right" Grid.Column="0" Grid.Row="7"/>
+            <TextBlock x:Name="textBlockVersion" Text="1.0.0.0"  Grid.Column="1" Grid.Row="7" TextWrapping="Wrap"/>
 
-            <TextBlock x:Name="textBlockLanguage_" x:Uid="textBlockLanguage_" Text="ARAYÜZ DİLİ :" TextAlignment="Right" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" Height="20" Margin="0,15,0,15"/>
-            <ComboBox x:Name="comboboxLanguage"  Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" Margin="0,0,0,0" Width="270" Height="32" VerticalAlignment="Center">
+            <TextBlock x:Name="textBlockLanguage_" x:Uid="textBlockLanguage_" Text="ARAYÜZ DİLİ :" TextAlignment="Right" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" Height="20" Margin="0,15,0,15"/>
+            <ComboBox x:Name="comboboxLanguage"  Grid.Column="4" Grid.Row="1" HorizontalAlignment="Left" Margin="0,0,0,0" Width="270" Height="32" VerticalAlignment="Center">
                 <ComboBoxItem>en-US</ComboBoxItem>
                 <ComboBoxItem>tr-TR</ComboBoxItem>
             </ComboBox>
-            <Button x:Name="btnChangeLanguage" x:Uid="btnChangeLanguage" Grid.Column="1" Grid.Row="7" Content="UPDATE" Margin="280,0,0,0" Click="btnChangeLanguage_Click"></Button>
-            <Button x:Name="btnCopyCouseTableToSharedFolder" Grid.Row="8" Grid.Column="1" Content="COPY COURSETABLE.XLS TO SHARED FOLDER" Click="btnCopyCouseTableToSharedFolder_Click"/>
+            <Button x:Name="btnChangeLanguage" x:Uid="btnChangeLanguage" Grid.Column="4" Grid.Row="1" Content="UPDATE" Margin="280,0,0,0" Click="btnChangeLanguage_Click"></Button>
+            <Button x:Name="btnCopyCouseTableToSharedFolder" Grid.Row="8" Grid.Column="3" Content="COPY COURSETABLE.XLS TO SHARED FOLDER" Click="btnCopyCouseTableToSharedFolder_Click"/>
+            <TextBlock x:Name="textBlockSetRTCModuleTime_" x:Uid="textBlockSetRTCModuleTime_"  TextWrapping="Wrap" Grid.Column="2" Grid.Row="0" Text="RTC MODULE (Modify Date Time Picker and Press Following Button):" TextAlignment="Right" />
+            <Button x:Name="btnSetRTCModuleTime" x:Uid="btnSetRTCModuleTime" Grid.Column="3" Grid.Row="0" Content="SET RTC MODULE TIME" HorizontalAlignment="Stretch" Click="btnSetRTCModuleTime_Click"/>
         </Grid>
 
 

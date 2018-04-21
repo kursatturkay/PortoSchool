@@ -145,7 +145,7 @@
     <value>AYARLAR</value>
   </data>
   <data name="textBlockHostAddress_.Text" xml:space="preserve">
-    <value>AĞ ADRESİ:</value>
+    <value>AĞ ADRESİ :</value>
   </data>
   <data name="textBlockLanguage_.Text" xml:space="preserve">
     <value>ARAYÜZ DİLİ</value>
@@ -156,8 +156,8 @@
   <data name="textBlockPresentationPageHeader.Text" xml:space="preserve">
     <value>SUNU EDİTÖRÜ</value>
   </data>
-  <data name="textBlockSchoolName.Text" xml:space="preserve">
-    <value>KURUM ADI:</value>
+  <data name="textBlockSchoolName1.Text" xml:space="preserve">
+    <value>KURUM ADI 1. SATIR:</value>
   </data>
   <data name="textBlockSentinelAssitantDirectorPageHeader.Text" xml:space="preserve">
     <value>NÖBETÇİ MÜDÜR YARDIMCISI EDİTÖRÜ</value>
@@ -205,12 +205,42 @@
     <value>DERS PROGRAMI</value>
   </data>
   <data name="TextBlockRemeainingTime_.Text" xml:space="preserve">
-    <value>KALAN SÜRE :</value>
+    <value>ZİLE KALAN SÜRE :</value>
   </data>
   <data name="COURSETABLE.xlsx" xml:space="preserve">
     <value>COURSETABLE-tr-TR.xlsx</value>
   </data>
   <data name="CultureInfoName" xml:space="preserve">
     <value>tr-TR</value>
+  </data>
+  <data name="textBlockDirectorAssistant_.Text" xml:space="preserve">
+    <value>NÖBETÇİ MÜDÜR YARDIMCISI</value>
+  </data>
+  <data name="btnSetRTCModuleTime.Content" xml:space="preserve">
+    <value>RTC MODÜL SAATİNİ DEĞİŞTİR</value>
+  </data>
+  <data name="textBlockSetRTCModuleTime_.Text" xml:space="preserve">
+    <value>RTCMODÜLÜ (Tarih Zaman Yanlış ise Tarih Saat Seçiciden düzeltip yandaki düğmeye basın) :</value>
+  </data>
+  <data name="SENTINELS_xlsx" xml:space="preserve">
+    <value>NOBETCILER</value>
+  </data>
+  <data name="SENTINELS_xlsx_SENTINELFULLNAME_TITLE" xml:space="preserve">
+    <value>ÖĞRETMEN ADI SOYADI</value>
+  </data>
+  <data name="SENTINELS_xlsx_SENTRYDATE_TITLE" xml:space="preserve">
+    <value>NÖBET GÜNÜ</value>
+  </data>
+  <data name="SENTINELS_xlsx_SENTRYLOCATION_TITLE" xml:space="preserve">
+    <value>NÖBET YERİ</value>
+  </data>
+  <data name="SENTRYLOCATION_xlsx" xml:space="preserve">
+    <value>NOBETALAN</value>
+  </data>
+  <data name="SENTRYLOCATION_xlsx_SENTRYLOCATION_TITLE" xml:space="preserve">
+    <value>NÖBET YERİ</value>
+  </data>
+  <data name="textBlockSchoolName2.Text" xml:space="preserve">
+    <value>KURUM ADI 2. SATIR:</value>
   </data>
 </root>

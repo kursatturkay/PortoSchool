@@ -31,7 +31,7 @@ namespace PortoSchool.Models
 
                 bool sonuç = false;
                 string strdate = SentinelDate.ToString("dddd").ToUpper();
-
+                //!TODO:https://stackoverflow.com/questions/5716762/datetime-now-dayofweek-tostring-with-cultureinfo
                 bool a1 = ((sentinelDirectorAssistant.UnwantedDays[0] == true) && ((strdate == "PAZARTESİ") || (strdate == "MONDAY")));
                 bool a2 = ((sentinelDirectorAssistant.UnwantedDays[1] == true) && ((strdate == "SALI") || (strdate == "TUESDAY")));
                 bool a3 = ((sentinelDirectorAssistant.UnwantedDays[2] == true) && ((strdate == "ÇARŞAMBA") || (strdate == "WEDNESDAY")));

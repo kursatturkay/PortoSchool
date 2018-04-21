@@ -8,9 +8,9 @@
     xmlns:Models="using:PortoSchool.Models"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Black">
 
-        <FlipView x:Name="flipViewKiosk" Margin="10,10,10,10">
+        <FlipView x:Name="flipViewKiosk" Margin="5,5,5,5">
             <FlipViewItem>
                 <Frame x:Name="frame1" Content="" VerticalAlignment="Stretch">
                 </Frame>

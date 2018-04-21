@@ -16,7 +16,7 @@
         <FlipView x:Name="flipView1" Margin="20,70,420,20">
             <FlipView.ItemTemplate>
                 <DataTemplate x:DataType="models:PicFile">
-                    <Image Stretch="UniformToFill">
+                    <Image Stretch="Fill">
                         <Image.Source>
                             <BitmapImage UriSource="{x:Bind Img}"/>
                         </Image.Source>

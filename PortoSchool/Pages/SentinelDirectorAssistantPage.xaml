@@ -23,11 +23,11 @@
         </Grid>
 
         <TextBox x:Name="textBoxMdYrdAdSoyad" PlaceholderText="Nöbetçi Md Yrd. Ad Soyadı Giriniz..." Width="360" HorizontalAlignment="Left" Height="35" Margin="20,70,0,0" VerticalAlignment="Top" CharacterCasing="Upper" />
-        <Button x:Name="buttonMdYrdEkle" Style="{StaticResource ButtonStyle}" Content="MD. YRD. EKLE" Margin="20,110,0,0" VerticalAlignment="Top" Width="360" Height="40" Click="buttonMdYrdEkle_Click"/>
-        <Button x:Name="buttonMdYrdGuncelle"  Style="{StaticResource ButtonStyle}" Content="MD. YRD. GUNCELLE" Margin="20,155,0,0" VerticalAlignment="Top" Width="360" Height="40" Click="buttonMdYrdGuncelle_Click"/>
-        <Button x:Name="buttonMdYrdSil" Style="{StaticResource ButtonStyle}"  Content="MD. YRD. SİL" Margin="20,200,0,0" VerticalAlignment="Top" Width="360" Height="40" Click="buttonMdYrdSil_Click"/>
+        <Button x:Name="buttonMdYrdEkle" Style="{StaticResource ButtonStyle}" Content="EKLE" Margin="20,110,0,0" VerticalAlignment="Top" Width="110" Height="40" Click="buttonMdYrdEkle_Click"/>
+        <Button x:Name="buttonMdYrdGuncelle"  Style="{StaticResource ButtonStyle}" Content="GUNCELLE" Margin="145,110,0,0" VerticalAlignment="Top" Width="110" Height="40" Click="buttonMdYrdGuncelle_Click"/>
+        <Button x:Name="buttonMdYrdSil" Style="{StaticResource ButtonStyle}"  Content="SİL" Margin="270,110,0,0" VerticalAlignment="Top" Width="110" Height="40" Click="buttonMdYrdSil_Click"/>
 
-        <ListView x:Name="listViewNobMudYrdCalendar" Style="{StaticResource ListViewStyle}" Margin="400,110,0,20" SelectionChanged="listViewNobMudYrdCalendar_SelectionChanged" HorizontalAlignment="Left" Width="540">
+        <ListView x:Name="listViewNobMudYrdCalendar" Style="{StaticResource ListViewStyle}" Margin="1160,105,0,155" SelectionChanged="listViewNobMudYrdCalendar_SelectionChanged" HorizontalAlignment="Left" Width="540">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -53,19 +53,19 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView x:Name="listViewNobMudYrd" Style="{StaticResource ListViewStyle}" Margin="20,245,0,460"  HorizontalAlignment="Left"  Width="360" SelectionChanged="listViewNobMudYrd_SelectionChanged">
+        <ListView x:Name="listViewNobMudYrd" Style="{StaticResource ListViewStyle}" Margin="20,150,0,595"  HorizontalAlignment="Left"  Width="360" SelectionChanged="listViewNobMudYrd_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="Models:SentinelDirectorAssistant">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                        <Border Background="Black" Width="50" Height="50" Margin="4,4,4,4"/>
-                        <TextBlock Text="{x:Bind Path=FullName}" HorizontalAlignment="Stretch"/>
+                        <Border CornerRadius="25" Background="#30C62424" Width="50" Height="50" Margin="4,4,4,4"/>
+                        <TextBlock Text="{x:Bind Path=FullName}" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button x:Name="buttonMoveUp"  Style="{StaticResource ButtonStyle}"  Content="YUKARI AL" Margin="205,0,0,415" VerticalAlignment="Bottom" Width="175" Height="40" Click="buttonMoveUp_Click" IsEnabled="False"/>
-        <Button x:Name="buttonMoveDown"  Style="{StaticResource ButtonStyle}"  Content="AŞAĞI AL" Margin="20,0,0,415" VerticalAlignment="Bottom" Width="175" Height="40" Click="buttonMoveDown_Click" Visibility="Visible" IsEnabled="False"/>
-        <Border  Style="{StaticResource BorderFrameStyle}"  HorizontalAlignment="Left" Height="180" Margin="20,0,0,200" VerticalAlignment="Bottom" Width="175" BorderThickness="4,4,4,4">
+        <Button x:Name="buttonMoveUp"  Style="{StaticResource ButtonStyle}"  Content="YUKARI AL" Margin="205,0,0,555" VerticalAlignment="Bottom" Width="175" Height="40" Click="buttonMoveUp_Click" IsEnabled="True"/>
+        <Button x:Name="buttonMoveDown"  Style="{StaticResource ButtonStyle}"  Content="AŞAĞI AL" Margin="20,0,0,555" VerticalAlignment="Bottom" Width="175" Height="40" Click="buttonMoveDown_Click" Visibility="Visible" IsEnabled="True"/>
+        <Border  Style="{StaticResource BorderFrameStyle}"  HorizontalAlignment="Left" Height="180" Margin="780,0,0,736" VerticalAlignment="Bottom" Width="175" BorderThickness="4,4,4,4">
             <StackPanel VerticalAlignment="Center">
                 <CheckBox x:Name="checkBoxPtesi" HorizontalAlignment="Stretch" Margin="20,0,0,0" Tag="0" Checked="checkBoxIstenmeyenGunler_Checkeds" Unchecked="checkBoxIstenmeyenGunler_Checkeds">
                     <TextBlock Text="PAZARTESİ" HorizontalAlignment="Stretch"/>
@@ -89,20 +89,36 @@
             </StackPanel>
 
         </Border>
-        <DatePicker x:Name="datePickerStart" HorizontalAlignment="Left" Margin="20,0,0,123" VerticalAlignment="Bottom" Width="360" DateChanged="datePickerTar_DateChangeds" Tag="1"/>
-        <DatePicker x:Name="datePickerEnd" HorizontalAlignment="Left" Margin="20,0,0,68" VerticalAlignment="Bottom" Width="360" Height="32" Tag="2" DateChanged="datePickerTar_DateChangeds"/>
-        <TextBlock x:Name="textBlockBasTar" x:Uid="textBlockSentinelDirectorAssistantBeginDate" HorizontalAlignment="Left" Margin="20,0,0,160" Text="NÖBET BAŞLANGIÇ:" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
-        <TextBlock x:Name="textBlockBitTar" x:Uid="textBlockSentinelDirectorAssistantEndDate" HorizontalAlignment="Left" Margin="20,0,0,100" Text="NÖBET BİTİŞ:" TextWrapping="Wrap" Height="20" VerticalAlignment="Bottom"/>
-        <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="20,0,0,380" Text="İSTENMEYEN GÜNLER :" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="155"/>
-        <Button x:Name="buttonCalculate" Style="{StaticResource ButtonStyle}" Content="NÖBET GÜNLERİNİ HESAPLA" Margin="20,0,0,20" VerticalAlignment="Bottom" Width="360" Height="40" Click="buttonCalculate_Click"/>
-        <TextBlock x:Name="textBlockCakismaSayisi_" HorizontalAlignment="Left" Margin="215,0,0,380" Text="ÇAKIŞMA SAYISI :" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="155"/>
-        <TextBlock x:Name="textBlockCakismaSayisi" HorizontalAlignment="Left" Margin="335,0,0,380" Text="--" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="40" Foreground="#FFFB0000" TextAlignment="Center" FontSize="18"/>
-        <Button x:Name="buttonMoveUp_NobMudYrdCalendar"   Style="{StaticResource ButtonStyle}" Content="YUKARI AL" Margin="960,70,0,0" VerticalAlignment="Top" Width="175" Height="40" IsEnabled="False" Click="buttonMoveUp_NobMudYrdCalendar_Click"/>
-        <Button x:Name="buttonMoveDown_NobMudYrdCalendar"  Style="{StaticResource ButtonStyle}"  Content="AŞAĞI AL" Margin="960,120,0,0" VerticalAlignment="Top" Width="175" Height="40" IsEnabled="False" Click="buttonMoveDown_NobMudYrdCalendar_Click"/>
-        <Button x:Name="buttonExportSentinelDirectorAssistantList"  Style="{StaticResource ButtonStyle}"  Content="LİSTEYİ DİZİNE AKTAR" Margin="960,170,0,0" VerticalAlignment="Top" Width="175" Height="40" Click="buttonExportSentinelDirectorAssistantList_Click" />
-        <Border Style="{StaticResource HeaderBorderStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Margin="400,70,0,0" Width="540" >
+        <DatePicker x:Name="datePickerStart" HorizontalAlignment="Left" Margin="780,0,0,659" VerticalAlignment="Bottom" Width="360" DateChanged="datePickerTar_DateChangeds" Tag="1"/>
+        <DatePicker x:Name="datePickerEnd" HorizontalAlignment="Left" Margin="780,0,0,604" VerticalAlignment="Bottom" Width="360" Height="32" Tag="2" DateChanged="datePickerTar_DateChangeds"/>
+        <TextBlock x:Name="textBlockBasTar" x:Uid="textBlockSentinelDirectorAssistantBeginDate" HorizontalAlignment="Left" Margin="780,0,0,696" Text="NÖBET BAŞLANGIÇ:" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="textBlockBitTar" x:Uid="textBlockSentinelDirectorAssistantEndDate" HorizontalAlignment="Left" Margin="780,0,0,636" Text="NÖBET BİTİŞ:" TextWrapping="Wrap" Height="20" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="780,0,0,916" Text="İSTENMEYEN GÜNLER :" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="155"/>
+        <Button x:Name="buttonCalculate" Style="{StaticResource ButtonStyle}" Content="NÖBET GÜNLERİNİ HESAPLA" Margin="780,0,0,556" VerticalAlignment="Bottom" Width="360" Height="40" Click="buttonCalculate_Click"/>
+        <TextBlock x:Name="textBlockCakismaSayisi_" HorizontalAlignment="Left" Margin="965,0,0,735" Text="ÇAKIŞMA SAYISI :" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="155"/>
+        <TextBlock x:Name="textBlockCakismaSayisi" HorizontalAlignment="Left" Margin="1085,0,0,735" Text="--" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="40" Foreground="#FFFB0000" TextAlignment="Center" FontSize="18"/>
+        <Button x:Name="buttonMoveUp_NobMudYrdCalendar"   Style="{StaticResource ButtonStyle}" Content="YUKARI AL" Margin="1160,0,0,115" VerticalAlignment="Bottom" Width="175" Height="40" IsEnabled="True" Click="buttonMoveUp_NobMudYrdCalendar_Click"/>
+        <Button x:Name="buttonMoveDown_NobMudYrdCalendar"  Style="{StaticResource ButtonStyle}"  Content="AŞAĞI AL" Margin="1345,0,0,115" VerticalAlignment="Bottom" Width="175" Height="40" IsEnabled="True" Click="buttonMoveDown_NobMudYrdCalendar_Click"/>
+        <Button x:Name="buttonExportSentinelDirectorAssistantList"  Style="{StaticResource AccentButtonStyle}"  Content="LİSTEYİ DİZİNE AKTAR" Margin="1530,0,0,115" VerticalAlignment="Bottom" Width="170" Height="40" Click="buttonExportSentinelDirectorAssistantList_Click" />
+        <Border Style="{StaticResource HeaderBorderStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Margin="1160,70,0,0" Width="540" >
             <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Center" Text="HESAPLANAN MD. YRD. NÖBET TAKVİMİ" TextWrapping="Wrap" VerticalAlignment="Center" Width="155" Foreground="White" TextAlignment="Center"/>
         </Border>
+        <Windows10FallCreatorsUpdate:ListView x:Name="listViewHolidays" Style="{Windows10FallCreatorsUpdate:StaticResource ListViewStyle}" Margin="400,107,0,595"  HorizontalAlignment="Left"  Width="360" SelectionChanged="listViewNobMudYrd_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="Models:HolidaysDataSet">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <Border CornerRadius="25" Background="#30C62424" Width="50" Height="50" Margin="4,4,4,4"/>
+                        <TextBlock Text="{x:Bind Converter={StaticResource DateFormatConverter},Path=date}" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </Windows10FallCreatorsUpdate:ListView>
+        <Border Style="{Windows10FallCreatorsUpdate:StaticResource HeaderBorderStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Margin="400,72,0,0" Width="360" >
+            <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Center" Text="TATİL GÜNLERİ" TextWrapping="Wrap" VerticalAlignment="Center" Width="155" Foreground="White" TextAlignment="Center"/>
+        </Border>
+        <Button x:Name="btnAddHoliday" Style="{StaticResource ButtonStyle}" Content="TATİL GÜNÜ EKLE" Margin="400,0,0,555" VerticalAlignment="Bottom" Width="175" Height="40" Click="btnAddHoliday_Click" />
+        <Button x:Name="btnRemoveHoliday" Style="{StaticResource ButtonStyle}"  Content="TATİL GÜNÜ SİL" Margin="585,0,0,555" VerticalAlignment="Bottom" Width="175" Height="40" Click="btnRemoveHoliday_Click"/>
+        <DatePicker x:Name="datePickerHoliday" HorizontalAlignment="Left" Margin="400,0,0,518" VerticalAlignment="Bottom" Width="360" DateChanged="datePickerTar_DateChangeds" Tag="1"/>
 
     </Grid>
 </Page>

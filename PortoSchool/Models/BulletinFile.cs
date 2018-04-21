@@ -29,15 +29,13 @@ namespace PortoSchool.Models
             }
         }
 
-
         public static ObservableCollection<BulletinFile> GetBulletinFilesFromStorePath()
         {
-
             string path = App.WorkingPath; //Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "PortoSchool");
 
             try
             {
-                var a = Directory.GetFiles(path, "*.*").Where(x => x.EndsWith(".rtf"));
+                var a = Directory.GetFiles(path, "*.*").Where(x => x.EndsWith(".pdf"));
 
                 BulletinFiles.Clear();
                 foreach (var x in a)

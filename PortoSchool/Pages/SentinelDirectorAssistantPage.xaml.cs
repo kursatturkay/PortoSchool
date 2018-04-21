@@ -1,4 +1,5 @@
-﻿using PortoSchool.Libs;
+﻿using OfficeOpenXml;
+using PortoSchool.Libs;
 using PortoSchool.Models;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace PortoSchool.Pages
     /// </summary>
     public sealed partial class SentinelDirectorAssistantPage : Page
     {
+        public ObservableCollection<HolidaysDataSet> Holidays;
         public SentinelDirectorAssistantPage()
         {
             this.InitializeComponent();
@@ -39,11 +41,15 @@ namespace PortoSchool.Pages
             base.OnNavigatedTo(e);
             try
             {
-                datePickerStart.Date = DateTime.Parse(Settings.getValueByKey("DATEPICKERSTART",DateTime.Now.ToString()));
+                datePickerStart.Date = DateTime.Parse(Settings.getValueByKey("DATEPICKERSTART", DateTime.Now.ToString()));
                 datePickerEnd.Date = DateTime.Parse(Settings.getValueByKey("DATEPICKEREND", DateTime.Now.AddDays(180).ToString()));
             }
             catch { }
 
+            Holidays = HolidayManager.GetHolidays();
+
+
+            LoadListViewHolidays();
             LoadlistViewNobMudYrd();
             Load_listViewNobMudYrdCalendar();
             App.Current.IsIdleChanged += onIsIdleChanged;
@@ -101,6 +107,20 @@ namespace PortoSchool.Pages
                 };
                 conn.Insert(row);
             }
+        }
+
+        private void SaveListViewHolidays()
+        {
+            var conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), FileUtils.FullDataPath);
+            conn.DropTable<HolidaysDataSet>();
+            conn.CreateTable<HolidaysDataSet>();
+
+            foreach (var x in HolidayManager.Holidays)
+            {
+                HolidaysDataSet h = new HolidaysDataSet { date = x.date };
+                conn.Insert(h);
+            }
+
         }
 
         private void LoadlistViewNobMudYrd()
@@ -247,12 +267,20 @@ namespace PortoSchool.Pages
             ilkt = datePickerStart.Date.DateTime;
             sont = datePickerEnd.Date.DateTime;
 
+
+
             while (ilkt <= sont)
             {
 
+                //pass the holiday days
+                while (isHoliday(ilkt))
+                    ilkt = ilkt.AddDays(1);
+
+                //!TODO: https://stackoverflow.com/questions/5716762/datetime-now-dayofweek-tostring-with-cultureinfo
                 bool a1 = (ilkt.ToString("dddd").ToUpper() == "CUMARTESİ") || (ilkt.ToString("dddd").ToUpper() == "SATURDAY");
                 bool a2 = (ilkt.ToString("dddd").ToUpper() == "PAZAR") || (ilkt.ToString("dddd").ToUpper() == "SUNDAY");
 
+                //if day is not weekend
                 if (!(a1 || a2))
                 {
                     DirectorAssistantSentinelDay a = new DirectorAssistantSentinelDay();
@@ -275,6 +303,12 @@ namespace PortoSchool.Pages
             Save_listViewNobMudYrdCalendar();
             GünleriListele();
             Listele();
+        }
+
+        private bool isHoliday(DateTime ilkt)
+        {
+            bool a = HolidayManager.Holidays.Any(x => x.date.ToShortDateString() == ilkt.ToShortDateString());
+            return a;
         }
 
         public void GünleriListele()
@@ -414,7 +448,18 @@ namespace PortoSchool.Pages
             //  if (sel == null) return;
         }
 
-        async Task SaveStringToLocalFile(string filename, string content,bool withBOM)
+        /// <summary>
+        /// <example>
+        /// await SaveStringToLocalFile("\\PortoSchool\\NobMudYrdList.csv", str, false);
+        /// await SaveStringToLocalFile("\\PortoSchool\\NobMudYrdList_bom.csv", str, true);
+        /// </example>
+        /// 
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="content"></param>
+        /// <param name="withBOM"></param>
+        /// <returns></returns>
+        async Task SaveStringToLocalFile(string filename, string content, bool withBOM)
         {
             // saves the string 'content' to a file 'filename' in the app's local storage folder
 
@@ -449,24 +494,216 @@ namespace PortoSchool.Pages
 
         }
 
-        private async void buttonExportSentinelDirectorAssistantList_Click(object sender, RoutedEventArgs e)
+        private void buttonExportSentinelDirectorAssistantList_Click(object sender, RoutedEventArgs e)
         {
-            var x=DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri;
-            //StorageFile sf = await StorageFile.GetFileFromApplicationUriAsync(new Uri(bf.FileNameOnly));
-            //StorageFile f = await StorageFile.GetFileFromPathAsync(Path.Combine(App.WorkingPath, "NobMudYrdList.csv"));
+            var x = DirectorAssistantSentinelDayManager.MdYrdNöbetGünleri;
 
-            string  str="NÖBETÇİ MÜDÜR YRD.,NÖBET TARİHİ\r\n";
-            foreach (var xe in x)
+            string str = "NÖBETÇİ MÜDÜR YRD.,NÖBET TARİHİ\r\n";
+
+            /*foreach (var xe in x)
             {
-                //string sYear = xe.SentinelDate.Year.ToString();
-                //string sMonth = xe.SentinelDate.Month.ToString().PadLeft(2, '0');
-                //string sDay = xe.SentinelDate.Day.ToString().PadLeft(2, '0');
-               // string caseTime = $"{sDay}-{sMonth}-{sYear}";
                 str += $"\"{xe.sentinelDirectorAssistant.FullName}\",\"{xe.SentinelDate.ToLongDateString()}\"\r\n";
             }
+            */
 
-            await SaveStringToLocalFile("\\PortoSchool\\NobMudYrdList.csv", str,false);
-            await SaveStringToLocalFile("\\PortoSchool\\NobMudYrdList_bom.csv", str, true);
+            string file = FileUtils.SharedDirectory + @"\SentineDirectorAssistantsCal.xlsx";
+
+            if (File.Exists(file)) File.Delete(file);
+            FileInfo newFile = new FileInfo(file);
+
+            // ok, we can run the real code of the sample now
+            using (ExcelPackage xlPackage = new ExcelPackage(newFile))
+            {
+                //// uncomment this line if you want the XML written out to the outputDir
+                //xlPackage.DebugMode = true; 
+
+                //// get handle to the existing worksheet
+                ExcelWorksheet worksheet = xlPackage.Workbook.Worksheets.Add("CALENDAR OF SENTINEL DIRECTOR ASSISTANTS");
+                //var namedStyle = xlPackage.Workbook.Styles.CreateNamedStyle("HyperLink");   //This one is language dependent
+                //namedStyle.Style.Font.UnderLine = true;
+                //namedStyle.Style.Font.Color.SetColor(Color.Blue);
+
+
+                if (worksheet != null)
+                {
+
+                    List<string[]> headerrow = new List<string[]> {
+                        new string[]{ "SENTINEL DIRECTOR ASSITANT","CALENDAR"}
+                    };
+
+                    //determine the header range (e.g.A1:E1) 
+                    string headerrange = "A:" + Char.ConvertFromUtf32(headerrow[0].Length + 64) + "1";
+
+                    worksheet.Cells[headerrange].LoadFromArrays(headerrow);
+
+                    int i = 0;
+                    foreach (var xe in x)
+                    {
+                        i++;
+                        worksheet.Cells[$"A{i}"].Value = xe.sentinelDirectorAssistant.FullName;
+                        worksheet.Cells[$"B{i}"].Value = xe.SentinelDate.ToLongDateString();
+                        worksheet.Cells[$"B{i}"].Style.Numberformat.Format = "dd - MM - yyyy HH: mm";
+                    }
+                    //worksheet.Column(1).AutoFit();
+
+                    //worksheet.Cells["A1"].Value = "AdventureWorks Inc.";
+
+                    //    const int startRow = 5;
+                    //    int row = startRow;
+                    //    //Create Headers and format them 
+
+                    //    using (ExcelRange r = worksheet.Cells["A1:G1"])
+                    //    {
+                    //        r.Merge = true;
+                    //        r.Style.Font.SetFromFont(new Font("Britannic Bold", 22, FontStyle.Italic));
+                    //        r.Style.Font.Color.SetColor(Color.White);
+                    //        r.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.CenterContinuous;
+                    //        r.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    //        r.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(23, 55, 93));
+                    //    }
+                    //    worksheet.Cells["A2"].Value = "Year-End Sales Report";
+                    //    using (ExcelRange r = worksheet.Cells["A2:G2"])
+                    //    {
+                    //        r.Merge = true;
+                    //        r.Style.Font.SetFromFont(new Font("Britannic Bold", 18, FontStyle.Italic));
+                    //        r.Style.Font.Color.SetColor(Color.Black);
+                    //        r.Style.HorizontalAlignment = ExcelHorizontalAlignment.CenterContinuous;
+                    //        r.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    //        r.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(184, 204, 228));
+                    //    }
+
+                    //    worksheet.Cells["A4"].Value = "Name";
+                    //    worksheet.Cells["B4"].Value = "Job Title";
+                    //    worksheet.Cells["C4"].Value = "Region";
+                    //    worksheet.Cells["D4"].Value = "Monthly Quota";
+                    //    worksheet.Cells["E4"].Value = "Quota YTD";
+                    //    worksheet.Cells["F4"].Value = "Sales YTD";
+                    //    worksheet.Cells["G4"].Value = "Quota %";
+                    //    worksheet.Cells["A4:G4"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    //    worksheet.Cells["A4:G4"].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(184, 204, 228));
+                    //    worksheet.Cells["A4:G4"].Style.Font.Bold = true;
+
+
+                    //    // lets connect to the AdventureWorks sample database for some data
+                    //    using (SqlConnection sqlConn = new SqlConnection(connectionString))
+                    //    {
+                    //        sqlConn.Open();
+                    //        using (SqlCommand sqlCmd = new SqlCommand("select LastName + ', ' + FirstName AS [Name], EmailAddress, JobTitle, CountryRegionName, ISNULL(SalesQuota,0) AS SalesQuota, ISNULL(SalesQuota,0)*12 AS YearlyQuota, SalesYTD from Sales.vSalesPerson ORDER BY SalesYTD desc", sqlConn))
+                    //        {
+                    //            using (SqlDataReader sqlReader = sqlCmd.ExecuteReader())
+                    //            {
+                    //                // get the data and fill rows 5 onwards
+                    //                while (sqlReader.Read())
+                    //                {
+                    //                    int col = 1;
+                    //                    // our query has the columns in the right order, so simply
+                    //                    // iterate through the columns
+                    //                    for (int i = 0; i < sqlReader.FieldCount; i++)
+                    //                    {
+                    //                        // use the email address as a hyperlink for column 1
+                    //                        if (sqlReader.GetName(i) == "EmailAddress")
+                    //                        {
+                    //                            // insert the email address as a hyperlink for the name
+                    //                            string hyperlink = "mailto:" + sqlReader.GetValue(i).ToString();
+                    //                            worksheet.Cells[row, 1].Hyperlink = new Uri(hyperlink, UriKind.Absolute);
+                    //                        }
+                    //                        else
+                    //                        {
+                    //                            // do not bother filling cell with blank data (also useful if we have a formula in a cell)
+                    //                            if (sqlReader.GetValue(i) != null)
+                    //                                worksheet.Cells[row, col].Value = sqlReader.GetValue(i);
+                    //                            col++;
+                    //                        }
+                    //                    }
+                    //                    row++;
+                    //                }
+                    //                sqlReader.Close();
+
+                    //                worksheet.Cells[startRow, 1, row - 1, 1].StyleName = "HyperLink";
+                    //                worksheet.Cells[startRow, 4, row - 1, 6].Style.Numberformat.Format = "[$$-409]#,##0";
+                    //                worksheet.Cells[startRow, 7, row - 1, 7].Style.Numberformat.Format = "0%";
+
+                    //                worksheet.Cells[startRow, 7, row - 1, 7].FormulaR1C1 = "=IF(RC[-2]=0,0,RC[-1]/RC[-2])";
+
+                    //                //Set column width
+                    //                worksheet.Column(1).Width = 25;
+                    //                worksheet.Column(2).Width = 28;
+                    //                worksheet.Column(3).Width = 18;
+                    //                worksheet.Column(4).Width = 12;
+                    //                worksheet.Column(5).Width = 10;
+                    //                worksheet.Column(6).Width = 10;
+                    //                worksheet.Column(7).Width = 12;
+                    //            }
+                    //        }
+                    //        sqlConn.Close();
+                    //    }
+
+                    //    // lets set the header text 
+                    //    worksheet.HeaderFooter.OddHeader.CenteredText = "AdventureWorks Inc. Sales Report";
+                    //    // add the page number to the footer plus the total number of pages
+                    //    worksheet.HeaderFooter.OddFooter.RightAlignedText =
+                    //        string.Format("Page {0} of {1}", ExcelHeaderFooter.PageNumber, ExcelHeaderFooter.NumberOfPages);
+                    //    // add the sheet name to the footer
+                    //    worksheet.HeaderFooter.OddFooter.CenteredText = ExcelHeaderFooter.SheetName;
+                    //    // add the file path to the footer
+                    //    worksheet.HeaderFooter.OddFooter.LeftAlignedText = ExcelHeaderFooter.FilePath + ExcelHeaderFooter.FileName;
+                    //}
+                    //// we had better add some document properties to the spreadsheet 
+
+                    //// set some core property values
+                    //xlPackage.Workbook.Properties.Title = "Sample 3";
+                    //xlPackage.Workbook.Properties.Author = "John Tunnicliffe";
+                    //xlPackage.Workbook.Properties.Subject = "ExcelPackage Samples";
+                    //xlPackage.Workbook.Properties.Keywords = "Office Open XML";
+                    //xlPackage.Workbook.Properties.Category = "ExcelPackage Samples";
+                    //xlPackage.Workbook.Properties.Comments = "This sample demonstrates how to create an Excel 2007 file from scratch using the Packaging API and Office Open XML";
+
+                    //// set some extended property values
+                    //xlPackage.Workbook.Properties.Company = "AdventureWorks Inc.";
+                    //xlPackage.Workbook.Properties.HyperlinkBase = new Uri("http://www.codeplex.com/MSFTDBProdSamples");
+
+                    //// set some custom property values
+                    //xlPackage.Workbook.Properties.SetCustomPropertyValue("Checked by", "John Tunnicliffe");
+                    //xlPackage.Workbook.Properties.SetCustomPropertyValue("EmployeeID", "1147");
+                    //xlPackage.Workbook.Properties.SetCustomPropertyValue("AssemblyName", "ExcelPackage");
+
+                    //// save the new spreadsheet
+                    xlPackage.Save();
+                }
+            }
+        } 
+        private void btnAddHoliday_Click(object sender, RoutedEventArgs e)
+        {
+            HolidaysDataSet h = new HolidaysDataSet { date = datePickerHoliday.Date.DateTime };
+            HolidayManager.Holidays.Add(h);
+            SaveListViewHolidays();
+            LoadListViewHolidays();
+            /*
+
+            SentinelDirectorAssistant a = new SentinelDirectorAssistant { FullName = textBoxMdYrdAdSoyad.Text.Trim() };
+            SentinelDirectorAssistantManager.SentinelDirectorAssistantList.Add(a);
+
+            Listele();
+            SavelistViewNobMudYrd();
+            textBoxMdYrdAdSoyad.Text = string.Empty;
+            */
+        }
+
+        private void LoadListViewHolidays()
+        {
+            listViewHolidays.ItemsSource = null;
+            listViewHolidays.ItemsSource = HolidayManager.Holidays;
+        }
+
+        private void btnRemoveHoliday_Click(object sender, RoutedEventArgs e)
+        {
+            HolidaysDataSet row = (HolidaysDataSet)listViewHolidays.SelectedItem;
+
+            if (row == null) return;
+
+            HolidayManager.Holidays.Remove(row);
+            LoadListViewHolidays();
+            SaveListViewHolidays();
         }
     }
 }

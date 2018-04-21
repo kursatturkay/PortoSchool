@@ -29,7 +29,7 @@ namespace PortoSchool
     /// </summary>
     public sealed partial class MainPage : Page
     {
-       string path;
+        string path;
         SQLiteConnection conn;
 
         private DispatcherTimer timer;//for directly navigate ongoin Page... test purposes only
@@ -37,26 +37,32 @@ namespace PortoSchool
         public MainPage()
         {
             this.InitializeComponent();
-         
-            var dir_defaultdoc=FileUtils.CreateDefaultFolder();//initially shall be invoked  for once.
+
+            
+
+            var dir_defaultdoc = FileUtils.CreateDefaultFolder();//initially shall be invoked  for once.
             path = FileUtils.FullDataPath;// Path.Combine(dir_defaultdoc.Result,"settings.sqlite");
-            conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(),path);
+            conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
             conn.CreateTable<Settings>();
-            conn.CreateTable<Sentinels>();
-            conn.CreateTable<NobetAlan>();
+            conn.CreateTable<SentinelsDataset>();
+            conn.CreateTable<SentryLocationDataset>();
             conn.CreateTable<SentinelDirectorAssistantDataset>();
             conn.CreateTable<DirectorAssistantSentinelDayDataset>();
+            conn.CreateTable<HolidaysDataSet>();
             //conn.CreateTable<Bulletin>();
         }
 
-        
+      
+
+      
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             //timer = new DispatcherTimer() {Interval=new TimeSpan(0,0,1)};
             timer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(1) };
             timer.Start();
-            timer.Tick +=TimerTick;
+            timer.Tick += TimerTick;
             App.Current.IsIdleChanged += onIsIdleChanged;
         }
 
@@ -77,7 +83,7 @@ namespace PortoSchool
             }
         }
 
-        void TimerTick(object sender,object e)
+        void TimerTick(object sender, object e)
         {
             timer.Stop();
             Frame.Navigate(typeof(DashboardPage));
